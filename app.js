@@ -51,6 +51,8 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
+console.log("process.env.MONGODB_URI = " + process.env.MONGODB_URI);
+console.log("process.env.MONGOLAB_URI = ") + process.env.MONGOLAB_URI
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI);
 mongoose.connection.on('connected', () => {
   console.log('%s MongoDB connection established!', chalk.green('✓'));
@@ -136,6 +138,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/books', booksController.index);
+//app.get('/books/create', booksController.create);
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);
 app.get('/about', aboutController.index);

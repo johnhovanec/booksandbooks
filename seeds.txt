@@ -1,0 +1,33 @@
+  
+id: "0001",
+ISBN: "9211254765435",
+title: "Light in August",
+authorFName: "William",
+authorLName: "Faulkner",
+publisher: "Vintage",
+length: 218,
+pubDate: 1938,
+imgPath: "/art/001.jpg",
+price: 21.99
+
+id: "0002",
+ISBN: "9112577612343",
+title: "To Kill a Mockingbird",
+authorFName: "Harper",
+authorLName: "Lee",
+publisher: "Harcourt",
+length: 231,
+pubDate: 1960,
+imgPath: "/art/0002.jpg",
+price: 24.99
+
+id: "0003",
+ISBN: "9823416409021",
+title: "The Catcher in the Rye",
+authorFName: "J.D.",
+authorLName: "Salinger",
+publisher: "Penguin",
+length: 202,
+pubDate: 1962,
+imgPath: "/art/0003.jpg",
+price: 12.99
