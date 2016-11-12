@@ -14,35 +14,39 @@
 extends layout
 
 block content
-  .page-header
-    h3 Featured Titles
-    .row
-      .col-sm-6
-         each book in books
-            tr
-                td
-                    a(href="#")
-                      div
-                        img(height='225px' src="/" + book.imgPath)
-                    p #[span(class='metaField') Title:] #{book.title}
-                    p #[span(class='metaField') ISBN:] #{book.ISBN}
-                    p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-                    p #[span(class='metaField') Publisher:] #{book.publisher}
-                    p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+	.col-sm-9.mainContent
+		table
+			thead
+				tr: th: th Featured Titles
+			tbody
+				tr
+					each book, index in books
+						if (index > 0 && index % 3 === 0) 
+							tr 
+						td
+							a(href="#")
+								img(height='200px' src="/" + book.imgPath)
+							ul
+								li #[span(class='metaField') Title:] #{book.title}
+								//p #[span(class='metaField') ISBN:] #{book.ISBN}
+								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+								//p #[span(class='metaField') Publisher:] #{book.publisher}
+								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
 
-  //- ul
-  //-   for book in books
-  //-     img(src='book.imgPath')
-  //-     li= book.title
-  //-     li= book.prodID
-  //-     li= book.ISBN
-  //-     li= book.title
-  //-     li= book.authorFName
-  //-     li= book.authorLName
-  //-     li= book.publisher
-  //-     li= book.length
-  //-     li= book.pubDate
-  //-     //li= img(src='book.imgPath')
-  //-     li= book.blurb
-  //-     li= book.price
-  //-     p
+
+//- block content
+//-   .col-sm-8.mainContent
+//-     h3 Featured Titles
+//-     .row
+//-         each book in books
+//-             tr
+//-                 td
+//-                     div.imgContainer
+//-                       a(href="#")
+//-                         img(height='225px' src="/" + book.imgPath)
+//-                 td.metaContainer
+//-                   p #[span(class='metaField') Title:] #{book.title}
+//-                   //p #[span(class='metaField') ISBN:] #{book.ISBN}
+//-                   p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+//-                   p #[span(class='metaField') Publisher:] #{book.publisher}
+//-                   p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
