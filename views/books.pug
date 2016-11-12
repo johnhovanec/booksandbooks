@@ -11,7 +11,7 @@
 //-          li #{product.productID} - #{product.productTitle}
 
 
-//extends layout  // off because its too much info
+extends layout
 
 block content
   .page-header
@@ -23,18 +23,12 @@ block content
                 td
                     a(href="#")
                       div
-                        img(width='200px' src="/" + book.imgPath)
-                    div.title #{book.title}
-                    br
-                    div.ISBN #{book.ISBN}
-                    br
-                    div.authorFName #{book.authorFName}
-                    br
-                    div.authorLName #{book.authorLName}
-                    br
-                    div.publisher #{book.publisher}
-                    br
-                    div.price Tags: #{book.price}
+                        img(height='225px' src="/" + book.imgPath)
+                    p #[span(class='metaField') Title:] #{book.title}
+                    p #[span(class='metaField') ISBN:] #{book.ISBN}
+                    p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+                    p #[span(class='metaField') Publisher:] #{book.publisher}
+                    p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
 
   //- ul
   //-   for book in books
