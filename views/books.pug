@@ -1,4 +1,22 @@
+//- extends layout
+
+//- block content
+//-   h1 books page
+//-   div.mainContent
+//-    .row 
+//-      .col-sm-4
+//-       h2 Featured Titles
+//-        ul.featuredProducts
+//-         each product in products
+//-          li #{product.productID} - #{product.productTitle}
+
+
 extends layout
 
 block content
-  h1 books page
+  .page-header
+    h3 All Books
+
+  ul
+    for book in books
+      li= book.name
