@@ -3,7 +3,7 @@
 //- block content
 //-   h1 books page
 //-   div.mainContent
-//-    .row 
+//-    .book 
 //-      .col-sm-4
 //-       h2 Featured Titles
 //-        ul.featuredProducts
@@ -11,12 +11,44 @@
 //-          li #{product.productID} - #{product.productTitle}
 
 
-extends layout
+//extends layout  // off because its too much info
 
 block content
   .page-header
-    h3 All Books
+    h3 Featured Titles
+    .row
+      .col-sm-6
+         each book in books
+            tr
+                td
+                    a(href="#")
+                      div
+                        img(width='200px' src="/" + book.imgPath)
+                    div.title #{book.title}
+                    br
+                    div.ISBN #{book.ISBN}
+                    br
+                    div.authorFName #{book.authorFName}
+                    br
+                    div.authorLName #{book.authorLName}
+                    br
+                    div.publisher #{book.publisher}
+                    br
+                    div.price Tags: #{book.price}
 
-  ul
-    for book in books
-      li= book.name
+  //- ul
+  //-   for book in books
+  //-     img(src='book.imgPath')
+  //-     li= book.title
+  //-     li= book.prodID
+  //-     li= book.ISBN
+  //-     li= book.title
+  //-     li= book.authorFName
+  //-     li= book.authorLName
+  //-     li= book.publisher
+  //-     li= book.length
+  //-     li= book.pubDate
+  //-     //li= img(src='book.imgPath')
+  //-     li= book.blurb
+  //-     li= book.price
+  //-     p

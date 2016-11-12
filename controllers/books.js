@@ -11,8 +11,8 @@ const Book = require('../models/Book.js');
 };
 
  exports.create = (req, res) => {
-  Book.insert((err, docs) => {
-  	name: "The Road",
+  book.insert((err, docs) => {
+  	name: "The Road"
     res.render('books', { books: docs });
   });
 };

@@ -1,11 +1,23 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-  name: String
+  	//title: String
+	prodID:       { type: Number, default: '' },
+	ISBN:         { type: String, default: '' },
+	title:        { type: String, default: '' },
+	authorFName:  { type: String, default: '' },
+	authorLName:  { type: String, default: '' },
+	publisher:    { type: String, default: '' },
+	length:       { type: String, default: '' },
+	pubDate:      { type: String, default: '' },
+	imgPath:      { type: String, default: '' },
+	blurb:        { type: String, default: '' },
+	price:        { type: Number, default: 0  },
+	createdOn:    { type: Date,   default: Date.now}
 });
 
-const Book = mongoose.model('Book', bookSchema);
-module.exports = Book;
+const book = mongoose.model('book', bookSchema);
+module.exports = book;
 
 // var mongoose     = require('mongoose');
 // var Schema       = mongoose.Schema;
