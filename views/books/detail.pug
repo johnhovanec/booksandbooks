@@ -1,5 +1,16 @@
 extends ../layout
 
 block content
-	.col-sm-9.mainContent
-		h2 Books Detail books/detail.pug
+  .col-sm-8.detailContent
+    h3 Item Detail
+    .row
+      div.detailImage
+        //- a(href="#")
+        img(height='350px' src="/" + book.imgPath)
+      div.detailContent
+        ul
+          li #[span(class='metaField') Title:] #{book.title}
+          li #[span(class='metaField') ISBN:] #{book.ISBN}
+          li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+          li #[span(class='metaField') Publisher:] #{book.publisher}
+          li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]

@@ -19,10 +19,11 @@ const Book = require('../models/Book.js');
 
 /* GET book by id. */
  exports.detail = (req, res) => {
- Book.findById(req.params.book_id, (err, doc) => {
+ Book.findById(req.params.book_id, (err, book) => {
     if (err) { return next(err); }
-    res.render('books/detail', { books: doc });
+    res.render('books/detail', { book: book });
     //res.send(book);
+    //res.json(book);
   });
 };
 
