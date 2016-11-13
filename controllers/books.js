@@ -17,6 +17,26 @@ const Book = require('../models/Book.js');
   });
 };
 
+// /* GET book by id. */
+// router.get('/:book_id', function(req, res) {
+//     Book.findById(req.params.book_id, function(err, book) {
+//         if (err)
+//             res.send(err);
+//         res.json(book);
+//     });
+
+// });
+
+
+/* GET book by id. */
+ exports.detail = (req, res) => {
+ Book.findById(req.params.book_id, (err, doc) => {
+    if (err) { return next(err); }
+    res.render('book/detail', { book: doc });
+
+  });
+};
+
 
 // exports.index = (req, res) => {
 //   res.render('books', {

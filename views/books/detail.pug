@@ -1,0 +1,21 @@
+extends layout
+
+block content
+	.col-sm-9.mainContent
+		table
+			thead
+				tr: th: th: h3 Featured Titles
+			tbody
+				tr
+					each book, index in books
+						if (index > 0 && index % 3 === 0) 
+							tr 
+						td
+							a(href="#")
+								img(height='175px' src="/" + book.imgPath)
+							ul
+								li #[span(class='metaField') Title:] #{book.title}
+								//p #[span(class='metaField') ISBN:] #{book.ISBN}
+								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+								//p #[span(class='metaField') Publisher:] #{book.publisher}
+								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]

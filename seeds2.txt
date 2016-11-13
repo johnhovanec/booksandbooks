@@ -68,7 +68,9 @@ db.books.insert (
 	imgPath:      "0005.jpg",
 	blurb:        "blurb......",
 	price:        42.95
-},
+});
+
+db.books.insert (
 {
 	prodID:       "0006",
 	ISBN:         "348765098700",
@@ -81,6 +83,4 @@ db.books.insert (
 	imgPath:      "0006.jpg",
 	blurb:        "blurb......",
 	price:        19.99
-}
-
-);
+});

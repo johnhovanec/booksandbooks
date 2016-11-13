@@ -138,8 +138,8 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/books', booksController.index);
-//app.get('/books/', booksController.index);
-app.post('/books/create', booksController.create);
+app.get('/books/detail', booksController.detail);
+//app.post('/books/create', booksController.create);
 // app.route('/books')
 //   .get(booksController.index)
 //   .post(booksController.create)
