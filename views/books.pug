@@ -15,10 +15,8 @@ block content
 								img(height='175px' src="/" + book.imgPath)
 							ul
 								li #[span(class='metaField') Title:] #{book.title}
-								//p #[span(class='metaField') ISBN:] #{book.ISBN}
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-								//p #[span(class='metaField') Publisher:] #{book.publisher}
-								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price}]
 
 
 //- block content

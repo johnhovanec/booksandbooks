@@ -178,28 +178,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* padding for tables JH */
 td,
 th {
-  padding: 20px 40px 20px 20px;
-  vertical-align: text-top;
-}
-
-td img {
-  display: block;
-  margin: 0px 0px 5px 40px;
-/*  margin-left: auto;
-  margin-right: auto;*/
-}
-
-td ul {
-  list-style: none;
-  /*text-align: left;*/
-}
-
-li {
-  text-align: left;
-}
+  padding: 0; }
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -8929,19 +8910,6 @@ body {
   padding-top: 60px;
   margin-bottom: 75px; }
 
-.metaField {
-  font-weight: bold;
-}
-
-.metaFieldPrice {
-  color: red;
-  font-weight: bold;
-}
-
-.mainContent {
-  float: right;
-}
-
 footer {
   position: absolute;
   bottom: 0;
@@ -8969,3 +8937,52 @@ textarea {
 
 .fa {
   margin-right: 6px; }
+
+
+  /* Added rules */
+
+  /* padding for tables JH */
+td,
+th {
+  padding: 20px 40px 20px 20px;
+  vertical-align: text-top;
+}
+
+td img {
+  display: block;
+  margin: 0px 0px 5px 40px;
+/*  margin-left: auto;
+  margin-right: auto;*/
+}
+
+td ul {
+  list-style: none;
+  /*text-align: left;*/
+}
+
+li {
+  text-align: left;
+}
+
+.metaField {
+  font-weight: bold;
+}
+
+.metaFieldPrice {
+  color: red;
+  font-weight: bold;
+}
+
+.mainContent {
+  float: right;
+}
+
+.detailImage {
+  float: left;
+  list-style: none;
+  margin: 0px 15px 10px 0px;
+}
+
+.detailContent {
+  /*float: right;*/
+}

@@ -10,12 +10,74 @@ const Book = require('../models/Book.js');
   });
 };
 
+// /* POST to create a new book */
+//  exports.create = (req, res) => {
+
+//   book.insert((err, docs) => {
+//   	name: "The Road"
+//     res.render('books', { books: docs });
+//   });
+// };
+
+/* POST to create a new book */
  exports.create = (req, res) => {
-  book.insert((err, docs) => {
-  	name: "The Road"
-    res.render('books', { books: docs });
+  // create a new instance of the Book model
+  var book = new Book();
+
+  // set the books properties 
+  book.prodID = req.body.prodID;
+  book.ISBN = req.body.ISBN;
+  book.title = req.body.title;
+  book.authorFName = req.body.authorFName;
+  book.authorLName = req.body.authorLName;
+  book.publisher = req.body.publisher;
+  book.length = req.body.length;
+  book.pubDate = req.body.pubDate;
+  book.imgPath = req.body.imgPath;
+  book.blurb = req.body.blurb;
+  book.price = req.body.price;
+
+  // save the data received
+  book.save(function(err) {
+    if (err)
+        res.send(err);
+  // give some success message
+  //res.json({ message: 'book successfully created!' });
+    res.redirect('/books/' + book_id);
   });
 };
+
+//TO DO: Work on create!
+
+/* POST */
+// router.post('/', function(req, res) {
+//     // create a new instance of the Book model
+//     var book = new Book();
+
+//     // set the books properties 
+//     book.prodID = req.body.prodID;
+//     book.ISBN = req.body.ISBN;
+//     book.title = req.body.title;
+//     book.authorFName = req.body.authorFName;
+//     book.authorLName = req.body.authorLName;
+//     book.publisher = req.body.publisher;
+//     book.length = req.body.length;
+//     book.pubDate = req.body.pubDate;
+//     book.imgPath = req.body.imgPath;
+//     book.blurb = req.body.blurb;
+//     book.price = req.body.price;
+
+//     // save the data received
+//     book.save(function(err) {
+//         if (err)
+//             res.send(err);
+
+//         // give some success message
+//         res.json({ message: 'book successfully created!' });
+//     });
+
+// });
+
 
 /* GET book by id. */
  exports.detail = (req, res) => {
@@ -26,6 +88,9 @@ const Book = require('../models/Book.js');
     //res.json(book);
   });
 };
+
+
+
 
 // /* GET book by id. */
 // router.get('/:book_id', function(req, res) {

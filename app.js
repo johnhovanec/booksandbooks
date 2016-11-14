@@ -92,14 +92,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if (req.path === '/books/create/') {        //was: '/api/upload'
     next();
   } else {
     lusca.csrf()(req, res, next);
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+app.use(lusca.xssProtection(true));   //was: app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
@@ -139,7 +139,7 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
-app.post('/books', booksController.create);
+app.post('/books/create', booksController.create);
 // app.route('/books')
 //   .get(booksController.index)
 //   .post(booksController.create)
