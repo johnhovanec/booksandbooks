@@ -20,7 +20,7 @@ const Book = require('../models/Book.js');
 // };
 
 /* POST to create a new book */
- exports.create = (req, res) => {
+ exports.create = (req, res, next) => {
   // create a new instance of the Book model
   var book = new Book();
 

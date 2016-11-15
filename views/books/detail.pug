@@ -2,15 +2,19 @@ extends ../layout
 
 block content
   .col-sm-8.mainContent
-    h3 Item Detail
+    //h3 #{book.title}
     .row
       div.detailImage
         //- a(href="#")
         img(height='350px' src="/" + book.imgPath)
       div.detailContent
-        ul
-          li #[span(class='metaField') Title:] #{book.title}
-          li #[span(class='metaField') ISBN:] #{book.ISBN}
-          li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-          li #[span(class='metaField') Publisher:] #{book.publisher}
-          li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+        p #[span(class='metaField') Title:] #{book.title}
+        p #[span(class='metaField') ISBN:] #{book.ISBN}
+        p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+        p #[span(class='metaField') Publisher:] #{book.publisher}
+        //li #[span(class='metaField') Format:] #{book.publisher}
+        p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+        p #{book.blurb}
+      button.btn.btn-primary(type='submit')
+        i.fa.fa-check
+        | Add To Cart
