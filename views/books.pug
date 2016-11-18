@@ -17,21 +17,3 @@ block content
 								li #[span(class='metaField') Title:] #{book.title}
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price}]
-
-
-//- block content
-//-   .col-sm-8.mainContent
-//-     h3 Featured Titles
-//-     .row
-//-         each book in books
-//-             tr
-//-                 td
-//-                     div.imgContainer
-//-                       a(href="#")
-//-                         img(height='225px' src="/" + book.imgPath)
-//-                 td.metaContainer
-//-                   p #[span(class='metaField') Title:] #{book.title}
-//-                   //p #[span(class='metaField') ISBN:] #{book.ISBN}
-//-                   p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-//-                   p #[span(class='metaField') Publisher:] #{book.publisher}
-//-                   p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]

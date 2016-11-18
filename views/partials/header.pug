@@ -33,6 +33,8 @@
             a(href='/login') Login
           li(class=(title == 'Create Account') ? 'active' : undefined)
             a(href='/signup') Create Account
+          li(class=(title == 'Cart') ? 'active' : undefined)
+            a(href='/cart/checkout') Cart
         else
           li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -48,3 +50,5 @@
               li.divider
               li
                 a(href='/logout') Logout
+          li(class=(title == 'Cart') ? 'active' : undefined)
+            a(href='/cart/checkout') Cart

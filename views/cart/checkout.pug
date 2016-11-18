@@ -1,0 +1,39 @@
+extends ../layout	
+
+block content
+	.col-sm-4.checkoutSection
+		table
+			thead
+				tr: h3 Shopping Cart
+					th Item 
+					th Quantity
+					th Price
+			tbody
+				tr
+					td The Grapes
+					td 1
+					td $14.95
+				tr
+					td
+						button.btn.btn-primary(type='submit')
+							i.fa.fa-check
+							| Edit Cart
+		hr
+		table.checkoutCartTable
+			tbody
+				tr
+					td Subtotal
+					td $15.96
+				tr
+					td Estimated SHipping
+					td $4.72
+				tr
+					td Tax
+					td $1.02
+				tr
+					td Total
+					td $20.40
+	.col-sm-4.checkoutSection
+		h3 Billing Info
+	.col-sm-4.checkoutSection
+		h3 Shipping Info	

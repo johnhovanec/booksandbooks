@@ -38,6 +38,7 @@ const booksController = require('./controllers/books');
 const giftsController = require('./controllers/gifts');
 const eventsController = require('./controllers/events');
 const aboutController = require('./controllers/about');
+const cartController = require('./controllers/cart');
 /**
  * API keys and Passport configuration.
  */
@@ -141,6 +142,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
+app.get('/cart', cartController.index);
+app.post('/cart/create', cartController.create);
+app.get('/cart/checkout', cartController.getCheckout);
 // app.route('/books')
 //   .get(booksController.index)
 //   .post(booksController.create)
