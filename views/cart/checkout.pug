@@ -1,6 +1,8 @@
 extends ../layout	
 
 block content
+
+	////   Shopping Cart    ////
 	.col-sm-4.checkoutSection
 		table
 			thead
@@ -15,9 +17,10 @@ block content
 					td $14.95
 				tr
 					td
-						button.btn.btn-primary(type='submit')
-							i.fa.fa-check
-							| Edit Cart
+						a(href='../cart')
+							button.btn.btn-primary(type='submit')
+								i.fa.fa-check
+								| Edit Cart
 		hr
 		table.checkoutCartTable
 			tbody
@@ -33,7 +36,126 @@ block content
 				tr
 					td Total
 					td $20.40
+
+
+	////   Billing Info		////		
 	.col-sm-4.checkoutSection
-		h3 Billing Info
+		div.billingInfo
+			h3 Billing Info
+			form.form-horizontal(id='billing-form', method='POST')
+				input(type='hidden', name='_csrf', value=_csrf)
+				.form-group
+					label.col-sm-3.control-label(for='name') Name
+					.col-sm-7
+						input.form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+				.form-group
+					label.col-sm-3.control-label(for='address') Address
+					.col-sm-7
+						input.form-control(type='address', name='address', id='address', placeholder='Address', required)
+				.form-group
+					label.col-sm-3.control-label(for='city') City
+					.col-sm-7
+						input.form-control(type='city', name='city', id='city', placeholder='City', required)
+				.form-group
+					label.col-sm-3.control-label(for='state') State
+					.col-sm-7
+						input.form-control(type='state', name='state', id='state', placeholder='State', required)
+				.form-group
+					label.col-sm-3.control-label(for='zip') Zip
+					.col-sm-7
+						input.form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+				.form-group
+					label.col-sm-3.control-label(for='email') Email
+					.col-sm-7
+						input.form-control(type='email', name='email', id='email', placeholder='Email', required)
+
+				// Credit card info
+				h4 Payment Method
+				.form-group
+					label.col-sm-3.control-label(for='cardNumber') Type
+					.dropdown
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Credit Card Type
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="menu")
+							li: a( href="#", selected='true') Visa
+							li: a( href="#" ) American Express
+							li: a( href="#" ) Mastercard
+
+				// Card Number
+				.form-group
+					label.col-sm-3.control-label(for='cardNumber') Card Number
+					.col-sm-7
+						input.form-control(type='cardNumber', name='cardNumber', id='cardNumber', placeholder='Card Number', required)
+
+				// Month
+				.form-group
+					.dropdownCVV
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Month
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="menu")
+							li(id="btnMonth") 1
+							li(id="btnMonth") 2
+							li(id="btnMonth") 3
+							li(id="btnMonth") 4
+							li(id="btnMonth") 5
+							li(id="btnMonth") 6
+							li(id="btnMonth") 7
+							li(id="btnMonth") 8
+							li(id="btnMonth") 9
+							li(id="btnMonth") 10
+							li(id="btnMonth") 11
+							li(id="btnMonth") 12
+						// Year
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Year
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="year")
+							li(id="btnMonth") 2016
+							li(id="btnMonth") 2017
+							li(id="btnMonth") 2018
+							li(id="btnMonth") 2019
+							li(id="btnMonth") 2020
+						// CVV
+						.col-sm-3
+							input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
+
+	////    Shipping Info    ////
 	.col-sm-4.checkoutSection
 		h3 Shipping Info	
+		.checkbox
+			label.col-sm-3.control-label(for='cardNumber') Same as billing
+			input(type="checkbox", value="", id="sameAsBilling")
+
+
+
+
+
+
+			//- //a.btn.btn-default
+			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
+			//- span.caret
+			//- ul.dropdown-menu( role="menu" )
+			//- 	li: a( href="#" ) Action
+			//- 	li: a( href="#" ) Another action
+			//- 	li: a( href="#" ) Something else here
+
+
+		//- .dropdown
+		//- 	button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Type
+		//- 		| &nbsp;
+		//- 		span.caret
+		//- 	ul.dropdown-menu(role="menu")
+		//- 		li(role="presentation"): a(href="#") Action
+		//- 				a(role="menuitem",tabindex="-1",href="#") Somethin
+
+
+//- ul.dropdown-menu( role="menu" )
+//- 				li: a( href="#" ) Action
+//- 				li: a( href="#" ) Another action
+//- 				li: a( href="#" ) Something else here
+//- 				li.divider
+//- 				li.dropdown-header Nav header
+//- 				li: a( href="#" ) Separated link
+//- 				li: a( href="#" ) One more separated link

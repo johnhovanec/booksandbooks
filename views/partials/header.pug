@@ -34,7 +34,7 @@
           li(class=(title == 'Create Account') ? 'active' : undefined)
             a(href='/signup') Create Account
           li(class=(title == 'Cart') ? 'active' : undefined)
-            a(href='/cart/checkout') Cart
+            a(href='/cart') Cart
         else
           li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -51,4 +51,4 @@
               li
                 a(href='/logout') Logout
           li(class=(title == 'Cart') ? 'active' : undefined)
-            a(href='/cart/checkout') Cart
+            a(href='/cart') Cart
