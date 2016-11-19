@@ -68,7 +68,7 @@ block content
 					label.col-sm-3.control-label(for='email') Email
 					.col-sm-7
 						input.form-control(type='email', name='email', id='email', placeholder='Email', required)
-
+				hr
 				// Credit card info
 				h4 Payment Method
 				.form-group
@@ -107,6 +107,7 @@ block content
 							li(id="btnMonth") 10
 							li(id="btnMonth") 11
 							li(id="btnMonth") 12
+
 						// Year
 						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Year
 							| &nbsp;
@@ -123,16 +124,45 @@ block content
 
 	////    Shipping Info    ////
 	.col-sm-4.checkoutSection
-		h3 Shipping Info	
-		.checkbox
-			label.col-sm-3.control-label(for='cardNumber') Same as billing
+		div.billingInfo
+			h3 Shipping Info
+			form.form-horizontal(id='billing-form', method='POST')
+				.form-group
+					input(type="checkbox", value="", id="sameAsBilling")
+					label.col-sm-5.control-label(for='cardNumber') Same as billing
+				input(type='hidden', name='_csrf', value=_csrf)
+				.form-group
+					label.col-sm-3.control-label(for='name') Name
+					.col-sm-7
+						input.form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+				.form-group
+					label.col-sm-3.control-label(for='address') Address
+					.col-sm-7
+						input.form-control(type='address', name='address', id='address', placeholder='Address', required)
+				.form-group
+					label.col-sm-3.control-label(for='city') City
+					.col-sm-7
+						input.form-control(type='city', name='city', id='city', placeholder='City', required)
+				.form-group
+					label.col-sm-3.control-label(for='state') State
+					.col-sm-7
+						input.form-control(type='state', name='state', id='state', placeholder='State', required)
+				.form-group
+					label.col-sm-3.control-label(for='zip') Zip
+					.col-sm-7
+						input.form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+				.form-group
+					label.col-sm-3.control-label(for='email') Email
+					.col-sm-7
+						input.form-control(type='email', name='email', id='email', placeholder='Email', required)
+
 			input(type="checkbox", value="", id="sameAsBilling")
+			label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 
-
-
-
-
-
+		br
+		button.btn.btn-primary(type='submit')
+			i.fa.fa-check
+			| Place Order
 			//- //a.btn.btn-default
 			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
 			//- span.caret
