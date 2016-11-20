@@ -47,7 +47,7 @@ const Book = require('../models/Book.js');
 
 
 /* GET book by id. */
- exports.detail = (req, res) => {
+ exports.detail = (req, res, next) => {
  Book.findById(req.params.book_id, (err, book) => {
     if (err) { return next(err); }
     res.render('books/detail', { book: book });

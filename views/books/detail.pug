@@ -16,19 +16,21 @@ block content
         //li #[span(class='metaField') Format:] #{book.publisher}
         p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
 
-        form.form-horizontal(id='addToCart', method='POST') 
-        input(type='hidden', name='_csrf', value=_csrf)
-        input(type='hidden', name='book_id', value='#{book._id}')
-        .form-group
-          label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
-          .col-sm-1
-            input.form-control(type='quantity', name='quantity', id='quantity', placeholder='1', required)
+        form.form-horizontal(action='/cart' method='POST') 
+          input(type='hidden', name='_csrf', value=_csrf)
+          input(type='hidden', name='book_id', value=book._id)
+          input(type='hidden', name='title', value=book.title)
+          input(type='hidden', name='sessionID', value='TEST123') 
           .form-group
-            .col-sm-3
-              button.btn.btn-success(type='submit')
-                i.fa.fa-check
-                | Add To Cart
-        br
-        br       
-        p #{book.blurb}
+            label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
+            .col-sm-1
+              input.form-control(type='text', id='quantity', placeholder='1', value='1', required)
+            .form-group
+              .col-sm-3
+                button.btn.btn.btn-primary(type='submit')
+                  i.fa.fa-check
+                  | Add To Cart
+          br
+          br       
+          p #{book.blurb}
       

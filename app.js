@@ -122,7 +122,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', homeController.index);
+app.get('/', booksController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -143,7 +143,7 @@ app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
 app.get('/cart', cartController.index);
-//app.post('/cart/create', cartController.create);
+app.post('/cart', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
 // app.route('/books')
 //   .get(booksController.index)

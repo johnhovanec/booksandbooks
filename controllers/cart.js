@@ -3,10 +3,7 @@ const Cart = require('../models/Cart.js');
 /* GET / Cart page. */
  exports.index = (req, res) => {
   Cart.find((err, docs) => {
-    res.render('cart', { 
-      cart: docs,
-      title: 'Shopping Cart'
-    });
+    res.render('cart', { carts: docs, title: 'Shopping Cart' });
   });
 };
 
@@ -57,43 +54,43 @@ const Cart = require('../models/Cart.js');
  * POST /signup
  * Create a new local account.
  */
-// exports.postAddToCart = (req, res, next) => {
-//   console.log("In cart.js postAddToCart")
-//   //req.assert('email', 'Email is not valid').isEmail();
-//   //req.assert('password', 'Password must be at least 4 characters long').len(4);
-//   //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-//   //req.sanitize('email').normalizeEmail({ remove_dots: false });
-//   req.assert('quantity', 'Quantity must be at least 1').len(1);
+exports.postAddToCart = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  console.log("In cart.js postAddToCart")
 
-//   const errors = req.validationErrors();
+  const errors = req.validationErrors();
 
-//   if (errors) {
-//     req.flash('errors', errors);
-//     return res.redirect('/books');
-//   }
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/books');
+  }
 
-//   const cart = new Cart({
-//     userID: req.body.userID
-//     //password: req.body.password
-//   });
+  const cart = new Cart({
+    //book_id: req.body.book_id,
+    sessionID: req.body.sessionID,
+    items: ({ id: req.body.book_id, title: req.body.title})
+    //password: req.body.password
+  });
 
-//   Cart.findOne({ userID: req.body.email }, (err, existingCart) => {
-//     if (err) { return next(err); }
-//     if (existingCart) {
-//       req.flash('errors', { msg: 'Cart already exists!' });
-//       return res.redirect('/books');
-//     }
-//     user.save((err) => {
-//       if (err) { return next(err); }
-//       req.logIn(user, (err) => {
-//         if (err) {
-//           return next(err);
-//         }
-//         res.redirect('/');
-//       });
-//     });
-//   });
-// };
+  console.log("In cart book_id = " + cart.items[0].id + " sessionID = " + cart.sessionID);
+  // Cart.findOne({ userID: req.body.email }, (err, existingCart) => {
+  //   if (err) { return next(err); }
+  //   if (existingCart) {
+  //     req.flash('errors', { msg: 'Cart already exists!' });
+  //     return res.redirect('/cart');
+  //   }
+    cart.save((err) => {
+      if (err) { return next(err); }
+      // req.logIn(cart, (err) => {
+      //   if (err) {
+      //     return next(err);                  //ToDo: try to save a cart record to db
+      //   }
+      //   res.redirect('/');
+      // });
+      res.redirect('cart');
+    });
+  // });
+};
 
 
 

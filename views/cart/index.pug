@@ -4,26 +4,37 @@ block content
 	.col-sm-9.mainContent
 		table
 			thead
-				tr: h3 Shopping Cart
-					th Item 
-					th Quantity
-					th Price
+				tr: th: th: h3 Shopping Cart
 			tbody
 				tr
-					td The Grapes
-					td 1
-					td $14.95
-					td
-						button.btn.btn-primary(type='submit')
-							i.fa.fa-check
-							| Update Quantity
-					td
-						button.btn.btn-primary(type='submit')
-							i.fa.fa-check
-							| Remove
+					each cart in carts
+						tr 
+							td
+								li #[span(class='metaField')] #{cart.sessionID}
 		hr
 		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
+
+
+//- table
+		//- 	thead
+		//- 		tr: h3 Shopping Cart
+		//- 			th Item 
+		//- 			th Quantity
+		//- 			th Price
+		//- 	tbody
+		//- 		tr
+		//- 			td The Grapes
+		//- 			td 1
+		//- 			td $14.95
+		//- 			td
+		//- 				button.btn.btn-primary(type='submit')
+		//- 					i.fa.fa-check
+		//- 					| Update Quantity
+		//- 			td
+		//- 				button.btn.btn-primary(type='submit')
+		//- 					i.fa.fa-check
+		//- 					| Remove
