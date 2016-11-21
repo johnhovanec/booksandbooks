@@ -68,7 +68,12 @@ exports.postAddToCart = (req, res, next) => {
   const cart = new Cart({
     //book_id: req.body.book_id,
     sessionID: req.body.sessionID,
-    items: ({ id: req.body.book_id, title: req.body.title})
+    items: ({ 
+              //book_id: req.body.book_id, 
+              title: req.body.title, 
+              price: req.body.price,
+              quantity: req.body.quantity
+            })
     //password: req.body.password
   });
 

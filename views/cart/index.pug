@@ -4,20 +4,41 @@ block content
 	.col-sm-9.mainContent
 		table
 			thead
-				tr: th: th: h3 Shopping Cart
+				tr: h3 Shopping Cart    User Id = #{user._id}
+					th Item 
+					th Quantity
+					th Price
 			tbody
-				tr
-					each cart in carts
-						tr 
-							td
-								li #[span(class='metaField')] #{cart.sessionID}
+				each cart, i in carts
+					tr
+						//td #{cart.sessionID} index = #{i}
+						td #{cart.items[Object.keys(cart.items)[i]].title}
+						td
+						td #{cart.items[Object.keys(cart.items)[i]].price}
+				else
+					td sorry, no books!
+
 		hr
 		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
+//- TO DO: Work on what is wrong with id and quantity. Need to treat addToCart like an update since we want
+//- to add to an exisiting cart found by user_id or session id
 
+//- //table								
+//- 			thead
+//- 				tr: th: th: h3 Shopping Cart
+//- 			tbody
+//- 				tr
+//- 					each cart, index in carts
+//- 						tr 
+//- 							td
+//- 								li #[span(class='metaField')] #{cart.sessionID} index = #{index}
+//- 								//li #[span(class='metaField')] #{cart.items[index].title}
+//- 								//li #[span(class='metaField')] #{cart.sessionID}
+//- 				//p #{cart.items[0].title}
 
 //- table
 		//- 	thead

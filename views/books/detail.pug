@@ -20,7 +20,8 @@ block content
           input(type='hidden', name='_csrf', value=_csrf)
           input(type='hidden', name='book_id', value=book._id)
           input(type='hidden', name='title', value=book.title)
-          input(type='hidden', name='sessionID', value='TEST123') 
+          input(type='hidden', name='sessionID', value='TEST123')
+          input(type='hidden', name='price', value=book.price) 
           .form-group
             label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
             .col-sm-1
