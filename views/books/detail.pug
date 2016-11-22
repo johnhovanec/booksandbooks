@@ -18,14 +18,16 @@ block content
 
         form.form-horizontal(action='/cart' method='POST') 
           input(type='hidden', name='_csrf', value=_csrf)
-          input(type='hidden', name='book_id', value=book._id)
+          input(type='hidden', name='userID', value=user._id)
+          input(type='hidden', name='bookID', value=book._id)
           input(type='hidden', name='title', value=book.title)
+          input(type='hidden', name='ISBN', value=book.ISBN)
           input(type='hidden', name='sessionID', value='TEST123')
           input(type='hidden', name='price', value=book.price) 
           .form-group
             label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
             .col-sm-1
-              input.form-control(type='text', id='quantity', placeholder='1', value='1', required)
+              input.form-control(type='text', id='quantity', name='quantity' placeholder='1', value='1', required)
             .form-group
               .col-sm-3
                 button.btn.btn.btn-primary(type='submit')

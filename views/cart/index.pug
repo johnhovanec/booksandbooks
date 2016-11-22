@@ -2,19 +2,30 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent
+		p User Idfrom page  = #{user._id}
+
 		table
 			thead
-				tr: h3 Shopping Cart    User Id = #{user._id}
+				tr: h3 Shopping Cart    
 					th Item 
 					th Quantity
 					th Price
 			tbody
 				each cart, i in carts
 					tr
-						//td #{cart.sessionID} index = #{i}
+						//td #{cart.items[Object.keys(cart.items)[i]].ISBN}
+						p UserID from cart = #{cart.userID}
 						td #{cart.items[Object.keys(cart.items)[i]].title}
-						td
+						td #{cart.items[Object.keys(cart.items)[i]].quantity}
 						td #{cart.items[Object.keys(cart.items)[i]].price}
+						td
+							button.btn.btn-primary(type='submit')
+								i.fa.fa-check
+								| Update Quantity
+						td
+							button.btn.btn-primary(type='submit')
+								i.fa.fa-check
+								| Remove
 				else
 					td sorry, no books!
 
@@ -24,38 +35,6 @@ block content
 				i.fa.fa-check
 				| Checkout
 		hr
-//- TO DO: Work on what is wrong with id and quantity. Need to treat addToCart like an update since we want
-//- to add to an exisiting cart found by user_id or session id
+//- TO DO: Need to treat addToCart like an update since we want
+//- to add to an exisiting cart found by user_id, if none found create a new one.
 
-//- //table								
-//- 			thead
-//- 				tr: th: th: h3 Shopping Cart
-//- 			tbody
-//- 				tr
-//- 					each cart, index in carts
-//- 						tr 
-//- 							td
-//- 								li #[span(class='metaField')] #{cart.sessionID} index = #{index}
-//- 								//li #[span(class='metaField')] #{cart.items[index].title}
-//- 								//li #[span(class='metaField')] #{cart.sessionID}
-//- 				//p #{cart.items[0].title}
-
-//- table
-		//- 	thead
-		//- 		tr: h3 Shopping Cart
-		//- 			th Item 
-		//- 			th Quantity
-		//- 			th Price
-		//- 	tbody
-		//- 		tr
-		//- 			td The Grapes
-		//- 			td 1
-		//- 			td $14.95
-		//- 			td
-		//- 				button.btn.btn-primary(type='submit')
-		//- 					i.fa.fa-check
-		//- 					| Update Quantity
-		//- 			td
-		//- 				button.btn.btn-primary(type='submit')
-		//- 					i.fa.fa-check
-		//- 					| Remove

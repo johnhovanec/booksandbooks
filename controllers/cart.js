@@ -67,9 +67,11 @@ exports.postAddToCart = (req, res, next) => {
 
   const cart = new Cart({
     //book_id: req.body.book_id,
-    sessionID: req.body.sessionID,
+    userID: req.body.userID,
+    //sessionID: req.body.sessionID,
     items: ({ 
-              //book_id: req.body.book_id, 
+              //bookID: req.body.bookID, 
+              ISBN: req.body.ISBN,
               title: req.body.title, 
               price: req.body.price,
               quantity: req.body.quantity
@@ -77,7 +79,7 @@ exports.postAddToCart = (req, res, next) => {
     //password: req.body.password
   });
 
-  console.log("In cart book_id = " + cart.items[0].id + " sessionID = " + cart.sessionID);
+  console.log("In cart bookID = " + cart.items[0].bookID + " sessionID = " + cart.sessionID);
   // Cart.findOne({ userID: req.body.email }, (err, existingCart) => {
   //   if (err) { return next(err); }
   //   if (existingCart) {
@@ -88,12 +90,15 @@ exports.postAddToCart = (req, res, next) => {
       if (err) { return next(err); }
       // req.logIn(cart, (err) => {
       //   if (err) {
-      //     return next(err);                  //ToDo: try to save a cart record to db
+      //     return next(err);                  
       //   }
       //   res.redirect('/');
       // });
       res.redirect('cart');
-    });
+    });          
+
+    // });
+
   // });
 };
 

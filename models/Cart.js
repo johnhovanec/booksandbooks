@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
-	sessionID:      { type: String, default: '' },					
+	userID:    		  { type: String, default: '' },					
 	items: 				 	[{																// Array to hold items in cart: id, title, price, quantity
-										book_id: Number, 
+										bookID: Number,
+										ISBN: Number, 
 										title: String, 
 										price: Number, 
 										quantity: Number 
