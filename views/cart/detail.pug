@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+	.col-sm-9.mainContent
+		p User Idfrom page  = #{user._id}
+
+		table
+			thead
+				tr: h3 Shopping Cart    
+					th Item 
+					th Quantity
+					th Price
+			tbody
+				tr
+					//td #{carts.userID}
+					td #{carts.items[0].title}
+					td #{carts.items[0].quantity}
+					td #{carts.items[0].price}
+					//- To Do: Populate a second books in items array. Try to loop through items and display all.
+					td
+						button.btn.btn-primary(type='submit')
+							i.fa.fa-check
+							| Update Quantity
+					td
+						button.btn.btn-primary(type='submit')
+							i.fa.fa-check
+							| Remove
+
+		hr
+		a(href="cart/checkout")
+			button.btn.btn-primary(type='button')
+				i.fa.fa-check
+				| Checkout
+		hr
+//- TO DO: Need to treat addToCart like an update since we want
+//- to add to an exisiting cart found by user_id, if none found create a new one.
+

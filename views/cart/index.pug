@@ -11,10 +11,11 @@ block content
 					th Quantity
 					th Price
 			tbody
+				//- //make loop for items.length
 				each cart, i in carts
 					tr
-						//td #{cart.items[Object.keys(cart.items)[i]].ISBN}
-						p UserID from cart = #{cart.userID}
+						//- td UserID from cart = #{cart.userID}
+						td #{cart.items[Object.keys(cart.items)[i]].ISBN} index = #{i}
 						td #{cart.items[Object.keys(cart.items)[i]].title}
 						td #{cart.items[Object.keys(cart.items)[i]].quantity}
 						td #{cart.items[Object.keys(cart.items)[i]].price}
@@ -28,7 +29,6 @@ block content
 								| Remove
 				else
 					td sorry, no books!
-
 		hr
 		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')

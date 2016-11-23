@@ -1,9 +1,9 @@
 const Book = require('../models/Book.js');
+
 /**
  * GET /
  * Books page.
  */
-
  exports.index = (req, res) => {
   Book.find((err, docs) => {
     res.render('books', { books: docs });
@@ -42,8 +42,6 @@ const Book = require('../models/Book.js');
     res.render('books/detail', { book: book });
   });
 };
-
-//TO DO: Work on create!
 
 
 /* GET book by id. */

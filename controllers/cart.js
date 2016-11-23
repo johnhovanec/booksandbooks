@@ -7,56 +7,34 @@ const Cart = require('../models/Cart.js');
   });
 };
 
-
-/* GET book by id. */
- exports.detail = (req, res) => {
- Book.findById(req.params.book_id, (err, book) => {
+/* GET cart by userID. */
+ exports.detail = (req, res, next) => {
+ Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { return next(err); }
-    res.render('books/detail', { book: book });
+    res.render('cart/detail', { carts: cart });
     //res.send(book);
     //res.json(book);
   });
 };
 
-
-// /* POST to create a new book */
-//  exports.create = (req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   // create a new instance of the Book model
-//   var cart = new Cart();
-
-//   // set the cart properties 
-//   cart.sessionID = req.body.sessionID; 
-//   cart.userID = req.body.userID;
-//   cart.numberOfItems = req.body.numberOfItems;
-//   cart.items = req.body.items;
-//   cart.shippingRate = req.body.shippingRate;
-//   cart.shippingMethod = req.body.shippingMethod;
-//   cart.taxRate = req.body.taxRate;
-//   cart.taxAmount = req.body.taxAmount;
-//   cart.subTotal = req.body.subTotal;
-//   cart.total = req.body.total;
-
-//   // save the data received
-//   cart.save(function(err) {
-//     if (err)
-//         res.send(err);
-//   // give some success message
-//   res.json({ message: 'cart successfully created!' });
-    
-//     //res.render('books');
-//     //res.render('books/detail', { book: book });
+// /* GET cart by userID. */
+//  exports.detail = (req, res) => {
+//  Cart.find({ userID: "req.params.userID"}, (err, carts) => {
+//     if (err) { return next(err); }
+//     res.render('carts/', { carts: cart });
+//     //res.send(book);
+//     //res.json(book);
 //   });
 // };
 
 
 /**
- * POST /signup
- * Create a new local account.
+ * POST /cart
+ * Create a new cart if it does not exist.
  */
 exports.postAddToCart = (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  console.log("In cart.js postAddToCart")
+  console.log("In cart.js postAddToCart");
 
   const errors = req.validationErrors();
 
@@ -65,27 +43,34 @@ exports.postAddToCart = (req, res, next) => {
     return res.redirect('/books');
   }
 
-  const cart = new Cart({
-    //book_id: req.body.book_id,
-    userID: req.body.userID,
-    //sessionID: req.body.sessionID,
-    items: ({ 
-              //bookID: req.body.bookID, 
-              ISBN: req.body.ISBN,
-              title: req.body.title, 
-              price: req.body.price,
-              quantity: req.body.quantity
-            })
-    //password: req.body.password
-  });
+  //console.log("In cart bookID = " + cart.items[0].ISBN + " userID = " + cart.userID);
+  
+  // Look for an exiting cart linked to the userID
+  Cart.findOne({ userID: req.body.userID }, (err, existingCart) => {
+    if (err) { return next(err); }
 
-  console.log("In cart bookID = " + cart.items[0].bookID + " sessionID = " + cart.sessionID);
-  // Cart.findOne({ userID: req.body.email }, (err, existingCart) => {
-  //   if (err) { return next(err); }
-  //   if (existingCart) {
-  //     req.flash('errors', { msg: 'Cart already exists!' });
-  //     return res.redirect('/cart');
-  //   }
+    if (existingCart) {
+      req.flash('errors', { msg: 'Cart already exists!' });
+      //return res.redirect('/cart');
+      console.log("Found a cart for user");
+      //res.render('cart/detail', { cart: cart });
+
+      // Push new items into items []
+
+    } else { 
+        req.flash('success', { msg: 'New cart created!' });
+        console.log("Creating new cart for user");                           // No existing cart found, create one
+        const cart = new Cart({
+          userID: req.body.userID,
+          items: ({ 
+                    //bookID: req.body.bookID, 
+                    ISBN: req.body.ISBN,
+                    title: req.body.title, 
+                    price: req.body.price,
+                    quantity: req.body.quantity
+                  })
+        });
+    }
     cart.save((err) => {
       if (err) { return next(err); }
       // req.logIn(cart, (err) => {
@@ -94,13 +79,66 @@ exports.postAddToCart = (req, res, next) => {
       //   }
       //   res.redirect('/');
       // });
-      res.redirect('cart');
+      res.redirect('/cart');
     });          
 
-    // });
+  });
 
   // });
 };
+
+
+// /**
+//  * POST /signup
+//  * Create a new local account.
+//  */
+// exports.postAddToCart = (req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   console.log("In cart.js postAddToCart");
+
+//   const errors = req.validationErrors();
+
+//   if (errors) {
+//     req.flash('errors', errors);
+//     return res.redirect('/books');
+//   }
+
+//   const cart = new Cart({
+//     userID: req.body.userID,
+//     items: ({ 
+//               //bookID: req.body.bookID, 
+//               ISBN: req.body.ISBN,
+//               title: req.body.title, 
+//               price: req.body.price,
+//               quantity: req.body.quantity
+//             })
+//   });
+
+//   //console.log("In cart bookID = " + cart.items[0].ISBN + " userID = " + cart.userID);
+  
+//   Cart.findOne({ userID: req.body.userID }, (err, existingCart) => {
+//     if (err) { return next(err); }
+//     if (existingCart) {
+//       //req.flash('errors', { msg: 'Cart already exists!' });
+//       //return res.redirect('/cart');
+//       console.log("Found a cart for user");
+//       //res.render('cart/detail', { cart: cart });
+//   }
+//     cart.save((err) => {
+//       if (err) { return next(err); }
+//       // req.logIn(cart, (err) => {
+//       //   if (err) {
+//       //     return next(err);                  
+//       //   }
+//       //   res.redirect('/');
+//       // });
+//       res.redirect('cart');
+//     });          
+
+//   });
+
+//   // });
+// };
 
 
 
