@@ -11,20 +11,40 @@ block content
 					th Quantity
 					th Price
 			tbody
-				tr
-					//td #{carts.userID}
-					td #{carts.items[0].title}
-					td #{carts.items[0].quantity}
-					td #{carts.items[0].price}
-					//- To Do: Populate a second books in items array. Try to loop through items and display all.
-					td
-						button.btn.btn-primary(type='submit')
-							i.fa.fa-check
-							| Update Quantity
-					td
-						button.btn.btn-primary(type='submit')
-							i.fa.fa-check
-							| Remove
+				- var cartLength = carts.items.length
+				- for (var i = 0; i < cartLength; i++) {
+					tr
+					td #{carts.items[i].title} 
+					td #{carts.items[i].quantity}
+					td #{carts.items[i].price}
+				- }
+				//- tr
+				//- 	//td #{carts.userID}
+				//- 	td #{carts.items[0].title}
+				//- 	td #{carts.items[0].quantity}
+				//- 	td #{carts.items[0].price}
+				//- 	//- To Do: Populate a second books in items array. Try to loop through items and display all.
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Update Quantity
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Remove
+				//- tr
+				//- 	//td #{carts.userID}
+				//- 	td #{carts.items[1].title}
+				//- 	td #{carts.items[1].quantity}
+				//- 	td #{carts.items[1].price}
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Update Quantity
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Remove
 
 		hr
 		a(href="cart/checkout")
