@@ -11,12 +11,26 @@ block content
 					th Quantity
 					th Price
 			tbody
-				- var cartLength = carts.items.length
-				- for (var i = 0; i < cartLength; i++) {
-					tr
-					td #{carts.items[i].title} 
-					td #{carts.items[i].quantity}
-					td #{carts.items[i].price}
+				- console.log("carts.items.length = " + carts.items.length)
+				- if (carts.items.length) {
+					- var cartLength = carts.items.length
+					- for (var i = 0; i < cartLength; i++) {
+						tr
+						td #{carts.items[i].title} 
+						td #{carts.items[i].quantity}
+						td #{carts.items[i].price}
+						td
+							button.btn.btn-primary(type='submit')
+								i.fa.fa-check
+								| Update Quantity
+						td
+							button.btn.btn-primary(type='submit')
+								i.fa.fa-check
+								| Remove
+					- }
+				- }
+				- else {
+					td Nothing found!
 				- }
 				//- tr
 				//- 	//td #{carts.userID}
