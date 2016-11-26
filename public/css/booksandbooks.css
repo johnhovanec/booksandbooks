@@ -62,3 +62,11 @@ li {
 .bookDetailQty {
   padding-top: 10px;
 }
+
+.form-control {
+  width: 40%;
+}
+
+.cartTable {
+  width: 30%;
+}
