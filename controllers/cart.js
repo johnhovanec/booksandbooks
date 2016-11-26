@@ -73,8 +73,6 @@ exports.postAddToCart = (req, res, next) => {
 
     }); 
 
-
-
     // old
     // else { 
     //     req.flash('error', { msg: 'New cart created!' });
@@ -90,9 +88,6 @@ exports.postAddToCart = (req, res, next) => {
     //               })
     //     });
     // }
-
-
-
 
     // old
     // cart.save((err) => {
@@ -112,59 +107,44 @@ exports.postAddToCart = (req, res, next) => {
 };
 
 
-// /**
-//  * POST /signup
-//  * Create a new local account.
-//  */
-// exports.postAddToCart = (req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   console.log("In cart.js postAddToCart");
+/**
+ * Delete item from cart.
+ */
+exports.deleteItem = (req, res, next) => {
+ res.header("Access-Control-Allow-Origin", "*");
+  console.log("In cart.js postDeleteItem");
 
-//   const errors = req.validationErrors();
+  const errors = req.validationErrors();
 
-//   if (errors) {
-//     req.flash('errors', errors);
-//     return res.redirect('/books');
-//   }
-
-//   const cart = new Cart({
-//     userID: req.body.userID,
-//     items: ({ 
-//               //bookID: req.body.bookID, 
-//               ISBN: req.body.ISBN,
-//               title: req.body.title, 
-//               price: req.body.price,
-//               quantity: req.body.quantity
-//             })
-//   });
-
-//   //console.log("In cart bookID = " + cart.items[0].ISBN + " userID = " + cart.userID);
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/books');
+  }
   
-//   Cart.findOne({ userID: req.body.userID }, (err, existingCart) => {
-//     if (err) { return next(err); }
-//     if (existingCart) {
-//       //req.flash('errors', { msg: 'Cart already exists!' });
-//       //return res.redirect('/cart');
-//       console.log("Found a cart for user");
-//       //res.render('cart/detail', { cart: cart });
-//   }
-//     cart.save((err) => {
-//       if (err) { return next(err); }
-//       // req.logIn(cart, (err) => {
-//       //   if (err) {
-//       //     return next(err);                  
-//       //   }
-//       //   res.redirect('/');
-//       // });
-//       res.redirect('cart');
-//     });          
-
-//   });
-
-//   // });
-// };
-
-
+  // Look for an exiting cart linked to the userID
+  Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
+    if (err) { return next(err); }
+    console.log("In postAddToCart: userID = " + req.body.userID);
+    
+    if (!existingCart) {
+      req.flash('errors', { msg: 'Cart does not exists.' });
+      return res.redirect('/books');
+    } else {
+        existingCart.items[index].splice(1, 1);
+        existingCart.save((err) => {
+          if (err) { return next(err); }
+          // req.logIn(cart, (err) => {
+          //   if (err) {
+          //     return next(err);                  
+          //   }
+          //   res.redirect('/');
+          // });
+          req.flash('message', { msg: 'Item has been removed from cart.' });
+          res.redirect('/cart/' + existingCart.userID);
+        });
+      }
+    }); 
+};
 
 /* GET Cart/Checkout page. */
  exports.getCheckout = (req, res) => {
@@ -175,4 +155,8 @@ exports.postAddToCart = (req, res, next) => {
     });
   });
 };
+
+function test() {
+  console.log("TEST!!!!");
+}
 

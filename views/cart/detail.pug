@@ -20,11 +20,11 @@ block content
 						td #{carts.items[i].quantity}
 						td #{carts.items[i].price}
 						td
-							button.btn.btn-primary(type='submit')
+							button.btn.btn-primary(type='submit', id="btnQuan_" + i)
 								i.fa.fa-check
 								| Update Quantity
 						td
-							button.btn.btn-primary(type='submit')
+							button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="test()")
 								i.fa.fa-check
 								| Remove
 					- }
@@ -32,6 +32,8 @@ block content
 				- else {
 					td Nothing found!
 				- }
+
+
 				//- tr
 				//- 	//td #{carts.userID}
 				//- 	td #{carts.items[0].title}
@@ -66,6 +68,4 @@ block content
 				i.fa.fa-check
 				| Checkout
 		hr
-//- TO DO: Need to treat addToCart like an update since we want
-//- to add to an exisiting cart found by user_id, if none found create a new one.
 
