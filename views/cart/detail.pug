@@ -11,7 +11,7 @@ block content
 					th Price
 					th Quantity
 			tbody
-				- var i, index = -1;
+				- var i;
 				- console.log("carts.items.length = " + carts.items.length)
 				- if (carts.items.length) {
 					- var cartLength = carts.items.length
@@ -37,7 +37,7 @@ block content
 								input(type='hidden', name='index', value=i)
 								td
 									.form-group
-										input.form-control.cartTable(type='text', id='quantity', name='quantity', size='100px', placeholder=carts.items[i].quantity, value=carts.items[i].quantity, required)
+										input.form-control.cartTable(type='text', id='quantity', name='quantity', size='100px', value=carts.items[i].quantity, required)
 								td
 									.form-group
 										button.btn.btn.btn-primary(type='submit' onclick='getIndex()')

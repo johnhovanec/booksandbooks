@@ -97,10 +97,10 @@ exports.deleteItem = (req, res, next) => {
       req.flash('errors', { msg: 'Cart does not exists.' });
       return res.redirect('/books');
     } else {
-        //existingCart.items[index].splice(1, 1);
         var index = req.body.index;
         console.log(" Index = " + index);
-        existingCart.items.pop();
+        //existingCart.items.pop();
+        existingCart.items.splice(index, 1);
         existingCart.save((err) => {
           if (err) { return next(err); }
           // req.logIn(cart, (err) => {
@@ -109,7 +109,7 @@ exports.deleteItem = (req, res, next) => {
           //   }
           //   res.redirect('/');
           // });
-          req.flash('message', { msg: 'Item has been removed from cart.' });
+          req.flash('success', { msg: 'Item has been removed from shopping cart.' });
           res.redirect('/cart/' + existingCart.userID);
         });
       }
