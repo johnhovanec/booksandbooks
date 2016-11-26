@@ -4,7 +4,7 @@
   "description": "A bookstore SPA",
   "keywords": [
     "api"
-    ],
+  ],
   "scripts": {
     "start": "node app.js",
     "test": "mocha --reporter spec --timeout 5000"

@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+/* Project specific styles */
+
+/* padding for tables */
+td,
+th {
+  padding: 20px 40px 20px 20px;
+  vertical-align: text-top;
+}
+
+td img {
+  display: block;
+  margin: 0px 0px 5px 40px;
+/*  margin-left: auto;
+  margin-right: auto;*/
+}
+
+td ul {
+  list-style: none;
+  /*text-align: left;*/
+}
+
+li {
+  text-align: left;
+}
+
+.metaField {
+  font-weight: bold;
+}
+
+.metaFieldPrice {
+  color: red;
+  font-weight: bold;
+}
+
+.mainContent {
+  float: right;
+  padding-top: 10px;
+}
+
+.detailImage {
+  float: left;
+  list-style: none;
+  margin: 0px 15px 10px 0px;
+}
+
+.detailContent {
+  /*float: right;*/ 
+}
+
+.checkoutSection {
+  /*background-color: #EEE;*/
+  border: 1px gray solid;
+  padding: 0px 5px;
+}
+
+.checkoutCartTable {
+
+}
+
+.bookDetailQty {
+  padding-top: 10px;
+}
+
+.form-control {
+  width: 40%;
+}
+
+.cartTable {
+  width: 75%;
+}

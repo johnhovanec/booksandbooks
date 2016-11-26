@@ -1,0 +1,127 @@
+extends ../layout
+
+block content
+	.col-sm-9.mainContent
+		p User Idfrom page  = #{user._id}
+
+		table
+			thead
+				tr: h3 Shopping Cart    
+					th Item 
+					th Price
+					th Quantity
+			tbody
+				- var i;
+				- console.log("carts.items.length = " + carts.items.length)
+				- if (carts.items.length) {
+					- var cartLength = carts.items.length
+					- for (i = 0; i < cartLength; i++) {
+						//tr
+						//td #{carts.items[i].title} 
+						//td #{carts.items[i].quantity}
+						//td #{carts.items[i].price}
+						// td
+						// 	button.btn.btn-primary(type='submit', id="btnQuan_" + i)
+						// 		i.fa.fa-check
+						// 		| Update Quantity
+						// td
+						// 	button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="setIndex("+i+")")
+						// 		i.fa.fa-check
+						// 		| Remove
+						tr
+							td.cartTable #{carts.items[i].title}
+							td #{carts.items[i].price}
+							form.form-horizontal(action='/cart/update/index' method='POST') 
+								input(type='hidden', name='_csrf', value=_csrf)
+								input(type='hidden', name='userID', value=user._id)
+								input(type='hidden', name='index', value=i)
+								td
+									.form-group
+										input.form-control.cartTable(type='text', id='quantity', name='quantity', size='100px', value=carts.items[i].quantity, required)
+								td
+									button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+										i.fa.fa-check
+										| Update Quantity
+							form.form-horizontal(action='/cart/delete/index' method='POST') 
+								input(type='hidden', name='_csrf', value=_csrf)
+								input(type='hidden', name='userID', value=user._id)
+								input(type='hidden', name='index', value=i)
+								td
+									.form-group
+										button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+											i.fa.fa-check
+											| Remove
+							
+
+					- }
+				- }
+				- else {
+					td Nothing found!
+				- }
+
+
+		script(type='text/javascript').
+			function setIndex(num) {
+				index = num;
+				console.log("In vTest(): index = " + index + " num = " + num);
+			}
+
+			function getIndex() {
+				console.log("Called getIndex index = " + index);
+			}
+
+
+		//- form.form-horizontal(action='/cart/delete/index' method='POST') 
+		//- 	input(type='hidden', name='_csrf', value=_csrf)
+		//- 	input(type='hidden', name='userID', value=user._id)
+		//- 	input(type='hidden', name='index', value=index)
+		//- 	.form-group
+		//- 		label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
+		//- 		.col-sm-1
+		//- 			input.form-control(type='text', id='quantity', name='quantity' placeholder='1', value='1', required)
+		//- 		.form-group
+		//- 			.col-sm-3
+		//- 				button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+		//- 					i.fa.fa-check
+		//- 					| Remove
+
+
+
+
+
+
+				//- tr
+				//- 	//td #{carts.userID}
+				//- 	td #{carts.items[0].title}
+				//- 	td #{carts.items[0].quantity}
+				//- 	td #{carts.items[0].price}
+				//- 	//- To Do: Populate a second books in items array. Try to loop through items and display all.
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Update Quantity
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Remove
+				//- tr
+				//- 	//td #{carts.userID}
+				//- 	td #{carts.items[1].title}
+				//- 	td #{carts.items[1].quantity}
+				//- 	td #{carts.items[1].price}
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Update Quantity
+				//- 	td
+				//- 		button.btn.btn-primary(type='submit')
+				//- 			i.fa.fa-check
+				//- 			| Remove
+
+		hr
+		a(href="checkout")
+			button.btn.btn-primary(type='button')
+				i.fa.fa-check
+				| Checkout
+		hr
+

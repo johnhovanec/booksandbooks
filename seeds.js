@@ -1,3 +1,26 @@
+db.carts.insert({
+items:[
+			{																
+				book_id: 001, 
+				title: "Old Yeller", 
+				price: 17.99, 
+				quantity: Number 
+			},
+			{																
+				book_id: 002, 
+				title: "V", 
+				price: 22.89, 
+				quantity: Number 
+			},
+			{																
+				book_id: 003, 
+				title: "The Hobbit", 
+				price: 12.98, 
+				quantity: Number 
+			}
+			]					
+});
+
 db.books.insert ({
 	prodID:       "0001",
 	ISBN:         "918276354227",

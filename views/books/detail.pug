@@ -1,5 +1,38 @@
 extends ../layout
 
 block content
-	.col-sm-9.mainContent
-		h2 Books Detail books/detail.pug
+  .col-sm-8.mainContent
+    .row
+      div.detailImage
+        //- a(href="#")
+        img(height='350px' src="/art/" + book.imgPath)
+      div.detailContent
+        p #[span(class='metaField') _id:] #{book._id}
+        p #[span(class='metaField') Title:] #{book.title}
+        p #[span(class='metaField') ISBN:] #{book.ISBN}
+        p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+        p #[span(class='metaField') Publisher:] #{book.publisher}
+        //li #[span(class='metaField') Format:] #{book.publisher}
+        p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+
+        form.form-horizontal(action='/cart/userID' method='POST') 
+          input(type='hidden', name='_csrf', value=_csrf)
+          input(type='hidden', name='userID', value=user._id)
+          input(type='hidden', name='bookID', value=book._id)
+          input(type='hidden', name='title', value=book.title)
+          input(type='hidden', name='ISBN', value=book.ISBN)
+          input(type='hidden', name='sessionID', value='TEST123')
+          input(type='hidden', name='price', value=book.price) 
+          .form-group
+            label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
+            .col-sm-1
+              input.form-control(type='text', id='quantity', name='quantity' placeholder='1', value='1', required)
+            .form-group
+              .col-sm-3
+                button.btn.btn.btn-primary(type='submit')
+                  i.fa.fa-check
+                  | Add To Cart
+          br
+          br       
+          p #{book.blurb}
+      

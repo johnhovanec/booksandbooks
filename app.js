@@ -26,6 +26,7 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
  */
 dotenv.load({ path: '.env.example' });
 
+
 /**
  * Controllers (route handlers).
  */
@@ -37,6 +38,7 @@ const booksController = require('./controllers/books');
 const giftsController = require('./controllers/gifts');
 const eventsController = require('./controllers/events');
 const aboutController = require('./controllers/about');
+const cartController = require('./controllers/cart');
 /**
  * API keys and Passport configuration.
  */
@@ -92,14 +94,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if (req.path === '/books/create/') {        //was: '/api/upload'
     next();
   } else {
     lusca.csrf()(req, res, next);
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+app.use(lusca.xssProtection(true));   //was: app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
@@ -120,7 +122,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/', homeController.index);
+app.get('/', booksController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -139,7 +141,14 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
-app.post('/books', booksController.create);
+app.post('/books/create', booksController.create);
+app.get('/cart', cartController.index);
+app.get('/cart/:userID', cartController.detail);
+app.post('/cart/delete/:index', cartController.deleteItem);
+app.post('/cart/update/:index', cartController.updateItem);
+//app.get('/cart/:userID', cartController.detail);
+app.post('/cart/:userID', cartController.postAddToCart);
+app.get('/cart/checkout', cartController.getCheckout);
 // app.route('/books')
 //   .get(booksController.index)
 //   .post(booksController.create)

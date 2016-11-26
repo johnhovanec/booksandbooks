@@ -1,30 +1,61 @@
 const Book = require('../models/Book.js');
+
 /**
  * GET /
  * Books page.
  */
-
  exports.index = (req, res) => {
   Book.find((err, docs) => {
     res.render('books', { books: docs });
   });
 };
 
- exports.create = (req, res) => {
-  book.insert((err, docs) => {
-  	name: "The Road"
-    res.render('books', { books: docs });
+
+/* POST to create a new book */
+ exports.create = (req, res, next) => {
+  // create a new instance of the Book model
+  var book = new Book();
+
+  // set the books properties 
+  book.prodID = req.body.prodID;
+  book.ISBN = req.body.ISBN;
+  book.title = req.body.title;
+  book.authorFName = req.body.authorFName;
+  book.authorLName = req.body.authorLName;
+  book.publisher = req.body.publisher;
+  book.length = req.body.length;
+  book.pubDate = req.body.pubDate;
+  book.imgPath = req.body.imgPath;
+  book.blurb = req.body.blurb;
+  book.price = req.body.price;
+
+  // save the data received
+  book.save(function(err) {
+    if (err)
+        res.send(err);
+  // give some success message
+  //res.json({ message: 'book successfully created!' });
+
+    // To allow crsf
+    //res.header("Access-Control-Allow-Origin", "*");
+    //res.render('books');
+    res.render('books/detail', { book: book });
   });
 };
 
+
 /* GET book by id. */
- exports.detail = (req, res) => {
- Book.findById(req.params.book_id, (err, doc) => {
+ exports.detail = (req, res, next) => {
+ Book.findById(req.params.book_id, (err, book) => {
     if (err) { return next(err); }
-    res.render('books/detail', { books: doc });
+    res.render('books/detail', { book: book });
     //res.send(book);
+    //res.json(book);
   });
 };
+
+
+
 
 // /* GET book by id. */
 // router.get('/:book_id', function(req, res) {
