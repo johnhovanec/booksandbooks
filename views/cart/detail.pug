@@ -31,13 +31,21 @@ block content
 						tr
 							td.cartTable #{carts.items[i].title}
 							td #{carts.items[i].price}
-							form.form-horizontal(action='/cart/delete/index' method='POST') 
+							form.form-horizontal(action='/cart/update/index' method='POST') 
 								input(type='hidden', name='_csrf', value=_csrf)
 								input(type='hidden', name='userID', value=user._id)
 								input(type='hidden', name='index', value=i)
 								td
 									.form-group
 										input.form-control.cartTable(type='text', id='quantity', name='quantity', size='100px', value=carts.items[i].quantity, required)
+								td
+									button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+										i.fa.fa-check
+										| Update Quantity
+							form.form-horizontal(action='/cart/delete/index' method='POST') 
+								input(type='hidden', name='_csrf', value=_csrf)
+								input(type='hidden', name='userID', value=user._id)
+								input(type='hidden', name='index', value=i)
 								td
 									.form-group
 										button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
@@ -111,7 +119,7 @@ block content
 				//- 			| Remove
 
 		hr
-		a(href="cart/checkout")
+		a(href="checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout

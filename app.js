@@ -145,6 +145,7 @@ app.post('/books/create', booksController.create);
 app.get('/cart', cartController.index);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);
+app.post('/cart/update/:index', cartController.updateItem);
 //app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
