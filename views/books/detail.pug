@@ -16,7 +16,7 @@ block content
         //li #[span(class='metaField') Format:] #{book.publisher}
         p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
 
-        form.form-horizontal(action='/cart' method='POST') 
+        form.form-horizontal(action='/cart/userID' method='POST') 
           input(type='hidden', name='_csrf', value=_csrf)
           input(type='hidden', name='userID', value=user._id)
           input(type='hidden', name='bookID', value=book._id)

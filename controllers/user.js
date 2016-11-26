@@ -17,6 +17,7 @@ exports.getLogin = (req, res) => {
   });
 };
 
+
 /**
  * POST /login
  * Sign in using email and password.
@@ -47,6 +48,7 @@ exports.postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
+
 /**
  * GET /logout
  * Log out.
@@ -68,6 +70,7 @@ exports.getSignup = (req, res) => {
     title: 'Create Account'
   });
 };
+
 
 /**
  * POST /signup
@@ -109,6 +112,7 @@ exports.postSignup = (req, res, next) => {
   });
 };
 
+
 /**
  * GET /account
  * Profile page.
@@ -118,6 +122,7 @@ exports.getAccount = (req, res) => {
     title: 'Account Management'
   });
 };
+
 
 /**
  * POST /account/profile
@@ -155,6 +160,7 @@ exports.postUpdateProfile = (req, res, next) => {
   });
 };
 
+
 /**
  * POST /account/password
  * Update current password.
@@ -181,6 +187,7 @@ exports.postUpdatePassword = (req, res, next) => {
   });
 };
 
+
 /**
  * POST /account/delete
  * Delete user account.
@@ -193,6 +200,7 @@ exports.postDeleteAccount = (req, res, next) => {
     res.redirect('/');
   });
 };
+
 
 /**
  * GET /account/unlink/:provider
@@ -211,6 +219,7 @@ exports.getOauthUnlink = (req, res, next) => {
     });
   });
 };
+
 
 /**
  * GET /reset/:token
@@ -234,6 +243,7 @@ exports.getReset = (req, res, next) => {
       });
     });
 };
+
 
 /**
  * POST /reset/:token
@@ -309,6 +319,7 @@ exports.getForgot = (req, res) => {
     title: 'Forgot Password'
   });
 };
+
 
 /**
  * POST /forgot

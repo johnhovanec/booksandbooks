@@ -146,7 +146,7 @@ app.get('/cart', cartController.index);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:userID', cartController.deleteItem);
 //app.get('/cart/:userID', cartController.detail);
-app.post('/cart', cartController.postAddToCart);
+app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
 // app.route('/books')
 //   .get(booksController.index)
