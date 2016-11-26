@@ -72,38 +72,6 @@ exports.postAddToCart = (req, res, next) => {
     //   // Push new items into items []
 
     }); 
-
-    // old
-    // else { 
-    //     req.flash('error', { msg: 'New cart created!' });
-    //     console.log("Creating new cart for user");                           // No existing cart found, create one
-    //     const cart = new Cart({
-    //       userID: req.body.userID,
-    //       items: ({ 
-    //                 //bookID: req.body.bookID, 
-    //                 ISBN: req.body.ISBN,
-    //                 title: req.body.title, 
-    //                 price: req.body.price,
-    //                 quantity: req.body.quantity
-    //               })
-    //     });
-    // }
-
-    // old
-    // cart.save((err) => {
-    //   if (err) { return next(err); }
-    //   // req.logIn(cart, (err) => {
-    //   //   if (err) {
-    //   //     return next(err);                  
-    //   //   }
-    //   //   res.redirect('/');
-    //   // });
-    //   res.redirect('/cart/' + cart.userID);
-    // });          
-
-  
-
-  // });
 };
 
 
@@ -112,25 +80,27 @@ exports.postAddToCart = (req, res, next) => {
  */
 exports.deleteItem = (req, res, next) => {
  res.header("Access-Control-Allow-Origin", "*");
-  console.log("In cart.js postDeleteItem");
+  console.log("In cart.js deleteItem");
 
   const errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/books');
+    return res.redirect('/cart/userID');
   }
   
   // Look for an exiting cart linked to the userID
   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
     if (err) { return next(err); }
-    console.log("In postAddToCart: userID = " + req.body.userID);
-    
+    console.log("In cart deleteItem: userID = " + req.body.userID);
     if (!existingCart) {
       req.flash('errors', { msg: 'Cart does not exists.' });
       return res.redirect('/books');
     } else {
-        existingCart.items[index].splice(1, 1);
+        //existingCart.items[index].splice(1, 1);
+        var index = req.body.index;
+        console.log(" Index = " + index);
+        existingCart.items.pop();
         existingCart.save((err) => {
           if (err) { return next(err); }
           // req.logIn(cart, (err) => {
@@ -156,7 +126,5 @@ exports.deleteItem = (req, res, next) => {
   });
 };
 
-function test() {
-  console.log("TEST!!!!");
-}
+
 

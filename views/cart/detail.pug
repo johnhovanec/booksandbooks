@@ -11,10 +11,11 @@ block content
 					th Quantity
 					th Price
 			tbody
+				- var i, index = -1;
 				- console.log("carts.items.length = " + carts.items.length)
 				- if (carts.items.length) {
 					- var cartLength = carts.items.length
-					- for (var i = 0; i < cartLength; i++) {
+					- for (i = 0; i < cartLength; i++) {
 						tr
 						td #{carts.items[i].title} 
 						td #{carts.items[i].quantity}
@@ -24,7 +25,7 @@ block content
 								i.fa.fa-check
 								| Update Quantity
 						td
-							button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="test()")
+							button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="setIndex("+i+")")
 								i.fa.fa-check
 								| Remove
 					- }
@@ -32,6 +33,53 @@ block content
 				- else {
 					td Nothing found!
 				- }
+
+
+		script(type='text/javascript').
+			function setIndex(num) {
+				index = num;
+				console.log("In vTest(): index = " + index + " num = " + num);
+			}
+
+			function getIndex() {
+				console.log("Called getIndex index = " + index);
+			}
+
+
+		form.form-horizontal(action='/cart/delete/userID' method='POST') 
+			input(type='hidden', name='_csrf', value=_csrf)
+			input(type='hidden', name='userID', value=user._id)
+			input(type='hidden', name='index', value=index)
+			.form-group
+				label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
+				.col-sm-1
+					input.form-control(type='text', id='quantity', name='quantity' placeholder='1', value='1', required)
+				.form-group
+					.col-sm-3
+						button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+							i.fa.fa-check
+							| Remove
+
+
+		
+
+
+			//- form.form-horizontal(action='/cart/delete/userID' method='POST') 
+			//- 	input(type='hidden', name='_csrf', value=_csrf)
+			//- 	input(type='hidden', name='userID', value=user._id)
+			//- 	input(type='hidden', name='target', value=i)
+
+			//- 	//- input(type='hidden', name='bookID', value=book._id)
+				//- input(type='hidden', name='title', value=book.title)
+				//- input(type='hidden', name='ISBN', value=book.ISBN)
+				//- input(type='hidden', name='sessionID', value='TEST123')
+				//- input(type='hidden', name='price', value=book.price) 
+
+				//- - function vTest() {
+				//- 		console.log("In v Test ****");
+				//- -	}
+
+
 
 
 				//- tr
