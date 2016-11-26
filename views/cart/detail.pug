@@ -16,18 +16,33 @@ block content
 				- if (carts.items.length) {
 					- var cartLength = carts.items.length
 					- for (i = 0; i < cartLength; i++) {
+						var quan =  #{carts.items[i].quantity};
 						tr
 						td #{carts.items[i].title} 
 						td #{carts.items[i].quantity}
 						td #{carts.items[i].price}
-						td
-							button.btn.btn-primary(type='submit', id="btnQuan_" + i)
-								i.fa.fa-check
-								| Update Quantity
-						td
-							button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="setIndex("+i+")")
-								i.fa.fa-check
-								| Remove
+						// td
+						// 	button.btn.btn-primary(type='submit', id="btnQuan_" + i)
+						// 		i.fa.fa-check
+						// 		| Update Quantity
+						// td
+						// 	button.btn.btn-primary(type='submit', id="btnRemove_" + i, onclick="setIndex("+i+")")
+						// 		i.fa.fa-check
+						// 		| Remove
+						.row
+							form.form-horizontal(action='/cart/delete/index' method='POST') 
+								input(type='hidden', name='_csrf', value=_csrf)
+								input(type='hidden', name='userID', value=user._id)
+								input(type='hidden', name='index', value=i)
+								.form-group
+									label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
+									.col-sm-1
+										input.form-control(type='text', id='quantity', name='quantity', placeholder='', value=carts.items[i].quantity, required)
+									.form-group
+										.col-sm-3
+											button.btn.btn.btn-primary(type='submit' onclick='getIndex()')
+												i.fa.fa-check
+												| Remove
 					- }
 				- }
 				- else {
@@ -46,7 +61,7 @@ block content
 			}
 
 
-		form.form-horizontal(action='/cart/delete/userID' method='POST') 
+		form.form-horizontal(action='/cart/delete/index' method='POST') 
 			input(type='hidden', name='_csrf', value=_csrf)
 			input(type='hidden', name='userID', value=user._id)
 			input(type='hidden', name='index', value=index)
