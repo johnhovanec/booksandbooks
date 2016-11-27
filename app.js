@@ -39,6 +39,7 @@ const giftsController = require('./controllers/gifts');
 const eventsController = require('./controllers/events');
 const aboutController = require('./controllers/about');
 const cartController = require('./controllers/cart');
+const checkoutController = require('./controllers/checkout');
 /**
  * API keys and Passport configuration.
  */
@@ -149,11 +150,9 @@ app.post('/cart/update/:index', cartController.updateItem);
 //app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
-// app.route('/books')
-//   .get(booksController.index)
-//   .post(booksController.create)
-//   .put(booksController.updateBooks)
-//   .delete(booksController.deleteBooks)
+//app.get('/cart/checkout', eventsController.getCheckout);
+app.get('/checkout/:userID', checkoutController.index);
+
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);
 app.get('/about', aboutController.index);

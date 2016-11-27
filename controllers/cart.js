@@ -8,7 +8,7 @@ const Cart = require('../models/Cart.js');
 };
 
 
-/* GET cart by userID. */
+// /* GET cart by userID. */
  exports.detail = (req, res, next) => {
  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { return next(err); }
@@ -89,7 +89,7 @@ exports.deleteItem = (req, res, next) => {
     return res.redirect('/cart/userID');
   }
   
-  // Look for an exiting cart linked to the userID
+  // Look for an existing cart linked to the userID
   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
     if (err) { return next(err); }
     console.log("In cart deleteItem: userID = " + req.body.userID);
@@ -131,7 +131,7 @@ exports.updateItem = (req, res, next) => {
     return res.redirect('/cart/userID');
   }
   
-  // Look for an exiting cart linked to the userID
+  // Look for an existing cart linked to the userID
   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
     if (err) { return next(err); }
     console.log("In cart updateItem: userID = " + req.body.userID);
@@ -161,8 +161,50 @@ exports.updateItem = (req, res, next) => {
 };
 
 
+/**
+ * POST cart to checkout.
+ */
+// exports.getCheckout = (req, res, next) => {
+//  res.header("Access-Control-Allow-Origin", "*");
+//   console.log("In cart.js getCheckout");
+
+//   const errors = req.validationErrors();
+
+//   if (errors) {
+//     req.flash('errors', errors);
+//     return res.redirect('/books');
+//   }
+  
+//   // Look for an existing cart linked to the userID
+//   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
+//     if (err) { return next(err); }
+//     console.log("In cart getCheckout: userID = " + req.body.userID);
+//     if (!existingCart) {
+//       req.flash('errors', { msg: 'Cart does not exist!.' });
+//       return res.redirect('/cart/' + req.body.userID);
+//     } else {
+//         var index = req.body.index;
+//         console.log("in getCheckout Index = " + index);
+//         //var updatedQuanity = req.body.quantity;
+//         //console.log("In updateItem: passed in updatedQuanity = " + updatedQuanity);
+//         //existingCart.items[index].quantity = updatedQuanity;
+//         existingCart.save((err) => {
+//           if (err) { return next(err); }
+//           // req.logIn(cart, (err) => {
+//           //   if (err) {
+//           //     return next(err);                  
+//           //   }
+//           //   res.redirect('/');
+//           // });
+//           //req.flash('success', { msg: 'Item quantity has been updated.' });
+//           res.redirect('/cart/checkout');
+//         });
+//       }
+//     }); 
+// };
+
 /* GET Cart/Checkout page. */
- exports.getCheckout = (req, res) => {
+ exports.getCheckout = (req, res, next) => {
   Cart.find((err, docs) => {
     res.render('cart/checkout', { 
       cart: docs,
