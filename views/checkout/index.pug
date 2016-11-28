@@ -20,7 +20,6 @@ block content
 							td.cartTable #{carts.items[i].title}
 							td #{carts.items[i].quantity}
 							td #{carts.items[i].price}
-							
 					- }
 				- }
 				- else {
@@ -29,7 +28,7 @@ block content
 				tr
 					td
 						a(href='../cart/' + user._id)
-							button.btn.btn-primary(type='submit')
+							button.btn.btn-primary(type='button')
 								i.fa.fa-check
 								| Edit Cart
 		hr
@@ -53,7 +52,7 @@ block content
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Billing Info
-			form.form-horizontal(id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
 				input(type='hidden', name='_csrf', value=_csrf)
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
@@ -137,7 +136,7 @@ block content
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Shipping Info
-			form.form-horizontal(id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
 				.form-group
 					input(type="checkbox", value="", id="sameAsBilling")
 					label.col-sm-5.control-label(for='cardNumber') Same as billing
@@ -167,13 +166,19 @@ block content
 					.col-sm-7
 						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
 
-			input(type="checkbox", value="", id="sameAsBilling")
-			label.col-sm-6.control-label(for='cardNumber') Join our mailing list
+				input(type="checkbox", value="", id="sameAsBilling", action="copyBillingInfo()")
+				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
+				br
+				button.btn.btn-primary(type='submit', form='billing-form')
+					i.fa.fa-check
+					| Place Order
 
-		br
-		button.btn.btn-primary(type='submit')
-			i.fa.fa-check
-			| Place Order
+
+
+	script.
+		function copyBillingInfo() {
+			console.log("in copyBillingInfo")
+		}				
 			//- //a.btn.btn-default
 			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
 			//- span.caret

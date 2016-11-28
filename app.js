@@ -153,6 +153,7 @@ app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
 //app.get('/cart/checkout', eventsController.getCheckout);
 app.get('/checkout/:userID', checkoutController.index);
+app.post('/checkout/confirmation', checkoutController.postConfirmation);
 
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);
