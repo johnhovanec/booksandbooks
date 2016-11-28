@@ -41,9 +41,10 @@ exports.postAddToCart = (req, res, next) => {
     console.log("In postAddToCart: userID = " + req.body.userID);
     
     if (!existingCart) {
-      req.flash('errors', { msg: 'Cart does not exists.' });
-      return res.redirect('/books');
-    } else {
+      existingCart = new Cart({
+        userID: req.body.userID
+      });
+    } //else {
         existingCart.subTotal += req.body.price;
         existingCart.taxAmount = existingCart.subTotal * existingCart.taxRate;    // Apply MD state tax
         if (existingCart.subTotal > 50.00 ) {                                     // Shipping over $50 is free, otherwise it's 12% of subTotal
@@ -70,16 +71,7 @@ exports.postAddToCart = (req, res, next) => {
           req.flash('success', { msg: 'Your cart has been updated.' });
           res.redirect('/cart/' + existingCart.userID);
         });
-      }
-        
-    // if (existingCart) {
-    //   req.flash('errors', { msg: 'Cart already exists!' });
-    //   //return res.redirect('/cart');
-    //   console.log("Found a cart for user");
-    //   //res.render('cart/detail', { cart: cart });
-
-    //   // Push new items into items []
-
+      //}
     }); 
 };
 
