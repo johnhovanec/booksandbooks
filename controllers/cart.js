@@ -44,6 +44,15 @@ exports.postAddToCart = (req, res, next) => {
       req.flash('errors', { msg: 'Cart does not exists.' });
       return res.redirect('/books');
     } else {
+        existingCart.subTotal += req.body.price;
+        existingCart.taxAmount = existingCart.subTotal * existingCart.taxRate;    // Apply MD state tax
+        if (existingCart.subTotal > 50.00 ) {                                     // Shipping over $50 is free, otherwise it's 12% of subTotal
+            existingCart.shippingRate = 0;
+        } else {
+          existingCart.shippingRate = existingCart.subTotal * 0.12;
+        }
+        existingCart.shippingAmount = existingCart.subTotal * existingCart.shippingRate;                       //Add shipping to subTotal
+        existingCart.total += existingCart.subTotal + existingCart.taxAmount + existingCart.shippingAmount;    // Calculate total
         existingCart.items.push({
                           ISBN: req.body.ISBN,
                           title: req.body.title,
