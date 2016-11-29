@@ -155,6 +155,8 @@ app.get('/cart/checkout', cartController.getCheckout);
 app.get('/checkout/:userID', checkoutController.index);
 app.post('/checkout/confirmation', checkoutController.postConfirmation);
 
+app.get('/ajax', checkoutController.ajax);
+
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);
 app.get('/about', aboutController.index);

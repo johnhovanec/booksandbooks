@@ -25,7 +25,7 @@ block content
 								input(type='hidden', name='index', value=i)
 								td
 									.form-group
-										input.form-control.cartTable(type='text', id='quantity', name='quantity', size='100px', value=carts.items[i].quantity, required)
+										input.form-control.quantity.cartTable(type='text', id=i, name='quantity', size='100px', value=carts.items[i].quantity, required)
 								td
 									button.btn.btn.btn-primary.updateQuantity(type='submit' onclick='getIndex()')
 										i.fa.fa-check

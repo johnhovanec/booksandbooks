@@ -7,6 +7,16 @@ const Cart = require('../models/Cart.js');
 //   });
 // };
 
+// AJAX test
+exports.ajax = (req, res) => {
+  //res.send("This is an ajax test");
+  console.log("In ajax test ...");
+   // input value from quantity
+   var val = req.query.quantity;
+   console.log(val);
+};
+
+
 // /* GET cart by userID. */
  exports.index = (req, res, next) => {
  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
