@@ -13,7 +13,8 @@ exports.ajax = (req, res) => {
   console.log("In ajax test ...");
    // input value from quantity
    var val = req.query.quantity;
-   console.log(val);
+   var index = req.query.index;
+   console.log(val + " " + index);
 };
 
 
