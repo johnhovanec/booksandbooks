@@ -37,15 +37,10 @@ $(function(){
 // setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
 
+	// Update item quantity in cart
  $('.quantity').on('change', function(e){
-   //   var parameters = { 
-   //   		_csrf : $('input').eq(1).val(),		// Don't ask 
-			// 	quantity: $(this).val(),					// Get the new quantity
-			// 	index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
-			// 	userID: $('input').eq(1).val()
-			// };
 	 $.post(
-	    "/ajaxPost",
+	    "/ajaxPostQuantity",
 	    {
 	    	_csrf: $('input').eq(0).val(), // $('meta[name="_csrf"]').attr('content'),
 	    	quantity: $(this).val(), 
@@ -54,23 +49,45 @@ $(function(){
 	    },	function(data) {
 	    	console.log(">>>>>> " + data);
 	    }
-
 	  );
 	});
 
 
 
- // $('.updateQuantity').on('click' function() {
-	// 	var parameters = { 
-	// 		quantity: $(this).val(),					// Get the new quantity
-	// 		index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
-	// 		userID: $('input').eq(1).val()
-	// 	};
-	// 	  $.post('/ajaxPost', parameters, function(data) {
- //     		$('#results').html(data);
- //   });
+ // $('.quantity').on('click', function() {
+	// 	// var parameters = { 
+	// 	// 	quantity: $(this).val(),					// Get the new quantity
+	// 	// 	index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
+	// 	// 	userID: $('input').eq(1).val()
+	// 	// };
+	// 	$.post(
+	//     "/ajaxPost",
+	//     {
+	//     	_csrf: $('input').eq(0).val(), // $('meta[name="_csrf"]').attr('content'),
+	//     	quantity: $(this).val(), 
+	//     	index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
+	// 			userID: $('input').eq(1).val()
+	//     },	function(data) {
+	//     	console.log(">>>>>> " + data);
+	//     }
+	//   );
  // })
 
+ // Delete an item from the cart
+ $('.deleteItem').on('click', function() {
+ 		console.log("deleteItem clicked");
+		// $.post(
+	 //    "/ajaxPost",
+	 //    {
+	 //    	_csrf: $('input').eq(0).val(), // $('meta[name="_csrf"]').attr('content'),
+	 //    	quantity: $(this).val(), 
+	 //    	index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
+		// 		userID: $('input').eq(1).val()
+	 //    },	function(data) {
+	 //    	console.log(">>>>>> " + data);
+	 //    }
+	 //  );
+ })
 
 	});
 

@@ -28,7 +28,7 @@ block content
 									.form-group
 										input.form-control.quantity.cartTable(type='text', id=i, name='quantity', size='100px', value=carts.items[i].quantity, required)
 								td
-									button.btn.btn.btn-primary.updateQuantity(type='button' onclick='getIndex()')
+									button.btn.btn.btn-primary.updateQuantity(type='button' onclick='')
 										i.fa.fa-check
 										| Update Quantity
 							form.form-horizontal.deleteItem(action='/cart/delete/index' method='POST') 
@@ -37,7 +37,7 @@ block content
 								input(type='hidden', name='index', value=i)
 								td
 									.form-group
-										button.btn.btn.btn-primary.deleteItem(type='submit' onclick='getIndex()')
+										button.btn.btn.btn-primary.deleteItem(type='button' onclick='')
 											i.fa.fa-check
 											| Remove
 					- }

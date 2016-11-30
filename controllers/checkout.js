@@ -35,7 +35,7 @@ exports.ajax = (req, res) => {
 
 
 // AJAX post test
-exports.ajaxPost = (req, res, next) => {
+exports.ajaxPostQuantity = (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   //res.send("This is an ajax test");
   console.log("In ajaxPost test ...");
@@ -55,8 +55,12 @@ exports.ajaxPost = (req, res, next) => {
     console.log("new quanity = " + cart.items[index].quantity);
 
     cart.save((err) => {
-      if (err) { return next(err); }
-      req.flash('success', { msg: 'Ajax quantity has been updated.' });
+      if (err) { 
+        return next(err); 
+      } else {
+        req.flash('success', { msg: 'Your cart has been updated.' });
+      }
+      //req.flash('success', { msg: 'Ajax quantity has been updated.' });
       //res.redirect('/cart/' + existingCart.userID);
     });
   });
