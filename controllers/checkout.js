@@ -12,9 +12,54 @@ exports.ajax = (req, res) => {
   //res.send("This is an ajax test");
   console.log("In ajax test ...");
    // input value from quantity
-   var val = req.query.quantity;
+   var quantity = req.query.quantity;
    var index = req.query.index;
-   console.log(val + " " + index);
+   var userID = req.query.userID;
+   //var userID = req.query.userID;
+   console.log("quantity = " + quantity + "  index = " + index + "  userID = " + userID);
+
+   // Find a user cart
+  Cart.findOne({"userID": userID }, (err, cart) => {
+    if (err) { return next(err); }
+    console.log("In checkout cart found: orig quanity = " + cart.items[index].quantity);
+    cart.items[index].quantity = quantity;
+    console.log("new quanity = " + cart.items[index].quantity);
+
+    cart.save((err) => {
+      if (err) { return next(err); }
+      req.flash('success', { msg: 'Ajax quantity has been updated.' });
+      //res.redirect('/cart/' + existingCart.userID);
+    });
+  });
+};
+
+
+// AJAX post test
+exports.ajaxPost = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  //res.send("This is an ajax test");
+  console.log("In ajaxPost test ...");
+
+   // input value from quantity
+   var quantity = req.body.quantity;
+   var index = req.body.index;
+   var userID = req.body.userID;
+   //var userID = req.query.userID;
+   console.log("quantity = " + quantity + "  index = " + index + "  userID = " + userID);
+
+  // Find a user cart
+  Cart.findOne({"userID": userID }, (err, cart) => {
+    if (err) { return next(err); }
+    console.log("In ajaxPost: orig quanity = " + cart.items[index].quantity);
+    cart.items[index].quantity = quantity;
+    console.log("new quanity = " + cart.items[index].quantity);
+
+    cart.save((err) => {
+      if (err) { return next(err); }
+      req.flash('success', { msg: 'Ajax quantity has been updated.' });
+      //res.redirect('/cart/' + existingCart.userID);
+    });
+  });
 };
 
 

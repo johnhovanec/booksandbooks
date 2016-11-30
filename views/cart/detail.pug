@@ -3,6 +3,7 @@ extends ../layout
 block content
 	.col-sm-9.mainContent
 		p User Idfrom page  = #{user._id}
+		meta(name="csrf-token", content="#{token}")
 
 		table
 			thead
@@ -27,7 +28,7 @@ block content
 									.form-group
 										input.form-control.quantity.cartTable(type='text', id=i, name='quantity', size='100px', value=carts.items[i].quantity, required)
 								td
-									button.btn.btn.btn-primary.updateQuantity(type='submit' onclick='getIndex()')
+									button.btn.btn.btn-primary.updateQuantity(type='button' onclick='getIndex()')
 										i.fa.fa-check
 										| Update Quantity
 							form.form-horizontal.deleteItem(action='/cart/delete/index' method='POST') 
