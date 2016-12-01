@@ -30,10 +30,11 @@ block content
 				else
 					td sorry, no books!
 		hr
-		a(href="http://localhost:3000/checkout")
+		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
-
+//- TO DO: Need to treat addToCart like an update since we want
+//- to add to an exisiting cart found by user_id, if none found create a new one.
 

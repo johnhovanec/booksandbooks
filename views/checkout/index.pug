@@ -1,0 +1,207 @@
+extends ../layout	
+
+block content
+	p User Idfrom page  = #{user._id}
+
+	////   Shopping Cart    ////
+	.col-sm-4.checkoutSection
+		table
+			thead
+				tr: h3 Shopping Cart
+					th Item 
+					th Quantity
+					th Price
+			tbody
+				tr
+					- if (carts.items.length) {
+					- var cartLength = carts.items.length
+					- for (i = 0; i < cartLength; i++) {
+						tr
+							td.cartTable #{carts.items[i].title}
+							td #{carts.items[i].quantity}
+							td #{carts.items[i].price}
+					- }
+				- }
+				- else {
+					td Nothing found!
+				- }
+				tr
+					td
+						a(href='../cart/' + user._id)
+							button.btn.btn-primary(type='button')
+								i.fa.fa-check
+								| Edit Cart
+		hr
+		table.checkoutCartTable
+			tbody
+				tr
+					td Subtotal
+					td $#{carts.subTotal}
+				tr
+					td Estimated Shipping
+					td $#{carts.shippingAmount}
+				tr
+					td Tax
+					td $#{carts.taxAmount}
+				tr
+					td Total
+					td $#{carts.total}
+
+
+	////   Billing Info		////		
+	.col-sm-4.checkoutSection
+		div.billingInfo
+			h3 Billing Info
+			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+				input(type='hidden', name='_csrf', value=_csrf)
+				.form-group
+					label.col-sm-3.control-label(for='name') Name
+					.col-sm-7
+						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+				.form-group
+					label.col-sm-3.control-label(for='address') Address
+					.col-sm-7
+						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+				.form-group
+					label.col-sm-3.control-label(for='city') City
+					.col-sm-7
+						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+				.form-group
+					label.col-sm-3.control-label(for='state') State
+					.col-sm-7
+						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+				.form-group
+					label.col-sm-3.control-label(for='zip') Zip
+					.col-sm-7
+						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+				.form-group
+					label.col-sm-3.control-label(for='email') Email
+					.col-sm-7
+						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
+				hr
+				// Credit card info
+				h4 Payment Method
+				.form-group
+					label.col-sm-3.control-label(for='cardNumber') Type
+					.dropdown
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Credit Card Type
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="menu")
+							li: a( href="#", selected='true') Visa
+							li: a( href="#" ) American Express
+							li: a( href="#" ) Mastercard
+
+				// Card Number
+				.form-group
+					label.col-sm-3.control-label(for='cardNumber') Card Number
+					.col-sm-7
+						input.form-control.checkout-form-control(type='cardNumber', name='cardNumber', id='cardNumber', placeholder='Card Number', required)
+
+				// Month
+				.form-group
+					.dropdownCVV
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Month
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="menu")
+							li(id="btnMonth") 1
+							li(id="btnMonth") 2
+							li(id="btnMonth") 3
+							li(id="btnMonth") 4
+							li(id="btnMonth") 5
+							li(id="btnMonth") 6
+							li(id="btnMonth") 7
+							li(id="btnMonth") 8
+							li(id="btnMonth") 9
+							li(id="btnMonth") 10
+							li(id="btnMonth") 11
+							li(id="btnMonth") 12
+
+						// Year
+						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Year
+							| &nbsp;
+							span.caret
+						ul.dropdown-menu(role="year")
+							li(id="btnMonth") 2016
+							li(id="btnMonth") 2017
+							li(id="btnMonth") 2018
+							li(id="btnMonth") 2019
+							li(id="btnMonth") 2020
+						// CVV
+						.col-sm-3
+							input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
+
+	////    Shipping Info    ////
+	.col-sm-4.checkoutSection
+		div.billingInfo
+			h3 Shipping Info
+			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+				.form-group
+					input(type="checkbox", value="", id="sameAsBilling")
+					label.col-sm-5.control-label(for='cardNumber') Same as billing
+				input(type='hidden', name='_csrf', value=_csrf)
+				.form-group
+					label.col-sm-3.control-label(for='name') Name
+					.col-sm-7
+						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+				.form-group
+					label.col-sm-3.control-label(for='address') Address
+					.col-sm-7
+						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+				.form-group
+					label.col-sm-3.control-label(for='city') City
+					.col-sm-7
+						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+				.form-group
+					label.col-sm-3.control-label(for='state') State
+					.col-sm-7
+						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+				.form-group
+					label.col-sm-3.control-label(for='zip') Zip
+					.col-sm-7
+						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+				.form-group
+					label.col-sm-3.control-label(for='email') Email
+					.col-sm-7
+						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
+
+				input(type="checkbox", value="", id="sameAsBilling", action="copyBillingInfo()")
+				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
+				br
+				button.btn.btn-primary(type='submit', form='billing-form')
+					i.fa.fa-check
+					| Place Order
+
+
+
+	script.
+		function copyBillingInfo() {
+			console.log("in copyBillingInfo")
+		}				
+			//- //a.btn.btn-default
+			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
+			//- span.caret
+			//- ul.dropdown-menu( role="menu" )
+			//- 	li: a( href="#" ) Action
+			//- 	li: a( href="#" ) Another action
+			//- 	li: a( href="#" ) Something else here
+
+
+		//- .dropdown
+		//- 	button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Type
+		//- 		| &nbsp;
+		//- 		span.caret
+		//- 	ul.dropdown-menu(role="menu")
+		//- 		li(role="presentation"): a(href="#") Action
+		//- 				a(role="menuitem",tabindex="-1",href="#") Somethin
+
+
+//- ul.dropdown-menu( role="menu" )
+//- 				li: a( href="#" ) Action
+//- 				li: a( href="#" ) Another action
+//- 				li: a( href="#" ) Something else here
+//- 				li.divider
+//- 				li.dropdown-header Nav header
+//- 				li: a( href="#" ) Separated link
+//- 				li: a( href="#" ) One more separated link

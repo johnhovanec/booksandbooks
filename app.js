@@ -39,6 +39,7 @@ const giftsController = require('./controllers/gifts');
 const eventsController = require('./controllers/events');
 const aboutController = require('./controllers/about');
 const cartController = require('./controllers/cart');
+const checkoutController = require('./controllers/checkout');
 /**
  * API keys and Passport configuration.
  */
@@ -143,17 +144,20 @@ app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
 app.get('/cart', cartController.index);
+app.get('/cart/null', cartController.getLogin);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);
 app.post('/cart/update/:index', cartController.updateItem);
 //app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/cart/checkout', cartController.getCheckout);
-// app.route('/books')
-//   .get(booksController.index)
-//   .post(booksController.create)
-//   .put(booksController.updateBooks)
-//   .delete(booksController.deleteBooks)
+//app.get('/cart/checkout', eventsController.getCheckout);
+app.get('/checkout/:userID', checkoutController.index);
+app.post('/checkout/confirmation', checkoutController.postConfirmation);
+
+app.get('/ajax', checkoutController.ajax);
+app.post('/ajaxPostQuantity', checkoutController.ajaxPostQuantity);
+
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);
 app.get('/about', aboutController.index);

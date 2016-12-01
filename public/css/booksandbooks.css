@@ -70,3 +70,11 @@ li {
 .cartTable {
   width: 75%;
 }
+
+.checkout-form-control {
+  width: 100%;
+}
+
+.detail-form-control {
+  width: 100%;
+}
