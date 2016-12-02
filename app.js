@@ -157,6 +157,7 @@ app.post('/checkout/confirmation', checkoutController.postConfirmation);
 
 app.get('/ajax', checkoutController.ajax);
 app.post('/ajaxPostQuantity', checkoutController.ajaxPostQuantity);
+app.post('/ajaxPostRemove', checkoutController.ajaxPostRemove);
 
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);

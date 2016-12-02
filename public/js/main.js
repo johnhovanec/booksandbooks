@@ -27,12 +27,12 @@ $(function(){
 		$.post(
 	    "/ajaxPostQuantity",
 	    {
-	    	_csrf: $('input').eq(0).val(), 											// $('meta[name="_csrf"]').attr('content'),
-	    	quantity: $(this).parent().parent().find('input').eq(3).val(),      //closest('.quantity').attr('id'),
+	    	_csrf: $('input').eq(0).val(), 											
+	    	quantity: $(this).parent().parent().find('input').eq(3).val(),  //closest('.quantity').attr('id'),
 	    	index: $(this).parent().parent().find('input').eq(2).val(),	// Get the id value to use as the index to access the item being updated
-				userID: $('input').eq(1).val()
+				userID: $('input').eq(1).val()															// Used to find user's cart
 	    },	function(data) {
-	    	console.log(">>>>>> " + data);
+	    	//console.log(">>>>>> " + data);
 	    }
 	  );
  })
@@ -40,17 +40,18 @@ $(function(){
  // Delete an item from the cart
  $('.deleteItem').on('click', function() {
  		console.log("deleteItem clicked");
-		// $.post(
-	 //    "/ajaxPost",
-	 //    {
-	 //    	_csrf: $('input').eq(0).val(), // $('meta[name="_csrf"]').attr('content'),
-	 //    	quantity: $(this).val(), 
-	 //    	index: $(this).attr('id'),				// Get the id value to use as the index to access the item being updated
-		// 		userID: $('input').eq(1).val()
-	 //    },	function(data) {
-	 //    	console.log(">>>>>> " + data);
-	 //    }
-	 //  );
+ 		$(this).parent().parent().parent().detach();  	// remove element but keep data for ajax call
+		$.post(
+	    "/ajaxPostRemove",
+	    {
+	    	_csrf: $('input').eq(0).val(), 
+	    	index: $(this).parent().parent().parent().find('input').eq(2).val(),	// Get the id value to use as the index to access the item being updated
+				userID: $('input').eq(1).val()		// Used to find user's cart
+	    },	function(data) {
+	    	//console.log(">>>>>> " + data);
+	    	$(this).parent().parent().parent().remove();  // remove element and all bound data
+	    }
+	  );
  })
 
 	});
