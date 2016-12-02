@@ -52,13 +52,13 @@ exports.postAddToCart = (req, res, next) => {
         userID: req.body.userID
       });
     } //else {
-    existingCart.subTotal = parseFloat(existingCart.subTotal) + (parseFloat(req.body.price)* parseInt(req.body.quantity));   // Need to parseFloat to avoid validation error
-    existingCart.taxAmount = existingCart.subTotal * existingCart.taxRate;                    // Apply MD state tax
-    if (existingCart.subTotal > 50.00 ) {                                                     // Shipping over $50 is free, otherwise it's a flate rate        existingCart.shippingRate = 0.00;
-    } else {
-      existingCart.shippingAmount = 7.95;
-    }
-    existingCart.total += existingCart.subTotal + existingCart.taxAmount + existingCart.shippingAmount;    // Calculate total
+    // existingCart.subTotal = parseFloat(existingCart.subTotal) + (parseFloat(req.body.price)* parseInt(req.body.quantity));   // Need to parseFloat to avoid validation error
+    // existingCart.taxAmount = existingCart.subTotal * existingCart.taxRate;                    // Apply MD state tax
+    // if (existingCart.subTotal > 50.00 ) {                                                     // Shipping over $50 is free, otherwise it's a flate rate        existingCart.shippingRate = 0.00;
+    // } else {
+    //   existingCart.shippingAmount = 7.95;
+    // }
+    // existingCart.total += existingCart.subTotal + existingCart.taxAmount + existingCart.shippingAmount;    // Calculate total
     existingCart.items.push({
                               ISBN: req.body.ISBN,
                               title: req.body.title,
@@ -111,8 +111,8 @@ exports.deleteItem = (req, res, next) => {
         console.log(" Index = " + index);
         console.log("In deleteItem: item price to delete = " + existingCart.items[index].price);
         //existingCart.items.pop();
-        existingCart.subTotal -= existingCart.items[index].price;     // Subtract deleted item price from cart subtotal
-        existingCart.total -= existingCart.items[index].price;        // Subtract the deleted item price from cart total
+        // existingCart.subTotal -= existingCart.items[index].price;     // Subtract deleted item price from cart subtotal
+        // existingCart.total -= existingCart.items[index].price;        // Subtract the deleted item price from cart total
         existingCart.items.splice(index, 1);
         existingCart.save((err) => {
           if (err) { return next(err); }

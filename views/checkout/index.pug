@@ -57,23 +57,23 @@ block content
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
 					.col-sm-7
-						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+						input.form-control.checkout-form-control(type='text', name='name', id='name', placeholder='Name', autofocus, required)
 				.form-group
 					label.col-sm-3.control-label(for='address') Address
 					.col-sm-7
-						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+						input.form-control.checkout-form-control(type='text', name='address', id='address', placeholder='Address', required)
 				.form-group
 					label.col-sm-3.control-label(for='city') City
 					.col-sm-7
-						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+						input.form-control.checkout-form-control(type='text', name='city', id='city', placeholder='City', required)
 				.form-group
 					label.col-sm-3.control-label(for='state') State
 					.col-sm-7
-						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+						input.form-control.checkout-form-control(type='text', name='state', id='state', placeholder='State', required)
 				.form-group
 					label.col-sm-3.control-label(for='zip') Zip
 					.col-sm-7
-						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+						input.form-control.checkout-form-control(type='text', name='zip', id='zip', placeholder='Zip', required)
 				.form-group
 					label.col-sm-3.control-label(for='email') Email
 					.col-sm-7
@@ -144,27 +144,27 @@ block content
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
 					.col-sm-7
-						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+						input.form-control.checkout-form-control(type='text', name='name', id='ship_name', placeholder='Name', autofocus, required)
 				.form-group
 					label.col-sm-3.control-label(for='address') Address
 					.col-sm-7
-						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+						input.form-control.checkout-form-control(type='text', name='address', id='ship_address', placeholder='Address', required)
 				.form-group
 					label.col-sm-3.control-label(for='city') City
 					.col-sm-7
-						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+						input.form-control.checkout-form-control(type='text', name='city', id='ship_city', placeholder='City', required)
 				.form-group
 					label.col-sm-3.control-label(for='state') State
 					.col-sm-7
-						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+						input.form-control.checkout-form-control(type='text', name='state', id='ship_state', placeholder='State', required)
 				.form-group
 					label.col-sm-3.control-label(for='zip') Zip
 					.col-sm-7
-						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+						input.form-control.checkout-form-control(type='text', name='zip', id='ship_zip', placeholder='Zip', required)
 				.form-group
 					label.col-sm-3.control-label(for='email') Email
 					.col-sm-7
-						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
+						input.form-control.checkout-form-control(type='email', name='email', id='ship_email', placeholder='Email', required)
 
 				input(type="checkbox", value="", id="sameAsBilling", action="copyBillingInfo()")
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
@@ -175,10 +175,10 @@ block content
 
 
 
-	script.
-		function copyBillingInfo() {
-			console.log("in copyBillingInfo")
-		}				
+	//- script.
+	//- 	function copyBillingInfo() {
+	//- 		console.log("in copyBillingInfo")
+	//- 	}				
 			//- //a.btn.btn-default
 			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
 			//- span.caret
