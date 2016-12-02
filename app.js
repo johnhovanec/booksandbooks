@@ -155,8 +155,8 @@ app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/checkout/:userID', checkoutController.index);
 app.post('/checkout/confirmation', checkoutController.postConfirmation);
 
-app.post('/ajaxPostQuantity', checkoutController.ajaxPostQuantity);
-app.post('/ajaxPostRemove', checkoutController.ajaxPostRemove);
+app.post('/ajaxPostQuantity', cartController.ajaxPostQuantity);
+app.post('/ajaxPostRemove', cartController.ajaxPostRemove);
 
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);

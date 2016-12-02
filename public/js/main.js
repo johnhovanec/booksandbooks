@@ -42,7 +42,6 @@ $(function(){
 	 $('.deleteItem').on('click', function() {
 	 		console.log("deleteItem clicked");
 	 		$(this).parent().parent().parent().detach();  	// remove element but keep data for ajax call
-	 		req.flash('success', { msg: 'Item has been removed from cart.' });
 			$.post(
 		    "/ajaxPostRemove",
 		    {
@@ -54,7 +53,6 @@ $(function(){
 		    	$(this).parent().parent().parent().remove();  // remove element and all bound data
 		    }
 		  );
-
 	 })
 
 	 // Use to copy billing to shipping address on checkout
