@@ -53,7 +53,7 @@ block content
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Billing Info
-			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/placeOrder' id='billing-form', method='POST')
 				input(type='hidden', name='_csrf', value=_csrf)
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
@@ -97,10 +97,10 @@ block content
 							span.asteriskField *
 						//- .col-xs-12
 						select#cardType.select.form-control.dropdown-toggle(form='', name='')
-							option(value='0', selected= true) -- Select --
-							option(value='1') Visa
-							option(value='2') American Express
-							option(value='3') Mastercard
+							option(value='0', selected= true) -- Select Type --
+							option(value='Visa') Visa
+							option(value='Mastercard') Mastercard
+							option(value='American Express') American Express
 
 				// Card Number
 				.form-group
@@ -108,45 +108,49 @@ block content
 					.col-sm-7
 						input.form-control.checkout-form-control(type='cardNumber', name='cardNumber', id='cardNumber', placeholder='Card Number', required)
 
-				// Month
-				.form-group
-					.dropdownCVV
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Month
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="menu")
-							li(id="btnMonth") 1
-							li(id="btnMonth") 2
-							li(id="btnMonth") 3
-							li(id="btnMonth") 4
-							li(id="btnMonth") 5
-							li(id="btnMonth") 6
-							li(id="btnMonth") 7
-							li(id="btnMonth") 8
-							li(id="btnMonth") 9
-							li(id="btnMonth") 10
-							li(id="btnMonth") 11
-							li(id="btnMonth") 12
+					// Month
+					.form-group
+						label.col-sm-3.control-label(for='cardNumber') Month
+							.dropdown
+								select#cardMonth.select.form-control.dropdown-toggle.exp-form-control(form='', name='')
+									option(value='0', selected= true) -- Select Month --
+									option(value='1') January
+									option(value='2') February
+									option(value='3 ') March
+									option(value='4') April
+									option(value='5') May
+									option(value='6 ') June
+									option(value='7') July
+									option(value='8') August
+									option(value='9 ') September
+									option(value='10') October
+									option(value='11') November
+									option(value='12') December
+						.form-group
+							// Year
+							label.col-sm-3.control-label(for='cardNumber') Year
+								.dropdown
+									select#cardMonth.select.form-control.dropdown-toggle.exp-form-control(form='', name='')
+										option(value='0', selected= true) -- Select Year --
+										option(value='2016') 2016
+										option(value='2017') 2017
+										option(value='2018 ') 2018
+										option(value='2019') 2019
+										option(value='2020') 2020
+										option(value='2021') 2021
 
-						// Year
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Year
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="year")
-							li(id="btnMonth") 2016
-							li(id="btnMonth") 2017
-							li(id="btnMonth") 2018
-							li(id="btnMonth") 2019
-							li(id="btnMonth") 2020
+
 						// CVV
-						.col-sm-3
-							input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
+				.form-group
+					.col-sm-3.cvv-form-control
+						label.col-sm-5.control-label(for='cvv') CVV
+						input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
 
 	////    Shipping Info    ////
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Shipping Info
-			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/placeOrder' id='billing-form', method='POST')
 				.form-group
 					input(type="checkbox", value="", id="sameAsBilling")
 					label.col-sm-5.control-label(for='cardNumber') Same as billing
@@ -180,14 +184,32 @@ block content
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 				br
 				br
-				button.btn.btn-primary(type='submit', form='billing-form' onclick="validateForm()")
+				button.btn.btn-primary(type='submit' form='billing-form' onclick="validateForm()")
 					i.fa.fa-check
 					| Place Order
 
 	script.
 
-		// Validate checkout form
+		// Validate checkout form when Place Order is clicked
 		function validateForm() {
-			console.log("In validateForm()");
+			console.log("In validateForm()" + $('#cardType').val() );
+
+			// Validate card type and length
+			if ( $('#cardType').val() === "Visa" || $('#cardType').val() === "Mastercard") {	
+				console.log("Card Type Visa or MC ");
+				//alert("You selected a card type of " + UserCardType + " which requires 3 digits for the CID.\nPlease re-enter the CID.");
+				const regex = /\d{16}/g;   // For Visa
+				const regex = /\d{15}/g;   // Amex
+				if ( $('#cardNumber').val() )
+				$('#cardType').focus();
+				return false;
+			}
+			else if ( $('#cardType').val() === "American Express") {
+				console.log("Card Type AmEx");
+				//alert("You selected a card type of " + UserCardType + " which requires 4 digits for the CID.\nPlease re-enter the CID.");
+				$('#cardType').focus();
+				return false;
+			}
 		}
 				
+

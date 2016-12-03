@@ -78,3 +78,18 @@ li {
 .detail-form-control {
   width: 100%;
 }
+
+.cvv-form-control {
+  width: 60%;
+  margin-top: 10px
+  margin-left: 20px;
+}
+
+.cc-form-group {
+  margin-left: 40px;
+}
+
+.exp-form-control {
+  width: 150px;
+  margin: 10px 10px;
+}

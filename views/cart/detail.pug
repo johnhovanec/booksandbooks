@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent
-		p User Idfrom page  = #{user._id}
+		//p User Idfrom page  = #{user._id}
 		meta(name="csrf-token", content="#{token}")
 
 		table
@@ -47,30 +47,13 @@ block content
 					td Nothing found!
 				- }
 
-		//- hr
-		//- form.getCheckout(action='/cart/checkout' method='POST') 
-		//- 	input(type='hidden', name='_csrf', value=_csrf)
-		//- 	input(type='hidden', name='userID', value=user._id)
-		//- 	.col-sm-3
-		//- 		button.btn.btn.btn-primary.getCheckout(type='submit')
-		//- 			i.fa.fa-check
-		//- 			| Checkout
-		//- p &nbsp;
-		//- hr
-
-		//- hr
-		//- a(href="/cart/checkout")
-		//- 	button.btn.btn-primary(type='button')
-		//- 		i.fa.fa-check
-		//- 		| Checkout
-		//- hr
-
 		hr
 		a(href="/checkout/" + user._id)
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
+	include ../partials/sidebar
 
 	script(type='text/javascript').
 				function setIndex(num) {

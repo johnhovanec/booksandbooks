@@ -153,7 +153,8 @@ app.post('/cart/:userID', cartController.postAddToCart);
 //app.get('/cart/checkout', cartController.getCheckout);
 //app.get('/cart/checkout', eventsController.getCheckout);
 app.get('/checkout/:userID', checkoutController.index);
-app.post('/checkout/confirmation', checkoutController.postConfirmation);
+app.post('/checkout/placeOrder', checkoutController.postConfirmation);
+app.post('/checkout/confirmation', checkoutController.getConfirmation);
 
 app.post('/ajaxPostQuantity', cartController.ajaxPostQuantity);
 app.post('/ajaxPostRemove', cartController.ajaxPostRemove);

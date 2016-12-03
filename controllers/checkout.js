@@ -57,6 +57,20 @@ exports.postConfirmation = (req, res, next) => {
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/cart/userID');
+  } else {
+    req.flash('success', { msg: 'Your order has been placed.' });
+    res.redirect('/');
   }
 
+
+};
+
+
+// /* GET /checkout/confirmation page. */
+ exports.getConfirmation = (req, res) => {
+  console.log("Order confirmation");
+  if (err) {
+    res.send(err);
+  }
+  res.json({"mess": "Order placed!"});
 };
