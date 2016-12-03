@@ -15,21 +15,31 @@ const Cart = require('../models/Cart.js');
       return next(err); 
     }
 
-    cart.subTotal = 0;      // Let's reset it each time
+    cart.subTotal = 0;      // Reset it each time to be safe
+    cart.taxAmount = 0;
+    cart.shippingAmount = 0;
+    cart.total = 0;
+    console.log("< Subtotal = " + cart.subTotal);  
+    console.log("< Tax = " + cart.taxAmount);
+    console.log("< Shipping = " + cart.shippingAmount);
+    console.log("< Total = " + cart.total); 
     // loop through items in cart to calculate subtotal, total, etc.
     for (var i = 0; i < cart.items.length; i++) {
       console.log(" prices in cart = " + cart.items[i].price);
       cart.subTotal += cart.items[i].price * cart.items[i].quantity;
     }
-    console.log("Subtotal = " + cart.subTotal);
-    //cart.subTotal = parseFloat(cart.subTotal) + (parseFloat(req.body.price)* parseInt(req.body.quantity));   // Need to parseFloat to avoid validation error
-    cart.taxAmount = cart.subTotal * cart.taxRate;                    // Apply MD state tax
-    if (cart.subTotal > 50.00 ) {                                                     // Shipping over $50 is free, otherwise it's a flate rate   existingCart.shippingRate = 0.00;
+    cart.taxAmount = (cart.subTotal * cart.taxRate).toFixed();                    // Apply MD state tax
+    if (cart.subTotal > 5000 ) {                 // Shipping over $50 is free, otherwise it's a flate rate 
     } else {
-      cart.shippingAmount = 7.95;
+      cart.shippingAmount = 795;
     }
-    cart.total += cart.subTotal + cart.taxAmount + cart.shippingAmount;    // Calculate total
-    console.log("In checkout: userID = " + req.body.userID)
+    cart.total = cart.subTotal + cart.taxAmount + cart.shippingAmount; 
+    console.log("Subtotal = " + cart.subTotal/100);  
+    console.log("Tax = " + cart.taxAmount);
+    console.log("Shipping = " + cart.shippingAmount/100);
+    console.log("Total = " + cart.total/100); 
+    console.log("In checkout: userID = " + cart.userID)
+
     res.render('checkout', { carts: cart });
   });
 };

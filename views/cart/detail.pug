@@ -19,7 +19,8 @@ block content
 					- for (i = 0; i < cartLength; i++) {
 						tr
 							td.cartTable #{carts.items[i].title}
-							td #{carts.items[i].price}
+							// Need to convert price to currency format
+							td $#{carts.items[i].price/100}        
 							form.form-horizontal.updateQuantity(action='/cart/update/index' method='POST') 
 								input(type='hidden', name='_csrf', value=_csrf)
 								input(type='hidden', name='userID', value=user._id)

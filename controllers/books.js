@@ -31,14 +31,8 @@ const Book = require('../models/Book.js');
 
   // save the data received
   book.save(function(err) {
-    if (err)
+    if (err) 
         res.send(err);
-  // give some success message
-  //res.json({ message: 'book successfully created!' });
-
-    // To allow crsf
-    //res.header("Access-Control-Allow-Origin", "*");
-    //res.render('books');
     res.render('books/detail', { book: book });
   });
 };
@@ -49,8 +43,6 @@ const Book = require('../models/Book.js');
  Book.findById(req.params.book_id, (err, book) => {
     if (err) { return next(err); }
     res.render('books/detail', { book: book });
-    //res.send(book);
-    //res.json(book);
   });
 };
 

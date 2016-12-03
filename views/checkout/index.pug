@@ -35,17 +35,18 @@ block content
 		table.checkoutCartTable
 			tbody
 				tr
+					// Need to convert prices to currency format
 					td Subtotal
-					td $#{carts.subTotal}
+					td $#{carts.subTotal/100}
 				tr
 					td Estimated Shipping
-					td $#{carts.shippingAmount}
+					td $#{carts.shippingAmount/100}
 				tr
 					td Tax
-					td $#{carts.taxAmount}
+					td $#{(carts.taxAmount/100).toFixed(2)}
 				tr
 					td Total
-					td $#{carts.total}
+					td $#{carts.total/100}
 
 
 	////   Billing Info		////		
@@ -169,39 +170,7 @@ block content
 				input(type="checkbox", value="", id="sameAsBilling", action="copyBillingInfo()")
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 				br
+				br
 				button.btn.btn-primary(type='submit', form='billing-form')
 					i.fa.fa-check
 					| Place Order
-
-
-
-	//- script.
-	//- 	function copyBillingInfo() {
-	//- 		console.log("in copyBillingInfo")
-	//- 	}				
-			//- //a.btn.btn-default
-			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
-			//- span.caret
-			//- ul.dropdown-menu( role="menu" )
-			//- 	li: a( href="#" ) Action
-			//- 	li: a( href="#" ) Another action
-			//- 	li: a( href="#" ) Something else here
-
-
-		//- .dropdown
-		//- 	button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Type
-		//- 		| &nbsp;
-		//- 		span.caret
-		//- 	ul.dropdown-menu(role="menu")
-		//- 		li(role="presentation"): a(href="#") Action
-		//- 				a(role="menuitem",tabindex="-1",href="#") Somethin
-
-
-//- ul.dropdown-menu( role="menu" )
-//- 				li: a( href="#" ) Action
-//- 				li: a( href="#" ) Another action
-//- 				li: a( href="#" ) Something else here
-//- 				li.divider
-//- 				li.dropdown-header Nav header
-//- 				li: a( href="#" ) Separated link
-//- 				li: a( href="#" ) One more separated link
