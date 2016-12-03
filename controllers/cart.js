@@ -7,21 +7,20 @@ const Cart = require('../models/Cart.js');
 };
 
 
-/* GET / Cart page. */
- exports.index = (req, res) => {
-  Cart.find((err, docs) => {
-    res.render('cart', { carts: docs, title: 'Shopping Cart' });
-  });
-};
+// /* GET / Cart page. */
+//  exports.index = (req, res) => {
+//   Cart.find((err, docs) => {
+//     res.render('cart', { carts: docs, title: 'Shopping Cart' });
+//   });
+// };
 
 
 // /* GET cart by userID. */
  exports.detail = (req, res, next) => {
- Cart.findOne({"userID": req.params.userID }, (err, cart) => {
+ // Cart.findOne({"userID": req.params.userID }, (err, cart) => {
+  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { return next(err); }
     res.render('cart/detail', { carts: cart });
-    //res.send(book);
-    //res.json(book);
   });
 };
 

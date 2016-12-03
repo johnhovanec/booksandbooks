@@ -143,7 +143,7 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
-app.get('/cart', cartController.index);
+//app.get('/cart', cartController.index);
 app.get('/cart/null', cartController.getLogin);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);

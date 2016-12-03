@@ -59,7 +59,7 @@ exports.postConfirmation = (req, res, next) => {
     return res.redirect('/cart/userID');
   } else {
     req.flash('success', { msg: 'Your order has been placed.' });
-    res.redirect('/');
+    res.redirect('confirmation', {});
   }
 
 
@@ -72,5 +72,5 @@ exports.postConfirmation = (req, res, next) => {
   if (err) {
     res.send(err);
   }
-  res.json({"mess": "Order placed!"});
+  res.render('checkout/confirmation');
 };
