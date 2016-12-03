@@ -19,7 +19,7 @@ block content
 						tr
 							td.cartTable #{carts.items[i].title}
 							td #{carts.items[i].quantity}
-							td #{carts.items[i].price}
+							td $#{carts.items[i].price/100}
 					- }
 				- }
 				- else {
@@ -83,15 +83,24 @@ block content
 				// Credit card info
 				h4 Payment Method
 				.form-group
-					label.col-sm-3.control-label(for='cardNumber') Type
+					label.col-sm-3.control-label(for='cardNumber') Card Type
 					.dropdown
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Credit Card Type
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="menu")
-							li: a( href="#", selected='true') Visa
-							li: a( href="#" ) American Express
-							li: a( href="#" ) Mastercard
+						//- button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown" id="cardDropDown" ) Credit Card Type
+						//- 	| &nbsp;
+						//- 	span.caret
+						//- ul.dropdown-menu(role="menu" id="cardType")
+						//- 	li: a( href="#", selected='true') Visa
+						//- 	li: a( href="#" ) American Express
+						//- 	li: a( href="#" ) Mastercard
+						//- label.control-label.requiredField(for='cardType')
+							| Credit Card Type
+							span.asteriskField *
+						//- .col-xs-12
+						select#cardType.select.form-control.dropdown-toggle(form='', name='')
+							option(value='0', selected= true) -- Select --
+							option(value='1') Visa
+							option(value='2') American Express
+							option(value='3') Mastercard
 
 				// Card Number
 				.form-group
@@ -171,6 +180,14 @@ block content
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 				br
 				br
-				button.btn.btn-primary(type='submit', form='billing-form')
+				button.btn.btn-primary(type='submit', form='billing-form' onclick="validateForm()")
 					i.fa.fa-check
 					| Place Order
+
+	script.
+
+		// Validate checkout form
+		function validateForm() {
+			console.log("In validateForm()");
+		}
+				
