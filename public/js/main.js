@@ -22,15 +22,13 @@ $(function(){
 
 	// Update item quantity in cart
 	 $('.updateQuantity').on('click', function() {
-	 		//console.log("> index = " + $(this).parent().parent().find('input').eq(2).val() );
-	 		//console.log("> quantity = " + $(this).parent().parent().find('input').eq(3).val() );
 			$.post(
 		    "/ajaxPostQuantity",
 		    {
 		    	_csrf: $('input').eq(0).val(), 											
 		    	quantity: $(this).parent().parent().find('input').eq(3).val(),  //closest('.quantity').attr('id'),
-		    	index: $(this).parent().parent().find('input').eq(2).val(),	// Get the id value to use as the index to access the item being updated
-					userID: $('input').eq(1).val()															// Used to find user's cart
+		    	index: $(this).parent().parent().find('input').eq(2).val(),			// Get the id value to use as the index to access the item being updated
+					userID: $('input').eq(1).val()																	// Used to find user's cart
 		    },	function(data) {
 		    	//console.log(">>>>>> " + data);
 		    }
@@ -51,6 +49,7 @@ $(function(){
 		    },	function(data) {
 		    	//console.log(">>>>>> " + data);
 		    	$(this).parent().parent().parent().remove();  // remove element and all bound data
+		    	// alert("Item has been removed from cart.");
 		    }
 		  );
 	 })

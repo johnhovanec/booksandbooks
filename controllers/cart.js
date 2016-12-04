@@ -41,7 +41,7 @@ exports.postAddToCart = (req, res, next) => {
     return res.redirect('/books');
   }
   
-  // Look for an exiting cart linked to the userID
+  // Look for an existing cart linked to the userID
   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
     if (err) { return next(err); }
     console.log("In postAddToCart: userID = " + req.body.userID);
@@ -57,12 +57,6 @@ exports.postAddToCart = (req, res, next) => {
                               price: req.body.price,
                               quantity: req.body.quantity
                             });
-    // existingCart.save((err) => {       //original save method
-    //   if (err) { return next(err); }
-    //   req.flash('success', { msg: 'Your cart has been updated.' });
-    //   res.redirect('/cart/' + existingCart.userID);
-    // });
-
     existingCart.save(function(err,resp) {
     if(err) {
       return next(err);
@@ -72,8 +66,7 @@ exports.postAddToCart = (req, res, next) => {
     }           
 
     });
-      //} //else
-    }); 
+  }); 
 };
 
 
@@ -102,8 +95,6 @@ exports.ajaxPostQuantity = (req, res, next) => {
       } else {
         req.flash('success', { msg: 'Your cart has been updated.' });
       }
-      //req.flash('success', { msg: 'Ajax quantity has been updated.' });
-      //res.redirect('/cart/' + existingCart.userID);
     });
   });
 };
