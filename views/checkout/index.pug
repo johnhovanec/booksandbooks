@@ -85,17 +85,6 @@ block content
 				.form-group
 					label.col-sm-3.control-label(for='cardNumber') Card Type
 					.dropdown
-						//- button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown" id="cardDropDown" ) Credit Card Type
-						//- 	| &nbsp;
-						//- 	span.caret
-						//- ul.dropdown-menu(role="menu" id="cardType")
-						//- 	li: a( href="#", selected='true') Visa
-						//- 	li: a( href="#" ) American Express
-						//- 	li: a( href="#" ) Mastercard
-						//- label.control-label.requiredField(for='cardType')
-							| Credit Card Type
-							span.asteriskField *
-						//- .col-xs-12
 						select#cardType.select.form-control.dropdown-toggle(form='', name='', required)
 							option(value='0', selected= true) -- Select Type --
 							option(value='Visa') Visa
@@ -153,7 +142,7 @@ block content
 			form.form-horizontal(action='/checkout/placeOrder' id='billing-form', method='POST')
 				.form-group
 					input(type="checkbox", value="", id="sameAsBilling")
-					label.col-sm-5.control-label(for='cardNumber') Same as billing
+					label.col-sm-5.control-label(for='sameAsBilling') Same as billing
 				input(type='hidden', name='_csrf', value=_csrf)
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
@@ -198,8 +187,8 @@ block content
 			if ( $('#cardType').val() === "Visa" || $('#cardType').val() === "Mastercard") {	
 				console.log("Card Type Visa or MC ");
 				//alert("You selected a card type of " + UserCardType + " which requires 3 digits for the CID.\nPlease re-enter the CID.");
-				const regex = /\d{16}/g;   // For Visa
-				const regex = /\d{15}/g;   // Amex
+				//var regex = /\d{16}/g;   // For Visa
+				//var regex = /\d{15}/g;   // Amex
 				if ( $('#cardNumber').val() )
 				$('#cardType').focus();
 				return false;
