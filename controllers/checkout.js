@@ -8,21 +8,18 @@ const Cart = require('../models/Cart.js');
 // };
 
 
-// /* GET cart by userID. */
+// /* GET checkout  */
  exports.index = (req, res, next) => {
  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { 
       return next(err); 
     }
 
-    cart.subTotal = 0;      // Reset it each time to be safe
+    cart.subTotal = 0;                  // Reset it each time to be safe
     cart.taxAmount = 0;
     cart.shippingAmount = 0;
     cart.total = 0;
-    console.log("< Subtotal = " + cart.subTotal);  
-    console.log("< Tax = " + cart.taxAmount);
-    console.log("< Shipping = " + cart.shippingAmount);
-    console.log("< Total = " + cart.total); 
+
     // loop through items in cart to calculate subtotal, total, etc.
     for (var i = 0; i < cart.items.length; i++) {
       console.log(" prices in cart = " + cart.items[i].price);
