@@ -17,7 +17,6 @@ const Cart = require('../models/Cart.js');
 
 // /* GET cart by userID. */
  exports.detail = (req, res, next) => {
- // Cart.findOne({"userID": req.params.userID }, (err, cart) => {
   Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { return next(err); }
     res.render('cart/detail', { carts: cart });

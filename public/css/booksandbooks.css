@@ -81,15 +81,35 @@ li {
 
 .cvv-form-control {
   width: 60%;
-  margin-top: 10px
-  margin-left: 20px;
+  padding-left: 50px;
+  margin: 10px 25px;
+/*  margin-top: 10px 0px 0px 50px;
+  margin-left: 50px;*/
 }
 
 .cc-form-group {
   margin-left: 40px;
 }
 
-.exp-form-control {
-  width: 150px;
-  margin: 10px 10px;
+.expMonth-form-control {
+  /*width: 150px;*/
+  /*margin: 10px 10px;*/
+  margin: 3px 20px 10px -75px;
+}
+
+.expYear-form-control {
+  /*width: 150px;*/
+  margin: 7px 20px 10px 0px;
+}
+
+.ccNum-form-control {
+  margin: 5px 0px 0px -15px;
+}
+
+.expYear-control-label {
+  margin-right: 8px;
+}
+
+.exp-form-group {
+  margin-bottom: 0px;
 }
