@@ -22,6 +22,9 @@ $(function(){
 
 	// Update item quantity in cart
 	 $('.updateQuantity').on('click', function() {
+	 		//alert("quantity updated!");
+	 		$('.containerFlash').append('<h4>Quantity has been updated!</h4>')
+	 		$('h4').fadeOut(2500);
 			$.post(
 		    "/ajaxPostQuantity",
 		    {
@@ -38,7 +41,8 @@ $(function(){
 
 	 // Delete an item from the cart
 	 $('.deleteItem').on('click', function() {
-	 		console.log("deleteItem clicked");
+	 		$('.containerFlash').append('<h4>Item has been removed from cart</h4>')
+	 		$('h4').fadeOut(2500);
 	 		$(this).parent().parent().parent().detach();  	// remove element but keep data for ajax call
 			$.post(
 		    "/ajaxPostRemove",

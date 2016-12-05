@@ -51,12 +51,9 @@ li {
 
 .checkoutSection {
   /*background-color: #EEE;*/
-  border: 1px gray solid;
+  height: 680px;
+  border: 1px #d3d3d3 solid;
   padding: 0px 5px;
-}
-
-.checkoutCartTable {
-
 }
 
 .bookDetailQty {
@@ -112,4 +109,15 @@ li {
 
 .exp-form-group {
   margin-bottom: 0px;
+}
+
+.btn-checkout {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 120px
+}
+
+h4 {
+  color: green;
 }

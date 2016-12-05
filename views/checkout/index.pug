@@ -1,7 +1,7 @@
 extends ../layout	
 
 block content
-	p User Idfrom page  = #{user._id}
+	//p User Idfrom page  = #{user._id}
 
 	////   Shopping Cart    ////
 	.col-sm-4.checkoutSection
@@ -28,7 +28,7 @@ block content
 				tr
 					td
 						a(href='../cart/' + user._id)
-							button.btn.btn-primary(type='button')
+							td: button.btn.btn-primary(type='button')
 								i.fa.fa-check
 								| Edit Cart
 		hr
@@ -173,9 +173,11 @@ block content
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 				br
 				br
-				button.btn.btn-primary(type='submit' form='billing-form' onclick="validateForm()")
-					i.fa.fa-check
-					| Place Order
+				.btn-checkout
+					br
+					button.btn.btn-primary(type='submit' form='billing-form' onclick="validateForm()")
+						i.fa.fa-check
+						| Place Order
 
 	script.
 
