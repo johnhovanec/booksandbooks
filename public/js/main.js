@@ -42,7 +42,7 @@ $(function(){
 	 // Delete an item from the cart
 	 $('.deleteItem').on('click', function() {
 	 		$('.containerFlash').append('<h4>Item has been removed from cart</h4>')
-	 		$('h4').fadeOut(2500);
+	 		$('h4').fadeOut(3000);
 	 		$(this).parent().parent().parent().detach();  	// remove element but keep data for ajax call
 			$.post(
 		    "/ajaxPostRemove",

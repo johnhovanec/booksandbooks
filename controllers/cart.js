@@ -113,7 +113,12 @@ exports.ajaxPostRemove = (req, res, next) => {
   Cart.findOne({"userID": userID }, (err, cart) => {
     if (err) { return next(err); }
     console.log("In ajaxPostRemove: orig items length = " + cart.items.length);
-    cart.items.splice(index, 1);
+    if ( cart.items.length === 1) {
+      console.log("Last one in items")
+      cart.items[0] = "";
+    } else {
+      cart.items.splice(index, 1);
+    }
     console.log("ajax PostRemove new length = " + cart.items.length);
 
     cart.save((err) => {

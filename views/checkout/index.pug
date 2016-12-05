@@ -27,10 +27,10 @@ block content
 				- }
 				tr
 					td
-						a(href='../cart/' + user._id)
-							td: button.btn.btn-primary(type='button')
-								i.fa.fa-check
-								| Edit Cart
+						td: a(href='../cart/' + user._id)
+									button.btn.btn-primary(type='button')
+										i.fa.fa-check
+										| Edit Cart
 		hr
 		table.checkoutCartTable
 			tbody
@@ -81,7 +81,7 @@ block content
 						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
 				hr
 				// Credit card info
-				h4 Payment Method
+				h3 Payment Method
 				.form-group
 					label.col-sm-3.control-label(for='cardNumber') Card Type
 					.dropdown
