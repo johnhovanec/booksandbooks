@@ -7,21 +7,21 @@ block content
         //- a(href="#")
         img(height='350px' src="/art/" + book.imgPath)
       div.detailContent
-        p #[span(class='metaField') _id:] #{book._id}
+        //p #[span(class='metaField') _id:] #{book._id}
         p #[span(class='metaField') Title:] #{book.title}
         p #[span(class='metaField') ISBN:] #{book.ISBN}
         p #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
         p #[span(class='metaField') Publisher:] #{book.publisher}
         //li #[span(class='metaField') Format:] #{book.publisher}
-        p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') #{book.price}]
+        // Need to convert price to currency format
+        p #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]
 
         form.form-horizontal(action='/cart/userID' method='POST') 
           input(type='hidden', name='_csrf', value=_csrf)
           input(type='hidden', name='userID', value=user._id)
-          input(type='hidden', name='bookID', value=book._id)
+          //input(type='hidden', name='bookID', value=book._id)
           input(type='hidden', name='title', value=book.title)
           input(type='hidden', name='ISBN', value=book.ISBN)
-          input(type='hidden', name='sessionID', value='TEST123')
           input(type='hidden', name='price', value=book.price) 
           .form-group
             label.col-sm-1.control-label.bookDetailQty(for='quantity') Quantity:
@@ -35,4 +35,4 @@ block content
           br
           br       
           p #{book.blurb}
-      
+  include ../partials/sidebar

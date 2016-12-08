@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-  	//title: String
 	prodID:       	{ type: Number, default: '' },
 	ISBN:         	{ type: String, default: '' },
 	title:        	{ type: String, default: '' },

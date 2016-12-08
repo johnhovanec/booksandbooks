@@ -1,7 +1,7 @@
 extends ../layout	
 
 block content
-	p User Idfrom page  = #{user._id}
+	//p User Idfrom page  = #{user._id}
 
 	////   Shopping Cart    ////
 	.col-sm-4.checkoutSection
@@ -19,7 +19,7 @@ block content
 						tr
 							td.cartTable #{carts.items[i].title}
 							td #{carts.items[i].quantity}
-							td #{carts.items[i].price}
+							td $#{carts.items[i].price/100}
 					- }
 				- }
 				- else {
@@ -27,181 +27,180 @@ block content
 				- }
 				tr
 					td
-						a(href='../cart/' + user._id)
-							button.btn.btn-primary(type='button')
-								i.fa.fa-check
-								| Edit Cart
+						td: a(href='../cart/' + user._id)
+									button.btn.btn-primary(type='button')
+										i.fa.fa-check
+										| Edit Cart
 		hr
 		table.checkoutCartTable
 			tbody
 				tr
+					// Need to convert prices to currency format
 					td Subtotal
-					td $#{carts.subTotal}
+					td $#{carts.subTotal/100}
 				tr
 					td Estimated Shipping
-					td $#{carts.shippingAmount}
+					td $#{carts.shippingAmount/100}
 				tr
 					td Tax
-					td $#{carts.taxAmount}
+					td $#{(carts.taxAmount/100).toFixed(2)}
 				tr
 					td Total
-					td $#{carts.total}
+					td $#{carts.total/100}
 
 
 	////   Billing Info		////		
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Billing Info
-			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/placeOrder' id='billing-form', method='POST')
 				input(type='hidden', name='_csrf', value=_csrf)
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
 					.col-sm-7
-						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+						input.form-control.checkout-form-control(type='text', name='name', id='name', placeholder='Name', autofocus, required)
 				.form-group
 					label.col-sm-3.control-label(for='address') Address
 					.col-sm-7
-						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+						input.form-control.checkout-form-control(type='text', name='address', id='address', placeholder='Address', required)
 				.form-group
 					label.col-sm-3.control-label(for='city') City
 					.col-sm-7
-						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+						input.form-control.checkout-form-control(type='text', name='city', id='city', placeholder='City', required)
 				.form-group
 					label.col-sm-3.control-label(for='state') State
 					.col-sm-7
-						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+						input.form-control.checkout-form-control(type='text', name='state', id='state', placeholder='State', required)
 				.form-group
 					label.col-sm-3.control-label(for='zip') Zip
 					.col-sm-7
-						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+						input.form-control.checkout-form-control(type='text', name='zip', id='zip', placeholder='Zip', required)
 				.form-group
 					label.col-sm-3.control-label(for='email') Email
 					.col-sm-7
 						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
 				hr
 				// Credit card info
-				h4 Payment Method
+				h3 Payment Method
 				.form-group
-					label.col-sm-3.control-label(for='cardNumber') Type
+					label.col-sm-3.control-label(for='cardNumber') Card Type
 					.dropdown
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Credit Card Type
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="menu")
-							li: a( href="#", selected='true') Visa
-							li: a( href="#" ) American Express
-							li: a( href="#" ) Mastercard
+						select#cardType.select.form-control.dropdown-toggle(form='', name='', required)
+							option(value='0', selected= true) -- Select Type --
+							option(value='Visa') Visa
+							option(value='Mastercard') Mastercard
+							option(value='American Express') American Express
 
 				// Card Number
 				.form-group
-					label.col-sm-3.control-label(for='cardNumber') Card Number
+					label.col-sm-3.control-label(for='cardNumber') Number
 					.col-sm-7
-						input.form-control.checkout-form-control(type='cardNumber', name='cardNumber', id='cardNumber', placeholder='Card Number', required)
+						input.form-control.checkout-form-control.ccNum-form-control(type='cardNumber', name='cardNumber', id='cardNumber', placeholder='Card Number', required)
 
 				// Month
-				.form-group
-					.dropdownCVV
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Month
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="menu")
-							li(id="btnMonth") 1
-							li(id="btnMonth") 2
-							li(id="btnMonth") 3
-							li(id="btnMonth") 4
-							li(id="btnMonth") 5
-							li(id="btnMonth") 6
-							li(id="btnMonth") 7
-							li(id="btnMonth") 8
-							li(id="btnMonth") 9
-							li(id="btnMonth") 10
-							li(id="btnMonth") 11
-							li(id="btnMonth") 12
-
+				.form-group.exp-form-group
+					.dropdown
+						label.col-sm-3.control-label(for='cardNumber') Month
+						select#cardMonth.select.form-control.dropdown-toggle.expMonth-form-control(form='', name='', required)
+							option(value='0', selected= true) -- Select Month --
+							option(value='1') January
+							option(value='2') February
+							option(value='3 ') March
+							option(value='4') April
+							option(value='5') May
+							option(value='6 ') June
+							option(value='7') July
+							option(value='8') August
+							option(value='9 ') September
+							option(value='10') October
+							option(value='11') November
+							option(value='12') December
+					.form-group.exp-form-group
 						// Year
-						button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Year
-							| &nbsp;
-							span.caret
-						ul.dropdown-menu(role="year")
-							li(id="btnMonth") 2016
-							li(id="btnMonth") 2017
-							li(id="btnMonth") 2018
-							li(id="btnMonth") 2019
-							li(id="btnMonth") 2020
-						// CVV
-						.col-sm-3
-							input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
+						.dropdown
+							label.col-sm-3.control-label.expYear-control-label(for='cardNumber') Year
+							select#cardMonth.select.form-control.dropdown-toggle.expYear-form-control(form='', name='', required)
+								option(value='0', selected= true) -- Select Year --
+								option(value='2016') 2016
+								option(value='2017') 2017
+								option(value='2018') 2018
+								option(value='2019') 2019
+								option(value='2020') 2020
+								option(value='2021') 2021
+
+
+									// CVV
+							.form-group
+								.col-sm-3.cvv-form-control
+									label.col-sm-3.control-label(for='cvv') CVV
+									input.form-control(type='cvv', name='cvv', id='cvv', placeholder='CVV', required)
 
 	////    Shipping Info    ////
 	.col-sm-4.checkoutSection
 		div.billingInfo
 			h3 Shipping Info
-			form.form-horizontal(action='/checkout/confirmation' id='billing-form', method='POST')
+			form.form-horizontal(action='/checkout/placeOrder' id='billing-form', method='POST')
 				.form-group
 					input(type="checkbox", value="", id="sameAsBilling")
-					label.col-sm-5.control-label(for='cardNumber') Same as billing
+					label.col-sm-5.control-label(for='sameAsBilling') Same as billing
 				input(type='hidden', name='_csrf', value=_csrf)
 				.form-group
 					label.col-sm-3.control-label(for='name') Name
 					.col-sm-7
-						input.form-control.checkout-form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+						input.form-control.checkout-form-control(type='text', name='name', id='ship_name', placeholder='Name', autofocus, required)
 				.form-group
 					label.col-sm-3.control-label(for='address') Address
 					.col-sm-7
-						input.form-control.checkout-form-control(type='address', name='address', id='address', placeholder='Address', required)
+						input.form-control.checkout-form-control(type='text', name='address', id='ship_address', placeholder='Address', required)
 				.form-group
 					label.col-sm-3.control-label(for='city') City
 					.col-sm-7
-						input.form-control.checkout-form-control(type='city', name='city', id='city', placeholder='City', required)
+						input.form-control.checkout-form-control(type='text', name='city', id='ship_city', placeholder='City', required)
 				.form-group
 					label.col-sm-3.control-label(for='state') State
 					.col-sm-7
-						input.form-control.checkout-form-control(type='state', name='state', id='state', placeholder='State', required)
+						input.form-control.checkout-form-control(type='text', name='state', id='ship_state', placeholder='State', required)
 				.form-group
 					label.col-sm-3.control-label(for='zip') Zip
 					.col-sm-7
-						input.form-control.checkout-form-control(type='zip', name='zip', id='zip', placeholder='Zip', required)
+						input.form-control.checkout-form-control(type='text', name='zip', id='ship_zip', placeholder='Zip', required)
 				.form-group
 					label.col-sm-3.control-label(for='email') Email
 					.col-sm-7
-						input.form-control.checkout-form-control(type='email', name='email', id='email', placeholder='Email', required)
+						input.form-control.checkout-form-control(type='email', name='email', id='ship_email', placeholder='Email', required)
 
 				input(type="checkbox", value="", id="sameAsBilling", action="copyBillingInfo()")
 				label.col-sm-6.control-label(for='cardNumber') Join our mailing list
 				br
-				button.btn.btn-primary(type='submit', form='billing-form')
-					i.fa.fa-check
-					| Place Order
-
-
+				br
+				.btn-checkout
+					br
+					button.btn.btn-primary(type='submit' form='billing-form' onclick="validateForm()")
+						i.fa.fa-check
+						| Place Order
 
 	script.
-		function copyBillingInfo() {
-			console.log("in copyBillingInfo")
-		}				
-			//- //a.btn.btn-default
-			//- a.btn.btn-default(href="#", data-toggle="dropdown", role="button", aria-expanded="false") Type 
-			//- span.caret
-			//- ul.dropdown-menu( role="menu" )
-			//- 	li: a( href="#" ) Action
-			//- 	li: a( href="#" ) Another action
-			//- 	li: a( href="#" ) Something else here
 
+		// Validate checkout form when Place Order is clicked
+		function validateForm() {
+			console.log("In validateForm()" + $('#cardType').val() );
 
-		//- .dropdown
-		//- 	button.btn.btn-default.dropdown-toggle(type="button",data-toggle="dropdown") Type
-		//- 		| &nbsp;
-		//- 		span.caret
-		//- 	ul.dropdown-menu(role="menu")
-		//- 		li(role="presentation"): a(href="#") Action
-		//- 				a(role="menuitem",tabindex="-1",href="#") Somethin
+			// Validate card type and length
+			if ( $('#cardType').val() === "Visa" || $('#cardType').val() === "Mastercard") {	
+				console.log("Card Type Visa or MC ");
+				//alert("You selected a card type of " + UserCardType + " which requires 3 digits for the CID.\nPlease re-enter the CID.");
+				//var regex = /\d{16}/g;   // For Visa
+				//var regex = /\d{15}/g;   // Amex
+				if ( $('#cardNumber').val() )
+				$('#cardType').focus();
+				return false;
+			}
+			else if ( $('#cardType').val() === "American Express") {
+				console.log("Card Type AmEx");
+				//alert("You selected a card type of " + UserCardType + " which requires 4 digits for the CID.\nPlease re-enter the CID.");
+				$('#cardType').focus();
+				return false;
+			}
+		}
+				
 
-
-//- ul.dropdown-menu( role="menu" )
-//- 				li: a( href="#" ) Action
-//- 				li: a( href="#" ) Another action
-//- 				li: a( href="#" ) Something else here
-//- 				li.divider
-//- 				li.dropdown-header Nav header
-//- 				li: a( href="#" ) Separated link
-//- 				li: a( href="#" ) One more separated link

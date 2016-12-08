@@ -16,10 +16,12 @@ block content
 							ul
 								li #[span(class='metaField') Title:] #{book.title}
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price}]
+								// Need to convert price value to currency format
+								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 		hr
 		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
+	include ../partials/sidebar			

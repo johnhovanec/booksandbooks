@@ -7,21 +7,19 @@ const Cart = require('../models/Cart.js');
 };
 
 
-/* GET / Cart page. */
- exports.index = (req, res) => {
-  Cart.find((err, docs) => {
-    res.render('cart', { carts: docs, title: 'Shopping Cart' });
-  });
-};
+// /* GET / Cart page. */
+//  exports.index = (req, res) => {
+//   Cart.find((err, docs) => {
+//     res.render('cart', { carts: docs, title: 'Shopping Cart' });
+//   });
+// };
 
 
 // /* GET cart by userID. */
  exports.detail = (req, res, next) => {
- Cart.findOne({"userID": req.params.userID }, (err, cart) => {
+  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
     if (err) { return next(err); }
     res.render('cart/detail', { carts: cart });
-    //res.send(book);
-    //res.json(book);
   });
 };
 
@@ -42,7 +40,7 @@ exports.postAddToCart = (req, res, next) => {
     return res.redirect('/books');
   }
   
-  // Look for an exiting cart linked to the userID
+  // Look for an existing cart linked to the userID
   Cart.findOne({ "userID": req.body.userID }, (err, existingCart) => {
     if (err) { return next(err); }
     console.log("In postAddToCart: userID = " + req.body.userID);
@@ -51,26 +49,13 @@ exports.postAddToCart = (req, res, next) => {
       existingCart = new Cart({
         userID: req.body.userID
       });
-    } //else {
-    existingCart.subTotal = parseFloat(existingCart.subTotal) + (parseFloat(req.body.price)* parseInt(req.body.quantity));   // Need to parseFloat to avoid validation error
-    existingCart.taxAmount = existingCart.subTotal * existingCart.taxRate;                    // Apply MD state tax
-    if (existingCart.subTotal > 50.00 ) {                                                     // Shipping over $50 is free, otherwise it's a flate rate        existingCart.shippingRate = 0.00;
-    } else {
-      existingCart.shippingAmount = 7.95;
-    }
-    existingCart.total += existingCart.subTotal + existingCart.taxAmount + existingCart.shippingAmount;    // Calculate total
+    } 
     existingCart.items.push({
                               ISBN: req.body.ISBN,
                               title: req.body.title,
                               price: req.body.price,
                               quantity: req.body.quantity
                             });
-    // existingCart.save((err) => {       //original save method
-    //   if (err) { return next(err); }
-    //   req.flash('success', { msg: 'Your cart has been updated.' });
-    //   res.redirect('/cart/' + existingCart.userID);
-    // });
-
     existingCart.save(function(err,resp) {
     if(err) {
       return next(err);
@@ -80,9 +65,74 @@ exports.postAddToCart = (req, res, next) => {
     }           
 
     });
-      //} //else
-    }); 
+  }); 
 };
+
+
+// AJAX post to change quantity
+exports.ajaxPostQuantity = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  //res.send("This is an ajax test");
+  console.log("In ajaxPost test ...");
+
+   // passed in from ajax request
+   var quantity = req.body.quantity;
+   var index = req.body.index;
+   var userID = req.body.userID;
+   console.log("quantity = " + quantity + "  index = " + index + "  userID = " + userID);
+
+  // Find a user cart
+  Cart.findOne({"userID": userID }, (err, cart) => {
+    if (err) { return next(err); }
+    console.log("In ajaxPost: orig quanity = " + cart.items[index].quantity);
+    cart.items[index].quantity = quantity;
+    console.log("new quanity = " + cart.items[index].quantity);
+
+    cart.save((err) => {
+      if (err) { 
+        return next(err); 
+      } else {
+        req.flash('success', { msg: 'Your cart has been updated.' });
+      }
+    });
+  });
+};
+
+
+// AJAX post to change quantity
+exports.ajaxPostRemove = (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  console.log("In ajaxPostRemove test ...");
+
+   // passed in from ajax request
+   var index = req.body.index;
+   var userID = req.body.userID;
+   console.log("Remove  index = " + index + "  userID = " + userID);
+
+  //Find a user cart
+  Cart.findOne({"userID": userID }, (err, cart) => {
+    if (err) { return next(err); }
+    console.log("In ajaxPostRemove: orig items length = " + cart.items.length);
+    if ( cart.items.length === 1) {
+      console.log("Last one in items")
+      cart.items[0] = "";
+    } else {
+      cart.items.splice(index, 1);
+    }
+    console.log("ajax PostRemove new length = " + cart.items.length);
+
+    cart.save((err) => {
+      if (err) { 
+        return next(err); 
+      } else {
+        //req.flash('success', { msg: 'Item has been removed from cart.' });
+      }
+      //req.flash('success', { msg: 'Ajax quantity has been updated.' });
+      //res.redirect('/cart/' + existingCart.userID);
+    });
+  });
+};
+
 
 
 /**
@@ -111,8 +161,8 @@ exports.deleteItem = (req, res, next) => {
         console.log(" Index = " + index);
         console.log("In deleteItem: item price to delete = " + existingCart.items[index].price);
         //existingCart.items.pop();
-        existingCart.subTotal -= existingCart.items[index].price;     // Subtract deleted item price from cart subtotal
-        existingCart.total -= existingCart.items[index].price;        // Subtract the deleted item price from cart total
+        // existingCart.subTotal -= existingCart.items[index].price;     // Subtract deleted item price from cart subtotal
+        // existingCart.total -= existingCart.items[index].price;        // Subtract the deleted item price from cart total
         existingCart.items.splice(index, 1);
         existingCart.save((err) => {
           if (err) { return next(err); }

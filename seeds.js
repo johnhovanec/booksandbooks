@@ -32,7 +32,7 @@ db.books.insert ({
 	pubDate:      "1961",
 	imgPath:      "0001.jpg",
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        18.99
+	price:        1899
 });
 
 
@@ -47,7 +47,7 @@ db.books.insert ({
 	pubDate:      "1963",
 	imgPath:      "0002.jpg",
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        14.95
+	price:        1495
 });
 
 db.books.insert ({
@@ -61,7 +61,7 @@ db.books.insert ({
 	pubDate:      "1934",
 	imgPath:      "0003.jpg",
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu.",
-	price:        12.95
+	price:        1295
 });
 
 
@@ -76,7 +76,7 @@ db.books.insert ({
 	pubDate:      "1995",
 	imgPath:      "0004.jpg",
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat.",
-	price:        23.95
+	price:        2395
 });
 
 
@@ -92,7 +92,7 @@ db.books.insert (
 	pubDate:      "2012",
 	imgPath:      "0005.jpg",
 	blurb:        "Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        42.95
+	price:        4295
 });
 
 
@@ -108,5 +108,5 @@ db.books.insert (
 	pubDate:      "2015",
 	imgPath:      "0006.jpg",
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        19.99
+	price:        1999
 });

@@ -143,20 +143,21 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/books', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
-app.get('/cart', cartController.index);
+//app.get('/cart', cartController.index);
 app.get('/cart/null', cartController.getLogin);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);
 app.post('/cart/update/:index', cartController.updateItem);
 //app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
-app.get('/cart/checkout', cartController.getCheckout);
+//app.get('/cart/checkout', cartController.getCheckout);
 //app.get('/cart/checkout', eventsController.getCheckout);
 app.get('/checkout/:userID', checkoutController.index);
-app.post('/checkout/confirmation', checkoutController.postConfirmation);
+app.post('/checkout/placeOrder', checkoutController.postConfirmation);
+app.post('/checkout/confirmation', checkoutController.getConfirmation);
 
-app.get('/ajax', checkoutController.ajax);
-app.post('/ajaxPostQuantity', checkoutController.ajaxPostQuantity);
+app.post('/ajaxPostQuantity', cartController.ajaxPostQuantity);
+app.post('/ajaxPostRemove', cartController.ajaxPostRemove);
 
 app.get('/events', eventsController.index);
 app.get('/gifts', giftsController.index);

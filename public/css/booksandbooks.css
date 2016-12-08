@@ -51,12 +51,9 @@ li {
 
 .checkoutSection {
   /*background-color: #EEE;*/
-  border: 1px gray solid;
+  height: 680px;
+  border: 1px #d3d3d3 solid;
   padding: 0px 5px;
-}
-
-.checkoutCartTable {
-
 }
 
 .bookDetailQty {
@@ -77,4 +74,50 @@ li {
 
 .detail-form-control {
   width: 100%;
+}
+
+.cvv-form-control {
+  width: 60%;
+  padding-left: 50px;
+  margin: 10px 25px;
+/*  margin-top: 10px 0px 0px 50px;
+  margin-left: 50px;*/
+}
+
+.cc-form-group {
+  margin-left: 40px;
+}
+
+.expMonth-form-control {
+  /*width: 150px;*/
+  /*margin: 10px 10px;*/
+  margin: 3px 20px 10px -75px;
+}
+
+.expYear-form-control {
+  /*width: 150px;*/
+  margin: 7px 20px 10px 0px;
+}
+
+.ccNum-form-control {
+  margin: 5px 0px 0px -15px;
+}
+
+.expYear-control-label {
+  margin-right: 8px;
+}
+
+.exp-form-group {
+  margin-bottom: 0px;
+}
+
+.btn-checkout {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 120px
+}
+
+h4 {
+  color: green;
 }
