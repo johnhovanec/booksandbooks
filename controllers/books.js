@@ -6,6 +6,9 @@ const Book = require('../models/Book.js');
  */
  exports.index = (req, res) => {
   Book.find((err, docs) => {
+    const limit = 6;              // Limit to show 6 books per page max
+    console.log("Book index: skip = " + req.query.skip);
+    console.log("Book index: limit = " + req.query.limit);
     res.render('books', { books: docs });
   });
 };
