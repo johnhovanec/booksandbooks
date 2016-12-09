@@ -141,7 +141,7 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 // app.get('/books', booksController.index); //orig
-app.get('/books/:skip/:limit', booksController.index);
+app.get('/books/:skip', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
 //app.get('/cart', cartController.index);
