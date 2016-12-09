@@ -15,6 +15,7 @@ const bookSchema = new mongoose.Schema({
 	price:   	     	{ type: Number, default: 0  },
 	inventory:   		{ type: Number, default: 0  },
 	showAsFeatured:	{ type: Number, default: 0  },
+	subject:        { type: String, default: '' },	
 	createdOn:    	{ type: Date,   default: Date.now}
 });
 
