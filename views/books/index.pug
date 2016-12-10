@@ -18,10 +18,19 @@ block content
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
+		
+		p Results #{books.length} of #{skip * books.length}
+
+		button.btn(type='button')
+			| Next
+
 		hr
 		a(href="cart/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
-	include ../partials/sidebar			
+	include ../partials/sidebar		
+
+	script.
+			

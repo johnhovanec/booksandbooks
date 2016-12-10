@@ -15,11 +15,13 @@ var skip;
 // };
  exports.index = (req, res) => {
   Book.find((err, docs) => {
+    var url = req.url;
+    console.log("url = " + url)
     skip = parseInt(req.query.skip);
     console.log("<>  Book index: skip = " + req.query.skip + " ||  skip var = " + skip);
     
     //console.log("Book index: limit = " + req.query.limit);
-    res.render('books', { books: docs });
+    res.render('books', { books: docs, skip: req.query.skip });
   }).skip(skip).limit(limit);      // sets paging limits
 };
 
