@@ -92,17 +92,17 @@ $(function(){
 
 	});
 
-function getSkip() {
-	var skip = document.URL;		// Get url to find skip value
-		if (skip.indexOf('=') > 0) {
-			skip = skip.slice(skip.indexOf('=')+1);		// Parse skip value from url	
-			return skip;
-		} else {
-			console.log("Skip not found!");
-		}
-		console.log("Skip from url = " + skip)
+// function getSkip() {
+// 	var skip = document.URL;		// Get url to find skip value
+// 		if (skip.indexOf('=') > 0) {
+// 			skip = skip.slice(skip.indexOf('=')+1);		// Parse skip value from url	
+// 			return skip;
+// 		} else {
+// 			console.log("Skip not found!");
+// 		}
+// 		console.log("Skip from url = " + skip)
 		
-	}
-}
+// 	}
+// }
 
 });

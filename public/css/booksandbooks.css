@@ -118,6 +118,10 @@ li {
   padding-left: 120px
 }
 
+.btn-paging {
+  margin-right: 4px;
+}
+
 h4 {
   color: green;
 }

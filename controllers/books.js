@@ -18,25 +18,25 @@ var skip;
     var url = req.url;
     console.log("url = " + url)
     skip = parseInt(req.query.skip);
+    console.log("1 From controller: skip = " + skip);
+    if (isNaN(skip)) {
+      skip = 0;
+    }
+   
+    console.log("2 From controller: skip = " + skip);
     
     
-    Book.count({}, function(err, count){
-      console.log( "Number of books:", count );
-      //return count;
-    });
+    // Book.count({}, function(err, count){
+    //   console.log( "Number of books:", count );
+    //   //return count;
+    // });
     
-    Book.count({}, function(err, count){
-     
-    //console.log("count length = " + count)
-    //count = 11;
-    //console.log("Book index: skip = " + req.query.skip + " ||  skip var = " + skip + " Totals: =" + count);
-    
-    //var bookCount = Book.count({}, function(err, count){});
-    // console.log("bookCount = " + bookCount.count)
-    res.render('books', { books: docs, skip: req.query.skip, total: count });
+    Book.count({}, function(err, count){      // Get count of total number of books
+
+    res.render('books', { books: docs, skip: skip, total: count });
     });
 
-  }).skip(skip).limit(limit);      // sets paging limits
+  }).skip(skip).limit(limit);                 // set paging limits
 };
 
 

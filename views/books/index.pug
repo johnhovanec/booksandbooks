@@ -20,13 +20,22 @@ block content
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 
 		// Display count of items on page and the total number of items
-		p Results #{+skip + 1}-#{+skip + books.length} of #{total}
+		- var pageMax = +skip + books.length;
+		- var pageMin = skip;
 
-		button.btn(type='button')
-			| Next
+		p Results #{+skip + 1}-#{+skip + books.length} of #{total}
+		
+		if skip > 0
+			a(href="/?skip=" + pageMax)
+				button.btn.btn-paging(type='button')
+					| Prev
+		if skip <= total			
+			a(href="/?skip=" + pageMax)
+				button.btn.btn-paging(type='button')
+					| Next
 
 		hr
-		a(href="cart/checkout")
+		a(href="books/checkout")
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
@@ -34,4 +43,6 @@ block content
 	include ../partials/sidebar		
 
 	script.
-			
+		var pageMax = #{skip} + #{books.length};
+		var pageMin = #{skip};
+		console.log("PMin= " + pageMin + " PageMax = " + pageMax);
