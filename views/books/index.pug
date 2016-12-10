@@ -18,8 +18,9 @@ block content
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
-		
-		p Results #{books.length} of #{skip * books.length}
+
+		// Display count of items on page and the total number of items
+		p Results #{+skip + 1}-#{+skip + books.length} of #{total}
 
 		button.btn(type='button')
 			| Next
