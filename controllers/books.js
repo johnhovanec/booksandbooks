@@ -40,6 +40,28 @@ var skip;
 };
 
 
+// AJAX paging
+ exports.pageNext = (req, res) => {
+  Book.find((err, docs) => {
+    var url = req.url;
+    console.log("AJAX url = " + url)
+    skip = parseInt(req.query.skip);
+    console.log("AJAX controller: skip = " + skip);
+    if (isNaN(skip)) {
+      skip = 0;
+    }
+   
+    console.log("AJAX controller: skip = " + skip);
+    
+    Book.count({}, function(err, count){      // Get count of total number of books
+
+    res.render('books', { books: docs, skip: skip, total: count });
+    });
+
+  }).skip(skip).limit(limit);                 // set paging limits
+};
+
+
 /* POST to create a new book */
  exports.create = (req, res, next) => {
   // create a new instance of the Book model
