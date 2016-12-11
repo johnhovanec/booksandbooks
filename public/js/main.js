@@ -42,22 +42,35 @@ $(document).ready(function() {
 		 })
 
 
-		 // Paging of items on index page, Next button
-		 $('#nextBtn').on('click', function(event) {
-			 	event.preventDefault();
-			 	console.log("nextBtn clicked");
-			 	var count = event.total;
-			 	console.log("Count = " + count);
-				$.post(
-			    "pageNext",
-			    {
-			    	_csrf: $('input').eq(0).val(), 
-						//userID: $('input').eq(1).val()			// Used to find user's cart
-			    },	function(data) {
-			    	//console.log(">>>>>> " + data);
-			    }
-			  );
-		 });
+
+		 // // Paging of items on index page, Next button
+		 // $('#nextBtn').on('click', function(event) {
+			//  	//event.preventDefault();
+			//  	$('.itemsTable').remove();  // remove existing records
+			//  	console.log("nextBtn clicked");
+			//  	var count = total;
+			//  	console.log("Count = " + count);
+
+			// 	// $.getJSON( "/pageNext/6", function( data ) {
+			// 	//   //$( ".itemsTable" ).html( data );
+			// 	//   	console.log( "Load was performed." );
+			// 	// });
+
+			// 	$.ajax({
+	  //       url: '/pageNext',
+	  //       data: { 'skip' : selectedId },
+	  //       type: "post",
+	  //       cache: false,
+	  //       success: function (savingStatus) {
+	  //           $("#hdnOrigComments").val($('#txtComments').val());
+	  //           $('#lblCommentsNotification').text(savingStatus);
+	  //       },
+	  //       error: function (xhr, ajaxOptions, thrownError) {
+	  //           $('#lblCommentsNotification').text("Error encountered while saving the comments.");
+	  //       }
+		 //    });
+		 // });
+
 
 		 // Paging of items on index page, Previous button
 		 $('#prevBtn').on('click', function(event) {

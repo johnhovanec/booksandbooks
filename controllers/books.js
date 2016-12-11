@@ -1,6 +1,8 @@
 const Book = require('../models/Book.js');
-const limit = 6;              // Limit to show 6 books per page max
-var skip;
+const limit = 6;
+const itemsPerPage = 6; 
+var skip;             
+
 /**
  * GET /
  * Books page.
@@ -16,7 +18,7 @@ var skip;
  exports.index = (req, res) => {
   Book.find((err, docs) => {
     var url = req.url;
-    console.log("url = " + url)
+    //console.log("url = " + url)
     skip = parseInt(req.query.skip);
     console.log("1 From controller: skip = " + skip);
     if (isNaN(skip)) {
@@ -43,15 +45,23 @@ var skip;
 // AJAX paging
  exports.pageNext = (req, res) => {
   Book.find((err, docs) => {
-    var url = req.url;
-    console.log("AJAX url = " + url)
-    skip = parseInt(req.query.skip);
-    console.log("AJAX controller: skip = " + skip);
-    if (isNaN(skip)) {
-      skip = 0;
-    }
+    // var url = req.url;
+    // console.log("In AJAX pageNext")
+    // skip = parseInt(req.query.skip);
+    // if (isNaN(skip)) {
+    //   skip = 0;
+    // }
+
+    // TO DO: Set new value logic to follow rules from index
+    var skip = req.params.skip;
+    var pageMin = req.query.pageMin;
+    var pageMax = req.query.pageMax;
+    var totalItems = req.query.total;
    
-    console.log("AJAX controller: skip = " + skip);
+    console.log("AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax);
+    pageMin = req.query.pageMin;
+    pageMax = req.query.pageMax
+    console.log(">> AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
     
     Book.count({}, function(err, count){      // Get count of total number of books
 
