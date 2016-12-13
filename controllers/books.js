@@ -44,31 +44,25 @@ var skip;
 
 // AJAX paging
  exports.pageNext = (req, res) => {
-  Book.find((err, docs) => {
-    // var url = req.url;
-    // console.log("In AJAX pageNext")
-    // skip = parseInt(req.query.skip);
-    // if (isNaN(skip)) {
-    //   skip = 0;
-    // }
-
-    // TO DO: Set new value logic to follow rules from index
-    var skip = req.params.skip;
-    var pageMin = req.query.pageMin;
-    var pageMax = req.query.pageMax;
+  var skip = req.params.skip;
+    var pageMin = req.query.pageMin; // min item skip on page
+    var pageMax = req.query.pageMax; // max item, skip plus items per page
     var totalItems = req.query.total;
    
-    console.log("AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax);
-    pageMin = req.query.pageMin;
-    pageMax = req.query.pageMax
+    console.log("   AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax);
+    pageMin = parseInt(pageMin) + parseInt(itemsPerPage);
+    pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+  Book.find((err, docs) => {
+    
+    skip = pageMin;
     console.log(">> AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
     
     Book.count({}, function(err, count){      // Get count of total number of books
-
-    res.render('books', { books: docs, skip: skip, total: count });
+      //res.render('books', { books: docs, skip: skip, total: count });
+      return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, total: count });
     });
-
-  }).skip(skip).limit(limit);                 // set paging limits
+    console.log("$$ AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
+  }).skip(pageMin).limit(limit);                 // set paging limits
 };
 
 
