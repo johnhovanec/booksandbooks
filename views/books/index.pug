@@ -1,23 +1,27 @@
 extends ../layout
 
 block content
-	.col-sm-9.mainContent
-		table.mainTable
+	.col-sm-9.mainContent(ng-app="pagerApp" ng-controller="pageController")
+		table
 			thead
 				tr: th: th: h3 Featured Titles
-			tbody.itemsTable
-				tr.row
-					each book, index in books
-						if (index > 0 && index % 3 === 0) 
-							tr 
+			tbody
+				tr(ng-repeat="book in books")
+					td(ng-bind="book.title")
 						td
-							a(href="books/" + book._id)
-								img(height='175px' src="/art/" + book.imgPath)
-							ul
-								li #[span(class='metaField') Title:] #{book.title}
-								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
-								// Need to convert price value to currency format
-								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
+							a(ng-href="books/{{book._id | escape}}")
+								img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
+					//- each book, index in books
+					//- 	if (index > 0 && index % 3 === 0) 
+					//- 		tr 
+					//- 	td
+					//- 		a(href="books/" + book._id)
+					//- 			img(height='175px' src="/art/" + book.imgPath)
+					//- 		ul
+					//- 			li #[span(class='metaField') Title:] #{book.title}
+					//- 			li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
+					//- 			// Need to convert price value to currency format
+					//- 			li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 
 
 		div.resultDiv
@@ -30,8 +34,9 @@ block content
 
 			if !(pageMax >= total)
 			a(href="#")
-				button.btn.btn-paging(id="nextBtn" type='button' onclick="onNext()")
+				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button' onclick="onNext()")
 					| Next
+
 
 		//- Restful paging
 		//- - var pageMax = +skip + books.length;
@@ -66,6 +71,48 @@ block content
 	include ../partials/sidebar		
 
 	script.
+		// Note: skip = pageMin
+		var skip = 0//#{skip};
+		var pageMax = 6//#{skip} + #{books.length};
+		var pageMin = 0//#{skip};
+		var total = #{total};
+
+
+		var app = angular.module('pagerApp', []);
+		app.controller('pageController', function($scope, $http) {
+			console.log("In pageController")
+			$http.get("/pageNext/"+0, {
+				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
+			})
+			.then(function(response) {
+				console.log(response.data.books);
+				$scope.books = response.data.books;
+
+				scope.getNext = function() {
+					console.log("In getNext from pageController");
+					$http.get("/pageNext/"+pageMax, {
+						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
+					})
+					.then(function(response) {
+						console.log(response.data.books);
+						$scope.items = response.data.books;
+					});
+				}
+			});
+		});
+
+		// Need to build a filter uri
+		app.filter('escape', function() {
+			return function(input) {
+				if(input) {
+					return window.encodeURIComponent(input); 
+				}
+				return "";
+			}
+		});
+
+
+
 		
 		// Paging of items on index page, Next button
 		function onNext() {
