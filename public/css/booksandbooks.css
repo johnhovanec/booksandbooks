@@ -21,7 +21,7 @@ td ul {
   /*text-align: left;*/
 }
 
-li {
+.col-content li {
   text-align: left;
 }
 
@@ -37,6 +37,12 @@ li {
 .mainContent {
   float: right;
   padding-top: 10px;
+}
+
+.col-content ul li {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 25px;
 }
 
 .detailImage {

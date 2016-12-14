@@ -2,15 +2,19 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent(ng-app="pagerApp" ng-controller="pageController")
-		table
-			thead
-				tr: th: th: h3 Featured Titles
-			tbody
-				tr(ng-repeat="book in books")
-					td(ng-bind="book.title")
-						td
-							a(ng-href="books/{{book._id | escape}}")
+		.col-sm-4.col-content(ng-repeat="book in books")
+			img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
+			ul
+				li {{ book.title }}
+
+							//- a(ng-href="books/{{book._id | escape}}")
 								img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
+			//- tbody
+			//- 	tr(ng-repeat="rows in books | chunk:3")
+			//- 		//- td(ng-repeat="book in books")
+			//- 		td(ng-bind="book.title")
+			//- 			a(ng-href="books/{{book._id | escape}}")
+			//- 				img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
 					//- each book, index in books
 					//- 	if (index > 0 && index % 3 === 0) 
 					//- 		tr 
@@ -101,7 +105,7 @@ block content
 			});
 		});
 
-		// Need to build a filter uri
+		// Filter to clean-up URIs sent in hrefs
 		app.filter('escape', function() {
 			return function(input) {
 				if(input) {
@@ -109,6 +113,13 @@ block content
 				}
 				return "";
 			}
+		});
+
+		//Filter to create 3 cols to table
+		var chunk = require('lodash-node/modern/array/chunk');
+		var memoize = require('lodash-node/modern/function/memoize');
+		app.filter('chunk', function() {
+			return memoize(chunk);
 		});
 
 
