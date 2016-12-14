@@ -1,7 +1,8 @@
 const Book = require('../models/Book.js');
 const limit = 6;
 const itemsPerPage = 6; 
-var skip;             
+var skip;        
+var pageNum = 0;     
 
 /**
  * GET /
@@ -18,24 +19,17 @@ var skip;
  exports.index = (req, res) => {
   Book.find((err, docs) => {
     var url = req.url;
+
     //console.log("url = " + url)
     skip = parseInt(req.query.skip);
     console.log("1 From controller: skip = " + skip);
     if (isNaN(skip)) {
       skip = 0;
     }
-   
     console.log("2 From controller: skip = " + skip);
-    
-    
-    // Book.count({}, function(err, count){
-    //   console.log( "Number of books:", count );
-    //   //return count;
-    // });
-    
     Book.count({}, function(err, count){      // Get count of total number of books
 
-    res.render('books', { books: docs, skip: skip, total: count });
+    res.render('books', { books: docs, skip: skip, pageNum: pageNum, total: count });
     });
 
   }).skip(skip).limit(limit);                 // set paging limits
@@ -49,25 +43,22 @@ var skip;
   var pageMax = req.query.pageMax; // max item, skip plus items per page
   var totalItems = req.query.total;
    
-    console.log("   AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax);
+  console.log("AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
+  pageMin = parseInt(pageMin) // + parseInt(itemsPerPage);
+  pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
 
-
-    pageMin = parseInt(pageMin) + parseInt(itemsPerPage);
-    pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
-    if (pageMax > totalItems) {
-      pageMax = totalItems;
-    }
 
   Book.find((err, docs) => {
     
-    skip = pageMin;
-    console.log(">> AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
+    //skip = pageMin;
+    console.log("AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
     
     Book.count({}, function(err, count){      // Get count of total number of books
       //res.render('books', { books: docs, skip: skip, total: count });
-      return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, total: count });
+      return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum, total: count });
     });
-    console.log("$$ AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
+    pageNum++;
+    console.log("$AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
   }).skip(pageMin).limit(limit);                 // set paging limits
 };
 
