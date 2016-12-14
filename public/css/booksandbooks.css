@@ -39,10 +39,14 @@ td ul {
   padding-top: 10px;
 }
 
+.col-content {
+ margin-bottom: 30px;
+}
+
 .col-content ul li {
   list-style: none;
   text-align: left;
-  margin-bottom: 25px;
+  margin-left: -40px;
 }
 
 .detailImage {

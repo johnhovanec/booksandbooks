@@ -2,10 +2,12 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent(ng-app="pagerApp" ng-controller="pageController")
-		.col-sm-4.col-content(ng-repeat="book in books")
+		.col-sm-4.col-content(ng-repeat="book in books" ng-cloak)
 			img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
 			ul
-				li {{ book.title }}
+				li #[span(class='metaField') Title:] {{ book.title }}
+				li #[span(class='metaField') Author: ]{{ book.authorFName }} {{ book.authorLName}}
+				li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') {{ book.price | currency }}]
 
 							//- a(ng-href="books/{{book._id | escape}}")
 								img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
@@ -30,7 +32,7 @@ block content
 
 		div.resultDiv
 			p(id='results') Results #{+skip + 1}-#{+skip + books.length} of #{total}
-			
+
 			if skip > 0
 				a(href="#")
 					button.btn.btn-paging(id="prevBtn" type='button' onclick="onPrev()")
@@ -92,7 +94,7 @@ block content
 				console.log(response.data.books);
 				$scope.books = response.data.books;
 
-				scope.getNext = function() {
+				$scope.getNext = function() {
 					console.log("In getNext from pageController");
 					$http.get("/pageNext/"+pageMax, {
 						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
@@ -116,11 +118,9 @@ block content
 		});
 
 		//Filter to create 3 cols to table
-		var chunk = require('lodash-node/modern/array/chunk');
-		var memoize = require('lodash-node/modern/function/memoize');
-		app.filter('chunk', function() {
-			return memoize(chunk);
-		});
+		//- app.filter('chunk', function() {
+		//- 	return memoize(chunk);
+		//- });
 
 
 

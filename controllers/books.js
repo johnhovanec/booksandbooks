@@ -45,13 +45,19 @@ var skip;
 // AJAX paging
  exports.pageNext = (req, res) => {
   var skip = req.params.skip;
-    var pageMin = req.query.pageMin; // min item skip on page
-    var pageMax = req.query.pageMax; // max item, skip plus items per page
-    var totalItems = req.query.total;
+  var pageMin = req.query.pageMin; // min item skip on page
+  var pageMax = req.query.pageMax; // max item, skip plus items per page
+  var totalItems = req.query.total;
    
     console.log("   AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax);
+
+
     pageMin = parseInt(pageMin) + parseInt(itemsPerPage);
     pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+    if (pageMax > totalItems) {
+      pageMax = totalItems;
+    }
+
   Book.find((err, docs) => {
     
     skip = pageMin;
@@ -61,7 +67,7 @@ var skip;
       //res.render('books', { books: docs, skip: skip, total: count });
       return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, total: count });
     });
-    console.log("$$ AJAX controller: pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
+    console.log("$$ AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
   }).skip(pageMin).limit(limit);                 // set paging limits
 };
 
