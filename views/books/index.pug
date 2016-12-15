@@ -32,13 +32,14 @@ block content
 
 		.resultDiv
 			p(id='results') Results #{pageMin} - #{+skip + books.length} of #{total}
+			p=pageMin
 
-			if skip > 0
-				a(href="javascript: void()")
-					button.btn.btn-paging(ng-click="getPrev()" id="prevBtn" type='button')
-						| Prev
+			//if skip > 0
+			a(href="javascript: void()")
+				button.btn.btn-paging(ng-click="getPrev()" id="prevBtn" type='button')
+					| Prev
 
-			if !(pageMax >= total)
+			//if !(pageMax >= total)
 			a(href="#")
 				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button')
 					| Next
@@ -77,15 +78,37 @@ block content
 						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 					})
 					.then(function(response) {
-						console.log("Min=" + response.data.pageMin + " pageMax=" +response.data.pageMax);
+						console.log("Min=" + response.data.pageMin + " pageMax=" + response.data.pageMax);
 						$scope.books = response.data.books;
+						pageMin = response.data.pageMin;
+						pageMax = response.data.pageMax;
+						console.log("2 getNext(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 
+						$('#results').text(" Results " + pageMin + " - " + pageMax + " of " + total);
 					});
 					//debugger;
-					pageMin = response.data.pageMin;
-					console.log("2 getNext(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+					//pageMin = response.data.pageMin;
 				}
 
+				// Next Page
+				$scope.getPrev = function() {
+					console.log("1 getPrev(): skip=" + skip + " pageNum = " +  pageNum  + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+					$http.get("/pageNext/"+pageMax, {
+						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
+					})
+					.then(function(response) {
+						console.log("Min=" + response.data.pageMin + " pageMax=" +response.data.pageMax);
+						$scope.books = response.data.books;
+						pageMin = response.data.pageMin;
+						pageMax = response.data.pageMax;
+
+					});
+					console.log("2 getPrev(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+				}
+
+				//- function getMin(val) {
+				//- 	return val;
+				//- }
 
 			});
 		});
@@ -100,74 +123,59 @@ block content
 			}
 		});
 
-		//Filter to create 3 cols to table
-		//- app.filter('chunk', function() {
-		//- 	return memoize(chunk);
-		//- });
-
-
-
 		
-		// Paging of items on index page, Next button
-		function onNext() {
-			//event.preventDefault();
-			$('.itemsTable').remove();  // remove existing records
-			$('#results').remove();
+		//- // Paging of items on index page, Next button
+		//- function onNext() {
+		//- 	//event.preventDefault();
+		//- 	$('.itemsTable').remove();  // remove existing records
+		//- 	$('#results').remove();
 
-			// Note: skip = pageMin
-			var skip = #{skip};
-			var pageMax = #{skip} + #{books.length};
-			var pageMin = #{skip};
-			var total = #{total};
+		//- 	// Note: skip = pageMin
+		//- 	var skip = #{skip};
+		//- 	var pageMax = #{skip} + #{books.length};
+		//- 	var pageMin = #{skip};
+		//- 	var total = #{total};
 
-		console.log("*** pageMin= " + pageMin + " PageMax = " + pageMax);
-			$.ajax({
-				url: '/pageNext/'+pageMax,
-				data: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
-				type: "get",
-				cache: false,
-				success: function (data) {
-					console.log("AJAX in view success");
-					$.each(data.books, function( i, field) {
-						$(".mainTable").append("<tr><td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "<td></tr>");
-					});
-					//debugger;
-					$('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
-					console.log("AJAX in view err");
-				},
-			});
-		}
+		//- console.log("*** pageMin= " + pageMin + " PageMax = " + pageMax);
+		//- 	$.ajax({
+		//- 		url: '/pageNext/'+pageMax,
+		//- 		data: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
+		//- 		type: "get",
+		//- 		cache: false,
+		//- 		success: function (data) {
+		//- 			console.log("AJAX in view success");
+		//- 			$.each(data.books, function( i, field) {
+		//- 				$(".mainTable").append("<tr><td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "<td></tr>");
+		//- 			});
+		//- 			//debugger;
+		//- 			$('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+		//- 		},
+		//- 		error: function (xhr, ajaxOptions, thrownError) {
+		//- 			//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
+		//- 			console.log("AJAX in view err");
+		//- 		},
+		//- 	});
+		//- }
 
 
-		function onPrev() {
-			//event.preventDefault();
-			//$('.itemsTable').remove();  // remove existing records
-
-			// skip = pageMin
-			var skip = #{skip}+pageMax;
-			var pageMax = #{skip} + #{books.length};
-			var pageMin = #{skip}+pageMax;
-
-		console.log("*** skip = " + skip + " pageMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
-			$.ajax({
-				url: '/pageNext/'+pageMin-itemsPerPage,
-				data: { 'pageMin' : pageMin, 'pageMax' : pageMax },
-				type: "get",
-				cache: false,
-				success: function (savingStatus) {
-					//$("#hdnOrigComments").val($('#txtComments').val());
-					//$('#lblCommentsNotification').text(savingStatus);
-					console.log("AJAX in view success");
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
-					console.log("AJAX in view err");
-				},
-			});
-		}
+		//- function onPrev() {
+		//- console.log("onPrev() skip = " + skip + " pageMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
+		//- 	$.ajax({
+		//- 		url: '/pageNext/'+pageMin-itemsPerPage,
+		//- 		data: { 'pageMin' : pageMin, 'pageMax' : pageMax },
+		//- 		type: "get",
+		//- 		cache: false,
+		//- 		success: function (savingStatus) {
+		//- 			//$("#hdnOrigComments").val($('#txtComments').val());
+		//- 			//$('#lblCommentsNotification').text(savingStatus);
+		//- 			console.log("AJAX in view success");
+		//- 		},
+		//- 		error: function (xhr, ajaxOptions, thrownError) {
+		//- 			//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
+		//- 			console.log("AJAX in view err");
+		//- 		},
+		//- 	});
+		//- }
 
 
 
