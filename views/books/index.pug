@@ -78,16 +78,16 @@ block content
 
 	script.
 		// Note: skip = pageMin
-		var skip = 0//#{skip};
-		var pageNum = #{pageNum};
-		var pageMax;//#{skip} + #{books.length};
-		var pageMin;//#{skip};
+		var skip = 0;//#{skip};
+		var pageNum = skip;
+		var pageMax = skip + 6;
+		var pageMin = skip;//#{skip};
 		var total = #{total};
 
 
 		var app = angular.module('pagerApp', []);
 		app.controller('pageController', function($scope, $http) {
-			console.log("In pageController: next pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+			console.log("In pageController: pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 			$http.get("/pageNext/"+0, {
 				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 			})
@@ -95,6 +95,7 @@ block content
 				//console.log(response.data.books);
 				$scope.books = response.data.books;
 
+				// Next Page
 				$scope.getNext = function() {
 					console.log("In getNext from pageController");
 					$http.get("/pageNext/"+pageMax, {

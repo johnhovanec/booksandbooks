@@ -42,22 +42,20 @@ var pageNum = 0;
   var pageMin = req.query.pageMin; // min item skip on page
   var pageMax = req.query.pageMax; // max item, skip plus items per page
   var totalItems = req.query.total;
+  var pageNum = Math.ceil(pageMax/itemsPerPage);
    
   console.log("AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
   pageMin = parseInt(pageMin) // + parseInt(itemsPerPage);
   pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
 
-
   Book.find((err, docs) => {
     
-    //skip = pageMin;
     console.log("AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
     
     Book.count({}, function(err, count){      // Get count of total number of books
       //res.render('books', { books: docs, skip: skip, total: count });
       return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum, total: count });
     });
-    pageNum++;
     console.log("$AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
   }).skip(pageMin).limit(limit);                 // set paging limits
 };
