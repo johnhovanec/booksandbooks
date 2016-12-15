@@ -30,43 +30,18 @@ block content
 					//- 			li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 
 
-		div.resultDiv
-			p(id='results') Results #{+skip + 1}-#{+skip + books.length} of #{total}
+		.resultDiv
+			p(id='results') Results #{pageMin} - #{+skip + books.length} of #{total}
 
 			if skip > 0
-				a(href="#")
-					button.btn.btn-paging(id="prevBtn" type='button' onclick="onPrev()")
+				a(href="javascript: void()")
+					button.btn.btn-paging(ng-click="getPrev()" id="prevBtn" type='button')
 						| Prev
 
 			if !(pageMax >= total)
 			a(href="#")
-				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button' onclick="onNext()")
+				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button')
 					| Next
-
-
-		//- Restful paging
-		//- - var pageMax = +skip + books.length;
-		//- - var pageMin = skip;
-		//- - var itemsPerPage = 6;
-		//- -console.log("@@ PMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
-	
-		//- // Display count of items on page and the total number of items; unless at end of items with only one to display
-		//- if +skip + 1 < total
-		//- 	p Results #{+skip + 1}-#{+skip + books.length} of #{total}
-		//- else
-		//- 	p Results #{+skip + 1} of #{total}
-		
-		//- //Show Prev button if past first page
-		//- if skip > 0
-		//- 	a(href="/?skip=" + (pageMin - itemsPerPage))
-		//- 		button.btn.btn-paging(type='button')
-		//- 			| Prev
-
-		//- //Show Next button if unless it's the last page
-		//- if !(pageMax >= total)			
-		//- 	a(href="/?skip=" + pageMax)
-		//- 		button.btn.btn-paging(type='button')
-		//- 			| Next
 
 		hr
 		a(href="books/checkout")
@@ -87,7 +62,7 @@ block content
 
 		var app = angular.module('pagerApp', []);
 		app.controller('pageController', function($scope, $http) {
-			console.log("In pageController: pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+			console.log("In pageController: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 			$http.get("/pageNext/"+0, {
 				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 			})
@@ -97,15 +72,21 @@ block content
 
 				// Next Page
 				$scope.getNext = function() {
-					console.log("In getNext from pageController");
+					console.log("1 getNext(): skip=" + skip + " pageNum = " +  pageNum  + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 					$http.get("/pageNext/"+pageMax, {
 						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 					})
 					.then(function(response) {
-						//console.log(response.data.books);
-						$scope.items = response.data.books;
+						console.log("Min=" + response.data.pageMin + " pageMax=" +response.data.pageMax);
+						$scope.books = response.data.books;
+
 					});
+					//debugger;
+					pageMin = response.data.pageMin;
+					console.log("2 getNext(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 				}
+
+
 			});
 		});
 

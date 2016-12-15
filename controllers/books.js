@@ -1,8 +1,10 @@
 const Book = require('../models/Book.js');
 const limit = 6;
 const itemsPerPage = 6; 
-var skip;        
-var pageNum = 0;     
+var skip;     
+var pageMin; 
+var pageMax;
+var pageNum;     
 
 /**
  * GET /
@@ -18,7 +20,9 @@ var pageNum = 0;
 // };
  exports.index = (req, res) => {
   Book.find((err, docs) => {
-    var url = req.url;
+    pageMin = 0;
+    pageMax = itemsPerPage;
+    pageNum = 0;
 
     //console.log("url = " + url)
     skip = parseInt(req.query.skip);
@@ -29,7 +33,7 @@ var pageNum = 0;
     console.log("2 From controller: skip = " + skip);
     Book.count({}, function(err, count){      // Get count of total number of books
 
-    res.render('books', { books: docs, skip: skip, pageNum: pageNum, total: count });
+    res.render('books', { books: docs, skip: skip, pageMin: pageMin, pageNum: pageNum, total: count });
     });
 
   }).skip(skip).limit(limit);                 // set paging limits
@@ -38,15 +42,20 @@ var pageNum = 0;
 
 // AJAX paging
  exports.pageNext = (req, res) => {
-  var skip = req.params.skip;
-  var pageMin = req.query.pageMin; // min item skip on page
-  var pageMax = req.query.pageMax; // max item, skip plus items per page
+  skip = req.params.skip;      // This was previous pageMax
+  if (pageNum === 0) { 
+    pageMin = req.query.pageMin; // min item skip on page
+    pageMax = req.query.pageMax; // max item, skip plus items per page
+    pageMin = parseInt(pageMin) + parseInt(skip);
+    pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+  } else {
+      pageMin = parseInt(pageMin) + parseInt(itemsPerPage);
+      pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+  }
   var totalItems = req.query.total;
-  var pageNum = Math.ceil(pageMax/itemsPerPage);
+  pageNum = Math.ceil(pageMax/itemsPerPage);
    
   console.log("AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
-  pageMin = parseInt(pageMin) // + parseInt(itemsPerPage);
-  pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
 
   Book.find((err, docs) => {
     
