@@ -31,17 +31,16 @@ block content
 
 
 		.resultDiv
-			p(id='results') Results #{pageMin} - #{+skip + books.length} of #{total}
-			p=pageMin
+			p(id='results') Results #{pageMin + 1} - #{+skip + books.length} of #{total}
 
-			//if skip > 0
-			a(href="javascript: void()")
-				button.btn.btn-paging(ng-click="getPrev()" id="prevBtn" type='button')
+
+			a(href="javascript: void()" class="prevBtn")
+				button.btn.btn-paging(ng-click="getPrev()" class="prevBtn" type='button' ng-show="my.prev" ng-cloak)
 					| Prev
 
 			//if !(pageMax >= total)
 			a(href="#")
-				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button')
+				button.btn.btn-paging(ng-click="getNext()" id="nextBtn" type='button' ng-show="my.next" ng-cloak)
 					| Next
 
 		hr
@@ -64,12 +63,19 @@ block content
 		var app = angular.module('pagerApp', []);
 		app.controller('pageController', function($scope, $http) {
 			console.log("In pageController: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+
+			$scope.my = { prev: 0, next: 1 };
+
 			$http.get("/pageNext/"+0, {
 				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 			})
 			.then(function(response) {
-				//console.log(response.data.books);
 				$scope.books = response.data.books;
+				pageMin = response.data.pageMin;
+				pageMax = response.data.pageMax;
+				pageNum = response.data.pageNum;
+
+				window.history.pushState({}, null, '/books/?page=' + pageNum);
 
 				// Next Page
 				$scope.getNext = function() {
@@ -82,12 +88,22 @@ block content
 						$scope.books = response.data.books;
 						pageMin = response.data.pageMin;
 						pageMax = response.data.pageMax;
+						pageNum = response.data.pageNum;
+						$scope.my.prev = pageMin;
+						if ( pageMax < total) {
+							$scope.my.next = pageMax;
+							$('#results').text(" Results " + Number(pageMin + 1) + " - " + pageMax + " of " + total);
+						} else {
+							pageMax = total;
+							$scope.my.next = 0;
+							$('#results').text(" Results " + Number(pageMin + 1) + " of " + total);
+						}
 						console.log("2 getNext(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+						//pageMax <= total ? pageMax : pageMax = total;
+						//$('#results').text(" Results " + Number(pageMin + 1) + " - " + pageMax + " of " + total);
 
-						$('#results').text(" Results " + pageMin + " - " + pageMax + " of " + total);
+						window.history.pushState({}, null, '/books/?page=' + pageNum);
 					});
-					//debugger;
-					//pageMin = response.data.pageMin;
 				}
 
 				// Next Page
@@ -101,10 +117,16 @@ block content
 						$scope.books = response.data.books;
 						pageMin = response.data.pageMin;
 						pageMax = response.data.pageMax;
-
+						pageNum = response.data.pageNum;
+						$scope.my.prev = pageMin;
+						$scope.my.next = pageMax;
+						$('#results').text(" Results " + Number(pageMin + 1) + " - " + pageMax + " of " + total);
+						window.history.pushState({}, null, '/books/?page=' + pageNum);
 					});
 					console.log("2 getPrev(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 				}
+
+				
 
 				//- function getMin(val) {
 				//- 	return val;

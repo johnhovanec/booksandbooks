@@ -79,6 +79,7 @@ var pageNum;
     pageMin = parseInt(pageMin) + parseInt(skip);
     pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
   } else {
+      skip = parseInt(skip) - itemsPerPage;
       pageMin = parseInt(pageMin) - itemsPerPage;
       pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
   }
