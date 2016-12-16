@@ -145,6 +145,8 @@ app.get('/pageNext/:skip', booksController.pageNext);
 app.get('/pagePrev/:skip', booksController.pagePrev);
 
 app.get('/books/:book_id', booksController.detail);
+app.get('/books/page/:page', booksController.getPage);
+
 app.post('/books/create', booksController.create);
 //app.get('/cart', cartController.index);
 app.get('/cart/null', cartController.getLogin);

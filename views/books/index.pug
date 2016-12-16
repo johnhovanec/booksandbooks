@@ -102,7 +102,7 @@ block content
 						//pageMax <= total ? pageMax : pageMax = total;
 						//$('#results').text(" Results " + Number(pageMin + 1) + " - " + pageMax + " of " + total);
 
-						window.history.pushState({}, null, '/books/?page=' + pageNum);
+						window.history.pushState({}, null, '/books/page/' + pageNum);
 					});
 				}
 
@@ -121,7 +121,7 @@ block content
 						$scope.my.prev = pageMin;
 						$scope.my.next = pageMax;
 						$('#results').text(" Results " + Number(pageMin + 1) + " - " + pageMax + " of " + total);
-						window.history.pushState({}, null, '/books/?page=' + pageNum);
+						window.history.pushState({}, null, '/books/page/' + pageNum);
 					});
 					console.log("2 getPrev(): skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
 				}
