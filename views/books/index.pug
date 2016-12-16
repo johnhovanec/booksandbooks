@@ -93,7 +93,7 @@ block content
 				// Next Page
 				$scope.getPrev = function() {
 					console.log("1 getPrev(): skip=" + skip + " pageNum = " +  pageNum  + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
-					$http.get("/pageNext/"+pageMax, {
+					$http.get("/pagePrev/"+pageMax, {
 						params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
 					})
 					.then(function(response) {

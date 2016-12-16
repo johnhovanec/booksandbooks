@@ -40,7 +40,7 @@ var pageNum;
 };
 
 
-// AJAX paging
+// AJAX paging Next
  exports.pageNext = (req, res) => {
   skip = req.params.skip;      // This was previous pageMax
   if (pageNum === 0) { 
@@ -66,6 +66,36 @@ var pageNum;
       return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum, total: count });
     });
     console.log("$AJAX controller: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
+  }).skip(pageMin).limit(limit);                 // set paging limits
+};
+
+
+// AJAX paging Prev
+ exports.pagePrev = (req, res) => {
+  skip = req.params.skip;      // This was previous pageMax
+  if (pageNum === 0) { 
+    pageMin = req.query.pageMin; // min item skip on page
+    pageMax = req.query.pageMax; // max item, skip plus items per page
+    pageMin = parseInt(pageMin) + parseInt(skip);
+    pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+  } else {
+      pageMin = parseInt(pageMin) - itemsPerPage;
+      pageMax = parseInt(pageMin) + parseInt(itemsPerPage);
+  }
+  var totalItems = req.query.total;
+  pageNum = Math.ceil(pageMax/itemsPerPage);
+   
+  console.log("AJAX pagePrev: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
+
+  Book.find((err, docs) => {
+    
+    console.log("AJAX pagePrev: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems);
+    
+    Book.count({}, function(err, count){      // Get count of total number of books
+      //res.render('books', { books: docs, skip: skip, total: count });
+      return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum, total: count });
+    });
+    console.log("$AJAX pagePrev: skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  + " totalItems = " + totalItems + " pageNum = " + pageNum);
   }).skip(pageMin).limit(limit);                 // set paging limits
 };
 
