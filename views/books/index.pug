@@ -3,7 +3,8 @@ extends ../layout
 block content
 	.col-sm-9.mainContent(ng-app="pagerApp" ng-controller="pageController")
 		.col-sm-4.col-content(ng-repeat="book in books" ng-cloak)
-			img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
+			a(ng-href="/books/{{book._id | escape}}")
+				img(height='175px' ng-src="/art/{{book.imgPath | escape}}")
 			ul
 				li #[span(class='metaField') Title:] {{ book.title }}
 				li #[span(class='metaField') Author: ]{{ book.authorFName }} {{ book.authorLName}}
@@ -57,25 +58,27 @@ block content
 		var pageNum = skip;
 		var pageMax = skip + 6;
 		var pageMin = skip;//#{skip};
-		var total = #{total};
-
+		var total = 13; // TO DO
+ 
 
 		var app = angular.module('pagerApp', []);
 		app.controller('pageController', function($scope, $http) {
-			console.log("In pageController: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+			
 
 			$scope.my = { prev: 0, next: 1 };
 
-			$http.get("/pageNext/"+0, {
-				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total }
+			console.log("## app.pageController pre-ajax: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+
+			$http.get("/pageNext/"+pageNum, {
+				params: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'pageNum': pageNum, 'total' : total }
 			})
 			.then(function(response) {
 				$scope.books = response.data.books;
 				pageMin = response.data.pageMin;
 				pageMax = response.data.pageMax;
 				pageNum = response.data.pageNum;
-
-				window.history.pushState({}, null, '/books/?page=' + pageNum);
+				console.log("++ app.pageController ajax return: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+				window.history.pushState({}, null, '/books/page/' + pageNum);
 
 				// Next Page
 				$scope.getNext = function() {

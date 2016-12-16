@@ -43,13 +43,11 @@ var pageNum;
  exports.getPage = (req, res) => {
   Book.find((err, docs) => {
     pageNum = parseInt(req.params.page);
-    if (pageNum < 3) {
-      skip = (pageNum - 1) * itemsPerPage;
-    } else {
-      skip = ((pageNum - 1) * itemsPerPage) + 1;
-    }
-    pageMin = 6;
-    console.log("> In getPage skip = " + skip);
+    skip = (pageNum - 1) * itemsPerPage;
+    pageMin = skip;
+    pageMax = pageMin + itemsPerPage;
+    //pageMin = 6;
+    console.log("-- getPage(): skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  +  " pageNum = " + pageNum);
     res.render('books', { books: docs, skip: skip, pageMin: pageMin, pageNum: pageNum });
     //return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum });
   }).skip(skip).limit(limit);                 // set paging limits
@@ -59,6 +57,8 @@ var pageNum;
 // AJAX paging Next
  exports.pageNext = (req, res) => {
   skip = req.params.skip;      // This was previous pageMax
+  pageNum = req.query.pageNum;
+  console.log("In pageNext: pageNum = " + pageNum);
   if (pageNum === 0) { 
     pageMin = req.query.pageMin; // min item skip on page
     pageMax = req.query.pageMax; // max item, skip plus items per page
