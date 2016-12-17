@@ -2,10 +2,10 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent
-		table
+		table.mainTable
 			thead
 				tr: th: th: h3 Featured Titles
-			tbody
+			tbody.itemsTable
 				tr
 					each book, index in books
 						if (index > 0 && index % 3 === 0) 
@@ -30,13 +30,13 @@ block content
 		//Show Prev button if past first page
 		if pageMin > 0
 			//a(href="/books/" + (pageMin - itemsPerPage))
-			a(href="javascript:void()")
+			a(href="javascript:void(0);")
 				button.btn.btn-paging(type='button')
 					| Prev
 
 		//Show Next button if unless it's the last page
 		if !(pageMax >= total)			
-			a(href="javascript:void()")
+			a(href="javascript:void(0);")
 				button.btn.btn-paging(type='button' onclick="onNext()")
 					| Next
 
@@ -50,31 +50,51 @@ block content
 
 	script.
 
-		// Paging of items on index page, Next button
-		//function onNext() {
+		// Paging - Next button
+		function onNext() {
 			//event.preventDefault();
-			//$('.itemsTable').remove();  // remove existing records
+			$('.itemsTable').remove();  // remove existing records
 			//$('#results').remove();
 
-		//console.log("onNext() pageMin= " + pageMin + " PageMax = " + pageMax);
-			//- $.ajax({
-			//- 	url: '/pageNext/'+pageMax,
-			//- 	data: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
-			//- 	type: "get",
-			//- 	cache: false,
-			//- 	success: function (data) {
-			//- 		console.log("AJAX in view success");
-			//- 		$.each(data.books, function( i, field) {
-			//- 			$(".mainTable").append("<tr><td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "<td></tr>");
-			//- 		});
-			//- 		//debugger;
-			//- 		$('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
-			//- 	},
-			//- 	error: function (xhr, ajaxOptions, thrownError) {
-			//- 		//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
-			//- 		console.log("AJAX in view err");
-			//- 	},
-			//- });
+			console.log("onNext clicked");
+			$.ajax({
+				url: '/pageNext',
+				//data: { 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
+				type: "get",
+				cache: false,
+				success: function (data) {
+					console.log("onNext success: length =" + data.books.length);
+					$(".mainTable").append("<tbody class='itemsTable'></tbody>");
+					var itemsPerRow = 3
+					var totalRows = data.books.length/itemsPerRow;
+					var bookIndex = 0;
+					for (row = 0; row < totalRows; row++) {
+					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
+					    for (var col = 0; col < itemsPerRow; col++) {
+					       $("#insertRow"+row).append("<td><a href='/books/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'</a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
+					       bookIndex++;
+					    }
+					}
 
-		//- }
+					//- $.each(data.books, function( i, field) {
+					 	
+					//-  		$('.itemsTable').append("<tr id='insertRow" + i + "' ></tr>");
+				 //- 		}
+				 //- 		//$('.itemsTable').append("<tr id='insertRow></tr></tbody>")
+				 //- 		$("#insertRow"+i).append("<td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title +  "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "</td>");
+					 	
+					 	//- $("#insertRow").append("<td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "</td>");
+					 //- });
+					//debugger;
+					//- $('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+
+
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
+					console.log("onNext  err");
+				},
+			});
+
+		 }
 

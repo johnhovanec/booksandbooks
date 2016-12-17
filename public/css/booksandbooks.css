@@ -45,6 +45,10 @@ li {
   margin: 0px 15px 10px 0px;
 }
 
+.metaInfo .metaField {
+  padding-left: 40px;
+}
+
 .detailContent {
   /*float: right;*/ 
 }
