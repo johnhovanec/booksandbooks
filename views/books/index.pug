@@ -11,7 +11,7 @@ block content
 						if (index > 0 && index % 3 === 0) 
 							tr 
 						td
-							a(href="books/" + book._id)
+							a(href="books/detail/" + book._id)
 								img(height='175px' src="/art/" + book.imgPath)
 							ul
 								li #[span(class='metaField') Title:] #{book.title}
@@ -22,10 +22,11 @@ block content
 		- console.log("@-@ PMin= " + pageMin + " PageMax = " + pageMax + " total  = " + total);
 	
 		// Display count of items on page and the total number of items; unless at end of items with only one to display
-		if pageMax < total
-			p Results #{+pageMin + 1}-#{pageMax} of #{total}
-		else
-			p Results #{+pageMin + 1} of #{total}
+		.resultDiv
+			if pageMax < total
+				p Results #{+pageMin + 1}-#{pageMax} of #{total}
+			else
+				p Results #{+pageMin + 1} of #{total}
 		
 		//Show Prev button if past first page
 		if pageMin > 0
@@ -71,10 +72,15 @@ block content
 					for (row = 0; row < totalRows; row++) {
 					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
 					    for (var col = 0; col < itemsPerRow; col++) {
-					       $("#insertRow"+row).append("<td><a href='/books/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'</a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
+					    	if(data.books[bookIndex].title) {
+					       	$("#insertRow"+row).append("<td><a href='books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
+					       }
 					       bookIndex++;
 					    }
 					}
+					console.log("onNext pageMin=" + data.pageMin + " pageMax = " + data.pageMax);
+					$('.resultDiv').children("p").remove();
+					$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
 
 					//- $.each(data.books, function( i, field) {
 					 	
@@ -86,7 +92,7 @@ block content
 					 	//- $("#insertRow").append("<td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "</td>");
 					 //- });
 					//debugger;
-					//- $('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+					//- 
 
 
 				},

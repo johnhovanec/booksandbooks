@@ -144,7 +144,7 @@ app.get('/books', booksController.index); //orig
 app.get('/books/:pageMin', booksController.index);
 app.get('/pageNext', booksController.pageNext);
 
-app.get('/books/:book_id', booksController.detail);
+app.get('/books/detail/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
 //app.get('/cart', cartController.index);
 app.get('/cart/null', cartController.getLogin);
