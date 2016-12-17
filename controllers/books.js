@@ -39,10 +39,26 @@ var pageNum;
   }).skip(skip).limit(limit);                 // set paging limits
 };
 
+  // GET to handle RESTful paging so urls from AJAX are available for bookmarking
+ exports.getPage = (req, res) => {
+  Book.find((err, docs) => {
+    pageNum = parseInt(req.params.page);
+    skip = (pageNum - 1) * itemsPerPage;
+    pageMin = skip;
+    pageMax = pageMin + itemsPerPage;
+    //pageMin = 6;
+    console.log("-- getPage(): skip =" + skip + " pageMin = " + pageMin + " pageMax = " + pageMax  +  " pageNum = " + pageNum);
+    res.render('books', { books: docs, skip: skip, pageMin: pageMin, pageNum: pageNum });
+    //return res.json({ books: docs, skip: skip, pageMin: pageMin, pageMax: pageMax, pageNum: pageNum });
+  }).skip(skip).limit(limit);                 // set paging limits
+};
+
 
 // AJAX paging Next
  exports.pageNext = (req, res) => {
   skip = req.params.skip;      // This was previous pageMax
+  pageNum = req.query.pageNum;
+  console.log("In pageNext: pageNum = " + pageNum);
   if (pageNum === 0) { 
     pageMin = req.query.pageMin; // min item skip on page
     pageMax = req.query.pageMax; // max item, skip plus items per page
