@@ -1,6 +1,14 @@
 const Book = require('../models/Book.js');
 const limit = 6;              // Limit to show 6 books per page max
-var skip;
+var pageMin;
+var pageMax;
+var pageNum;
+const itemsPerPage = 6;
+var total;
+
+Book.count({}, function(err, count){      // Get count of total number of books
+  total = count;
+});
 /**
  * GET /
  * Books page.
@@ -14,29 +22,19 @@ var skip;
 //   });
 // };
  exports.index = (req, res) => {
+  pageMin = parseInt(req.params.pageMin);
+  console.log("1 Index controller: pageMin = " + pageMin + " total = " + total);
+  if (isNaN(pageMin)) {       // Need this in case param is missing we'll set it to 0
+    pageMin = 0;
+  }
+  pageMax = pageMin + itemsPerPage;
+  
   Book.find((err, docs) => {
-    var url = req.url;
-    console.log("url = " + url)
-    skip = parseInt(req.query.skip);
-    console.log("1 From controller: skip = " + skip);
-    if (isNaN(skip)) {
-      skip = 0;
-    }
-   
-    console.log("2 From controller: skip = " + skip);
+    console.log("2 Index controller: pageMin = " + pageMin + " pageMax = " + pageMax + " total = " + total);
     
-    
-    // Book.count({}, function(err, count){
-    //   console.log( "Number of books:", count );
-    //   //return count;
-    // });
-    
-    Book.count({}, function(err, count){      // Get count of total number of books
-
-    res.render('books', { books: docs, skip: skip, total: count });
-    });
-
-  }).skip(skip).limit(limit);                 // set paging limits
+    res.render('books', { books: docs, pageMin: pageMin, pageMax: pageMax, total: total });
+  
+  }).skip(pageMin).limit(itemsPerPage);                 // set paging limits
 };
 
 

@@ -140,8 +140,8 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
-// app.get('/books', booksController.index); //orig
-app.get('/books/:skip', booksController.index);
+app.get('/books', booksController.index); //orig
+app.get('/books/:pageMin', booksController.index);
 app.get('/books/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
 //app.get('/cart', cartController.index);

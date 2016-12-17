@@ -19,10 +19,10 @@ block content
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 
-		- var pageMax = +skip + books.length;
-		- var pageMin = skip;
-		- var itemsPerPage = 6;
-		-console.log("@@ PMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
+		- var pageMax;
+		- var pageMin;
+		- var total
+		//-console.log("@@ PMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
 	
 		// Display count of items on page and the total number of items; unless at end of items with only one to display
 		if +skip + 1 < total
@@ -38,8 +38,8 @@ block content
 
 		//Show Next button if unless it's the last page
 		if !(pageMax >= total)			
-			a(href="/?skip=" + pageMax)
-				button.btn.btn-paging(type='button')
+			a(href="javascript:void()")
+				button.btn.btn-paging(type='button' onclick="onNext()")
 					| Next
 
 		hr
@@ -51,7 +51,37 @@ block content
 	include ../partials/sidebar		
 
 	script.
-			var pageMax = #{skip} + #{books.length};
-			var pageMin = #{skip};
-			var itemsPerPage = 6;
-			console.log("PMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
+
+		// Paging of items on index page, Next button
+		function onNext() {
+			//event.preventDefault();
+			$('.itemsTable').remove();  // remove existing records
+			$('#results').remove();
+
+			
+			var pageMax;
+			var pageMin;
+			var total;
+
+		console.log("onNext() pageMin= " + pageMin + " PageMax = " + pageMax);
+			//- $.ajax({
+			//- 	url: '/pageNext/'+pageMax,
+			//- 	data: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
+			//- 	type: "get",
+			//- 	cache: false,
+			//- 	success: function (data) {
+			//- 		console.log("AJAX in view success");
+			//- 		$.each(data.books, function( i, field) {
+			//- 			$(".mainTable").append("<tr><td><img height='175' src='/art/"+data.books[i].imgPath + "'<br>"  +  data.books[i].title + "<br>" + data.books[i].authorFName + " " + data.books[i].authorLName + "<br>" + data.books[i].price/100 + "<td></tr>");
+			//- 		});
+			//- 		//debugger;
+			//- 		$('.resultDiv').prepend("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+			//- 	},
+			//- 	error: function (xhr, ajaxOptions, thrownError) {
+			//- 		//$('#lblCommentsNotification').text("Error encountered while saving the comments.");
+			//- 		console.log("AJAX in view err");
+			//- 	},
+			//- });
+			
+		//- }
+
