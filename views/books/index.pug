@@ -19,20 +19,18 @@ block content
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
 
-		- var pageMax;
-		- var pageMin;
-		- var total
-		//-console.log("@@ PMin= " + pageMin + " PageMax = " + pageMax + " itempp  = " + itemsPerPage);
+		- console.log("@-@ PMin= " + pageMin + " PageMax = " + pageMax + " total  = " + total);
 	
 		// Display count of items on page and the total number of items; unless at end of items with only one to display
-		if +skip + 1 < total
-			p Results #{+skip + 1}-#{+skip + books.length} of #{total}
+		if pageMax < total
+			p Results #{+pageMin + 1}-#{pageMax} of #{total}
 		else
-			p Results #{+skip + 1} of #{total}
+			p Results #{+pageMin + 1} of #{total}
 		
 		//Show Prev button if past first page
-		if skip > 0
-			a(href="/?skip=" + (pageMin - itemsPerPage))
+		if pageMin > 0
+			//a(href="/books/" + (pageMin - itemsPerPage))
+			a(href="javascript:void()")
 				button.btn.btn-paging(type='button')
 					| Prev
 
@@ -53,17 +51,12 @@ block content
 	script.
 
 		// Paging of items on index page, Next button
-		function onNext() {
+		//function onNext() {
 			//event.preventDefault();
-			$('.itemsTable').remove();  // remove existing records
-			$('#results').remove();
+			//$('.itemsTable').remove();  // remove existing records
+			//$('#results').remove();
 
-			
-			var pageMax;
-			var pageMin;
-			var total;
-
-		console.log("onNext() pageMin= " + pageMin + " PageMax = " + pageMax);
+		//console.log("onNext() pageMin= " + pageMin + " PageMax = " + pageMax);
 			//- $.ajax({
 			//- 	url: '/pageNext/'+pageMax,
 			//- 	data: { 'skip' : skip, 'pageMin' : pageMin, 'pageMax' : pageMax, 'total' : total },
@@ -82,6 +75,6 @@ block content
 			//- 		console.log("AJAX in view err");
 			//- 	},
 			//- });
-			
+
 		//- }
 

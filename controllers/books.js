@@ -28,7 +28,8 @@ Book.count({}, function(err, count){      // Get count of total number of books
     pageMin = 0;
   }
   pageMax = pageMin + itemsPerPage;
-  
+  pageMax < total ? pageMax : pageMax = total;
+
   Book.find((err, docs) => {
     console.log("2 Index controller: pageMin = " + pageMin + " pageMax = " + pageMax + " total = " + total);
     
