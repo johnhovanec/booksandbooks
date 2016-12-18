@@ -11,7 +11,7 @@ block content
 						if (index > 0 && index % 3 === 0) 
 							tr 
 						td
-							a(href="books/detail/" + book._id)
+							a(href="/books/detail/" + book._id)
 								img(height='175px' src="/art/" + book.imgPath)
 							ul
 								li #[span(class='metaField') Title:] #{book.title}
@@ -43,7 +43,7 @@ block content
 						| Next
 
 		hr
-		a(href="books/checkout")
+		a(href="/checkout/"+ user._id)
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
@@ -72,14 +72,14 @@ block content
 					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
 					    for (var col = 0; col < itemsPerRow; col++) {
 					    	if(typeof data.books[bookIndex] != "undefined") {
-					       	$("#insertRow"+row).append("<td><a href='books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
+					       	$("#insertRow"+row).append("<td><a href='/books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><ul><li><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "</li><li><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "</li><li><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></li></ul></td>");
 					       }
 					       bookIndex++;
 					    }
 					}
 					// Add new results values
 					$('.resultDiv').children("p").remove();
-					if(data.pageMax < data.total) {
+					if(data.pageMax <= data.total) {
 						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
 					} else {
 						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + " of " + data.total + "</p>");
@@ -125,7 +125,7 @@ block content
 					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
 					    for (var col = 0; col < itemsPerRow; col++) {
 					    	if(typeof data.books[bookIndex] != "undefined") {
-					       	$("#insertRow"+row).append("<td><a href='books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
+					       	$("#insertRow"+row).append("<td><a href='/books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><ul><li><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "</li><li><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "</li><li><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></li></ul></td>");
 					       }
 					       bookIndex++;
 					    }
@@ -133,7 +133,7 @@ block content
 					//console.log("onPrev pageMin=" + data.pageMin + " pageMax = " + data.pageMax);
 					// Add new results values
 					$('.resultDiv').children("p").remove();
-					if(data.pageMax < data.total) {
+					if(data.pageMax <= data.total) {
 						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
 					} else {
 						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + " of " + data.total + "</p>");

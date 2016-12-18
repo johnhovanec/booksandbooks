@@ -127,7 +127,7 @@ db.books.insert (
 	pubDate:      "1943",
 	imgPath:      "0007.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        14.95
+	price:        1495
 });
 
 db.books.insert (
@@ -142,7 +142,7 @@ db.books.insert (
 	pubDate:      "1964",
 	imgPath:      "0008.jpg",
 	blurb:        "Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        14.99
+	price:        1499
 });
 
 db.books.insert (
@@ -157,7 +157,7 @@ db.books.insert (
 	pubDate:      "1973",
 	imgPath:      "0009.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        14.95
+	price:        1495
 });
 
 db.books.insert (
@@ -172,7 +172,7 @@ db.books.insert (
 	pubDate:      "1973",
 	imgPath:      "0010.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        12.95
+	price:        1295
 });
 
 db.books.insert (
@@ -187,7 +187,7 @@ db.books.insert (
 	pubDate:      "2015",
 	imgPath:      "0011.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        16.95
+	price:        1695
 });
 
 db.books.insert (
@@ -202,7 +202,7 @@ db.books.insert (
 	pubDate:      "2014",
 	imgPath:      "0012.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
-	price:        16.95
+	price:        1695
 });
 
 db.books.insert (
@@ -216,6 +216,20 @@ db.books.insert (
 	length:       "109",
 	pubDate:      "2015",
 	imgPath:      "0013.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1099
+});
+db.books.insert (
+{
+	prodID:       "0014",
+	ISBN:         "23544333700",
+	title:        "White Fang",
+	authorFName:  "Jack",
+	authorLName:  "London",
+	publisher:    "Penguin",
+	length:       "147",
+	pubDate:      "1960",
+	imgPath:      "0014.jpg",
 	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
 	price:        1099
 });
