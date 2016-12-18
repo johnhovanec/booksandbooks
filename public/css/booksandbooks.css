@@ -126,6 +126,10 @@ li {
   margin-right: 4px;
 }
 
+.pageBtn {
+  background: #ddd;
+}
+
 h4 {
   color: green;
 }

@@ -54,6 +54,21 @@ Book.count({}, function(err, count){      // Get count of total number of books
 };
 
 
+ exports.pagePrev = (req, res) => {
+  pageMin = pageMin - itemsPerPage;
+  pageMin < 0 ? pageMin = 0 : pageMin;
+  pageMax = pageMin + itemsPerPage;
+  
+
+  Book.find((err, docs) => {
+    console.log("pagePrev controller: pageMin = " + pageMin + " pageMax = " + pageMax + " total = " + total);
+    
+    //res.render('books', { books: docs, pageMin: pageMin, pageMax: pageMax, total: total });
+    return res.json({ books: docs, pageMin: pageMin, pageMax: pageMax, total: total });
+  
+  }).skip(pageMin).limit(itemsPerPage);                 // set paging limits
+};
+
 /* POST to create a new book */
  exports.create = (req, res, next) => {
   // create a new instance of the Book model
