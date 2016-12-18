@@ -28,18 +28,19 @@ block content
 			else
 				p Results #{+pageMin + 1} of #{total}
 		
-		//Show Prev button if past first page
-		if pageMin > 0
-			//a(href="/books/" + (pageMin - itemsPerPage))
-			a(href="javascript:void(0);")
-				button.btn.btn-paging(type='button')
-					| Prev
+		.pageBtns
+			//Show Prev button if past first page
+			if pageMin > 0
+				//a(href="/books/" + (pageMin - itemsPerPage))
+				a(href="javascript:void(0);")
+					button.btn.btn-paging(type='button')
+						| Prev
 
-		//Show Next button if unless it's the last page
-		if !(pageMax >= total)			
-			a(href="javascript:void(0);")
-				button.btn.btn-paging(type='button' onclick="onNext()")
-					| Next
+			//Show Next button if unless it's the last page
+			if !(pageMax >= total)			
+				a(href="javascript:void(0);")
+					button.btn.btn-paging(type='button' onclick="onNext()")
+						| Next
 
 		hr
 		a(href="books/checkout")
@@ -72,16 +73,31 @@ block content
 					for (row = 0; row < totalRows; row++) {
 					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
 					    for (var col = 0; col < itemsPerRow; col++) {
-					    	if(data.books[bookIndex].title) {
+					    	if(typeof data.books[bookIndex] != "undefined") {
 					       	$("#insertRow"+row).append("<td><a href='books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><br><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "<br><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "<br><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></td>");
 					       }
 					       bookIndex++;
 					    }
 					}
-					console.log("onNext pageMin=" + data.pageMin + " pageMax = " + data.pageMax);
+					//console.log("onNext pageMin=" + data.pageMin + " pageMax = " + data.pageMax);
+					// Add new results values
 					$('.resultDiv').children("p").remove();
-					$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+					if(data.pageMax < data.total) {
+						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+					} else {
+						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + " of " + data.total + "</p>");
+					}
 
+					// Display page buttons 
+					$('.pageBtns').children("a").remove();
+					if (data.pageMin > 0) {
+						$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging' type='button' onclick='onPrev()'>Prev</btn></a>");
+					}
+					if (data.pageMax < data.total) {
+							$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging' type='button' onclick='onNext()'>Next</btn></a>");
+						}
+
+			
 					//- $.each(data.books, function( i, field) {
 					 	
 					//-  		$('.itemsTable').append("<tr id='insertRow" + i + "' ></tr>");
