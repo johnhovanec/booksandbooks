@@ -1,13 +1,5 @@
 const Cart = require('../models/Cart.js');
 
-// /* GET Checkout page. */
-// exports.index = (req, res) => {
-//   res.render('checkout', {
-//     title: 'Checkout'
-//   });
-// };
-
-
 // /* GET checkout  */
  exports.index = (req, res, next) => {
  Cart.findOne({"userID": req.params.userID }, (err, cart) => {
@@ -22,7 +14,6 @@ const Cart = require('../models/Cart.js');
 
     // loop through items in cart to calculate subtotal, total, etc.
     for (var i = 0; i < cart.items.length; i++) {
-      console.log(" prices in cart = " + cart.items[i].price);
       cart.subTotal += cart.items[i].price * cart.items[i].quantity;
     }
     cart.taxAmount = (cart.subTotal * cart.taxRate).toFixed();                    // Apply MD state tax
@@ -31,11 +22,11 @@ const Cart = require('../models/Cart.js');
       cart.shippingAmount = 795;
     }
     cart.total = cart.subTotal + cart.taxAmount + cart.shippingAmount; 
-    console.log("Subtotal = " + cart.subTotal/100);  
-    console.log("Tax = " + cart.taxAmount);
-    console.log("Shipping = " + cart.shippingAmount/100);
-    console.log("Total = " + cart.total/100); 
-    console.log("In checkout: userID = " + cart.userID)
+    //console.log("Subtotal = " + cart.subTotal/100);  
+    // console.log("Tax = " + cart.taxAmount);
+    // console.log("Shipping = " + cart.shippingAmount/100);
+    // console.log("Total = " + cart.total/100); 
+    // console.log("In checkout: userID = " + cart.userID)
 
     res.render('checkout', { carts: cart });
   });
@@ -47,7 +38,6 @@ const Cart = require('../models/Cart.js');
  */
 exports.postConfirmation = (req, res, next) => {
  res.header("Access-Control-Allow-Origin", "*");
-  console.log("In checkout postConfirmation");
 
   const errors = req.validationErrors();
 
@@ -65,7 +55,7 @@ exports.postConfirmation = (req, res, next) => {
 
 // /* GET /checkout/confirmation page. */
  exports.getConfirmation = (req, res) => {
-  console.log("Order confirmation");
+  //console.log("Order confirmation");
   if (err) {
     res.send(err);
   }

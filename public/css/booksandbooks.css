@@ -45,6 +45,10 @@ li {
   margin: 0px 15px 10px 0px;
 }
 
+.metaInfo .metaField {
+  padding-left: 40px;
+}
+
 .detailContent {
   /*float: right;*/ 
 }
@@ -116,6 +120,14 @@ li {
   margin-left: auto;
   margin-right: auto;
   padding-left: 120px
+}
+
+.btn-paging {
+  margin-right: 4px;
+}
+
+.pageBtn {
+  background: #ddd;
 }
 
 h4 {

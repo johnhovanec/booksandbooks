@@ -110,3 +110,128 @@ db.books.insert (
 	blurb:        "Pellentesque sed neque ac urna tempor tincidunt. Aliquam et efficitur odio. Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
 	price:        1999
 });
+
+
+
+
+
+db.books.insert (
+{
+	prodID:       "0007",
+	ISBN:         "12272333700",
+	title:        "Light in August",
+	authorFName:  "William",
+	authorLName:  "Faulkner",
+	publisher:    "Vintage",
+	length:       "324",
+	pubDate:      "1943",
+	imgPath:      "0007.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1495
+});
+
+db.books.insert (
+{
+	prodID:       "0008",
+	ISBN:         "09898333700",
+	title:        "Things Fall Apart",
+	authorFName:  "Chinua",
+	authorLName:  "Achebe",
+	publisher:    "Anchor",
+	length:       "210",
+	pubDate:      "1964",
+	imgPath:      "0008.jpg",
+	blurb:        "Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1499
+});
+
+db.books.insert (
+{
+	prodID:       "0009",
+	ISBN:         "99272333790",
+	title:        "Chronicle of a Death Foretold",
+	authorFName:  "Gabriel Garcia",
+	authorLName:  "Marquez",
+	publisher:    "Simon and Schuster",
+	length:       "324",
+	pubDate:      "1973",
+	imgPath:      "0009.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1495
+});
+
+db.books.insert (
+{
+	prodID:       "0010",
+	ISBN:         "76272333706",
+	title:        "The Right Stuff",
+	authorFName:  "Tom",
+	authorLName:  "Wolfe",
+	publisher:    "Anchor",
+	length:       "524",
+	pubDate:      "1973",
+	imgPath:      "0010.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1295
+});
+
+db.books.insert (
+{
+	prodID:       "0011",
+	ISBN:         "87672333700",
+	title:        "Because of Winn Dixie",
+	authorFName:  "Kate",
+	authorLName:  "DiCamillo",
+	publisher:    "Harper",
+	length:       "144",
+	pubDate:      "2015",
+	imgPath:      "0011.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1695
+});
+
+db.books.insert (
+{
+	prodID:       "0012",
+	ISBN:         "91122333700",
+	title:        "The Tale of Desperaux",
+	authorFName:  "Kate",
+	authorLName:  "DiCamillo",
+	publisher:    "Harper",
+	length:       "163",
+	pubDate:      "2014",
+	imgPath:      "0012.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1695
+});
+
+db.books.insert (
+{
+	prodID:       "0013",
+	ISBN:         "34872333700",
+	title:        "Captain Underpants",
+	authorFName:  "Dave",
+	authorLName:  "Pilkey",
+	publisher:    "Simon and Schuster",
+	length:       "109",
+	pubDate:      "2015",
+	imgPath:      "0013.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1099
+});
+db.books.insert (
+{
+	prodID:       "0014",
+	ISBN:         "23544333700",
+	title:        "White Fang",
+	authorFName:  "Jack",
+	authorLName:  "London",
+	publisher:    "Penguin",
+	length:       "147",
+	pubDate:      "1960",
+	imgPath:      "0014.jpg",
+	blurb:        "Curabitur vel fermentum risus. Suspendisse pretium tortor enim, lacinia fermentum leo vestibulum in. Donec cursus sapien nec purus faucibus maximus. Aenean laoreet sapien odio, ut egestas orci ornare eu. Mauris cursus massa nibh, sit amet semper lectus euismod eu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Ut et malesuada sem. Aliquam id dapibus nisl, sit amet gravida quam. Nulla id erat a lacus rutrum sodales. Duis convallis metus eu semper ultricies. Vestibulum nulla dui, dapibus egestas viverra in, faucibus a sem.",
+	price:        1099
+});
+
+

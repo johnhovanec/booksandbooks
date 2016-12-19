@@ -2,26 +2,98 @@ extends ../layout
 
 block content
 	.col-sm-9.mainContent
-		table
+		table.mainTable
 			thead
 				tr: th: th: h3 Featured Titles
-			tbody
+			tbody.itemsTable
 				tr
 					each book, index in books
 						if (index > 0 && index % 3 === 0) 
 							tr 
 						td
-							a(href="books/" + book._id)
+							a(href="/books/detail/" + book._id)
 								img(height='175px' src="/art/" + book.imgPath)
 							ul
 								li #[span(class='metaField') Title:] #{book.title}
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
+	
+		// Display count of items on page and the total number of items; unless at end of items with only one to display
+		.resultDiv
+			if pageMax < total
+				p Results #{+pageMin + 1}-#{pageMax} of #{total}
+			else
+				p Results #{+pageMin + 1} of #{total}
+		
+		.pageBtns
+			//Show Prev button if past first page
+			if pageMin > 0
+				//a(href="/books/" + (pageMin - itemsPerPage))
+				a(href="javascript:void(0);")
+					button.btn.btn-paging(type='button' onclick="onNext('/pagePrev')")
+						| Prev
+
+			//Show Next button if unless it's the last page
+			if !(pageMax >= total)			
+				a(href="javascript:void(0);")
+					button.btn.btn-paging(type='button' onclick="onNext('/pageNext')")
+						| Next
+
 		hr
-		a(href="cart/checkout")
+		a(href="/checkout/"+ user._id)
 			button.btn.btn-primary(type='button')
 				i.fa.fa-check
 				| Checkout
 		hr
-	include ../partials/sidebar			
+	include ../partials/sidebar		
+
+	script.
+		// Paging control for ajax - Next/Prev button
+		function onNext(myUrl) {
+			$('.itemsTable').remove();  	// remove existing records
+
+			$.ajax({
+				url: myUrl,
+				type: "get",
+				cache: false,
+				success: function (data) {
+					$(".mainTable").append("<tbody class='itemsTable'></tbody>");
+					var itemsPerRow = 3
+					var totalRows = data.books.length/itemsPerRow;
+					var bookIndex = 0;
+					for (row = 0; row < totalRows; row++) {
+					    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
+					    for (var col = 0; col < itemsPerRow; col++) {
+					    	if(typeof data.books[bookIndex] != "undefined") {
+					       	$("#insertRow"+row).append("<td><a href='/books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><ul><li><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "</li><li><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "</li><li><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></li></ul></td>");
+					       }
+					       bookIndex++;
+					    }
+					}
+					// Add new results values
+					$('.resultDiv').children("p").remove();
+					if(data.pageMax <= data.total) {
+						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
+					} else {
+						$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + " of " + data.total + "</p>");
+					}
+
+					// Display page buttons 
+					$('.pageBtns').children("a").remove();
+					if (data.pageMin > 0) {
+						$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging pageBtn' type='button' onclick='onNext(&quot;/pagePrev&quot;)'>Prev</btn></a>");
+					}
+					if (data.pageMax < data.total) {
+							$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging pageBtn' type='button' onclick='onNext(&quot;/pageNext&quot;)'>Next</btn></a>");
+						}
+
+					// Alter the url to match the ajax served page
+					window.history.pushState({}, null, '/books/' + data.pageMin);
+
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					console.log("onNext  err");
+				},
+			});
+		 }

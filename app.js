@@ -140,18 +140,20 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
-app.get('/books', booksController.index);
-app.get('/books/:book_id', booksController.detail);
+app.get('/books', booksController.index); //orig
+app.get('/books/:pageMin', booksController.index);
+app.get('/pageNext', booksController.pageNext);
+app.get('/pagePrev', booksController.pagePrev);
+
+app.get('/books/detail/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
-//app.get('/cart', cartController.index);
+
 app.get('/cart/null', cartController.getLogin);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);
 app.post('/cart/update/:index', cartController.updateItem);
-//app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
-//app.get('/cart/checkout', cartController.getCheckout);
-//app.get('/cart/checkout', eventsController.getCheckout);
+
 app.get('/checkout/:userID', checkoutController.index);
 app.post('/checkout/placeOrder', checkoutController.postConfirmation);
 app.post('/checkout/confirmation', checkoutController.getConfirmation);
