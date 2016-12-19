@@ -18,8 +18,6 @@ block content
 								li #[span(class='metaField') Author:] #{book.authorFName} #{book.authorLName}
 								// Need to convert price value to currency format
 								li #[span(class='metaField') Price:] #[span(class='metaFieldPrice') $#{book.price/100}]	
-
-		//- console.log("@-@ PMin= " + pageMin + " PageMax = " + pageMax + " total  = " + total);
 	
 		// Display count of items on page and the total number of items; unless at end of items with only one to display
 		.resultDiv
@@ -51,20 +49,15 @@ block content
 	include ../partials/sidebar		
 
 	script.
-		// Paging - Next button
+		// Paging control for ajax - Next/Prev button
 		function onNext(myUrl) {
-			//event.preventDefault();
-			$('.itemsTable').remove();  // remove existing records
-			//$('#results').remove();
+			$('.itemsTable').remove();  	// remove existing records
 
-			console.log("onNext clicked; myUrl = " + myUrl);
 			$.ajax({
-
 				url: myUrl,
 				type: "get",
 				cache: false,
 				success: function (data) {
-					console.log("onNext success: length =" + data.books.length);
 					$(".mainTable").append("<tbody class='itemsTable'></tbody>");
 					var itemsPerRow = 3
 					var totalRows = data.books.length/itemsPerRow;
@@ -103,57 +96,4 @@ block content
 					console.log("onNext  err");
 				},
 			});
-
 		 }
-
-
-		 // Paging - Prev button
-		//- function onPrev() {
-		//- 	$('.itemsTable').remove();  // remove existing records
-
-		//- 	console.log("onPrev clicked");
-		//- 	$.ajax({
-		//- 		url: '/pagePrev',
-		//- 		type: "get",
-		//- 		cache: false,
-		//- 		success: function (data) {
-		//- 			console.log("onPrev success: length =" + data.books.length);
-		//- 			$(".mainTable").append("<tbody class='itemsTable'></tbody>");
-		//- 			var itemsPerRow = 3
-		//- 			var totalRows = data.books.length/itemsPerRow;
-		//- 			var bookIndex = 0;
-		//- 			for (row = 0; row < totalRows; row++) {
-		//- 			    $('.itemsTable').append("<tr id='insertRow" + row + "' ></tr>");
-		//- 			    for (var col = 0; col < itemsPerRow; col++) {
-		//- 			    	if(typeof data.books[bookIndex] != "undefined") {
-		//- 			       	$("#insertRow"+row).append("<td><a href='/books/detail/" + data.books[bookIndex]._id + "'><img height='175' src='/art/"+data.books[bookIndex].imgPath + "'></a><ul><li><span class='metaField'> Title:  </span>"  +  data.books[bookIndex].title +  "</li><li><span class='metaField'> Author:  </span>" + data.books[bookIndex].authorFName + " " + data.books[bookIndex].authorLName + "</li><li><span class='metaField'> Price:  </span><span class='metaFieldPrice'>" + data.books[bookIndex].price/100 + "</span></li></ul></td>");
-		//- 			       }
-		//- 			       bookIndex++;
-		//- 			    }
-		//- 			}
-		//- 			//console.log("onPrev pageMin=" + data.pageMin + " pageMax = " + data.pageMax);
-		//- 			// Add new results values
-		//- 			$('.resultDiv').children("p").remove();
-		//- 			if(data.pageMax <= data.total) {
-		//- 				$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + "-" + data.pageMax + " of " + data.total + "</p>");
-		//- 			} else {
-		//- 				$('.resultDiv').append("<p id='results'> Results " + parseInt(data.pageMin + 1) + " of " + data.total + "</p>");
-		//- 			}
-
-		//- 			// Display page buttons 
-		//- 			$('.pageBtns').children("a").remove();
-		//- 			if (data.pageMin > 0) {
-		//- 				$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging pageBtn' type='button' onclick='onPrev()'>Prev</btn></a>");
-		//- 			}
-		//- 			if (data.pageMax < data.total) {
-		//- 					$('.pageBtns').append("<a href='javascript:void(0);'><btn class='btn btn-paging pageBtn' type='button' onclick='onNext()'>Next</btn></a>");
-		//- 				}
-		//- 			// Alter the url to match the ajax served page
-		//- 			window.history.pushState({}, null, '/books/' + data.pageMin);
-		//- 		},
-		//- 		error: function (xhr, ajaxOptions, thrownError) {
-		//- 			console.log("onPrev  err");
-		//- 		},
-		//- 	});
-		//-  }
-

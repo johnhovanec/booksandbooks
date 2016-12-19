@@ -14,7 +14,6 @@ block content
 				//- //make loop for items.length
 				each cart, i in carts
 					tr
-						//- td UserID from cart = #{cart.userID}
 						td #{cart.items[Object.keys(cart.items)[i]].ISBN} index = #{i}
 						td #{cart.items[Object.keys(cart.items)[i]].title}
 						td #{cart.items[Object.keys(cart.items)[i]].quantity}

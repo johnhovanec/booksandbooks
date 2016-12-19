@@ -147,15 +147,13 @@ app.get('/pagePrev', booksController.pagePrev);
 
 app.get('/books/detail/:book_id', booksController.detail);
 app.post('/books/create', booksController.create);
-//app.get('/cart', cartController.index);
+
 app.get('/cart/null', cartController.getLogin);
 app.get('/cart/:userID', cartController.detail);
 app.post('/cart/delete/:index', cartController.deleteItem);
 app.post('/cart/update/:index', cartController.updateItem);
-//app.get('/cart/:userID', cartController.detail);
 app.post('/cart/:userID', cartController.postAddToCart);
-//app.get('/cart/checkout', cartController.getCheckout);
-//app.get('/cart/checkout', eventsController.getCheckout);
+
 app.get('/checkout/:userID', checkoutController.index);
 app.post('/checkout/placeOrder', checkoutController.postConfirmation);
 app.post('/checkout/confirmation', checkoutController.getConfirmation);
