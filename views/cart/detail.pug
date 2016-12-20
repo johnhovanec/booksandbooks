@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-	.col-sm-9.mainContent
-		//p User Idfrom page  = #{user._id}
+	//- var userID = user._id
+	.col-sm-9.mainContent(ng-app="cartApp" ng-controller="cartController")
 		meta(name="csrf-token", content="#{token}")
 
 		table
@@ -12,9 +12,10 @@ block content
 					th Price
 					th Quantity
 			tbody
-				- var i;
-				- console.log("carts.items.length = " + carts.items.length)
-				- if (carts.items.length) {
+				tr
+				//- var i;
+				//- console.log("carts.items.length = " + carts.items.length)
+				//- if (carts.items.length) {
 					- var cartLength = carts.items.length
 					- for (i = 0; i < cartLength; i++) {
 						tr
@@ -42,10 +43,10 @@ block content
 											i.fa.fa-check
 											| Remove
 					- }
-				- }
-				- else {
+				//- }
+				//- else {
 					td Nothing found!
-				- }
+				//- }
 
 		hr
 		a(href="/checkout/" + user._id)
@@ -56,17 +57,38 @@ block content
 	include ../partials/sidebar
 
 	script(type='text/javascript').
-				function setIndex(num) {
-					index = num;
-					console.log("In vTest(): index = " + index + " num = " + num);
-				}
+				//- function setIndex(num) {
+				//- 	index = num;
+				//- 	console.log("In vTest(): index = " + index + " num = " + num);
+				//- }
 
-				function getIndex() {
-					console.log("Called getIndex index = " + index);
-				}
+				//- function getIndex() {
+				//- 	console.log("Called getIndex index = " + index);
+				//- }
 
-				function getCon() {
-									console.log("Called getCon");
-									document.getElement
-				}
+				//- function getCon() {
+				//- 					console.log("Called getCon");
+				//- 					document.getElement
+				//- }
+
+	script.
+		var app = angular.module('cartApp', []);
+		app.controller('cartController', function($scope, $http) {
+		var userID = "77777";
+			//$scope.my = { prev: 0, next: 1 };
+			console.log("In cartController ...");
+
+			$http.get("/getCartItems", {
+				params: { 'userID': userID }
+			})
+			.then(function(response) {
+				console.log("cartController return");
+				//- $scope.books = response.data.books;
+				//- pageMin = response.data.pageMin;
+				//- pageMax = response.data.pageMax;
+				//- pageNum = response.data.pageNum;
+				//- console.log("++ app.pageController ajax return: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
+				//- window.history.pushState({}, null, '/books/page/' + pageNum);
+			});
+		});
 

@@ -78,31 +78,8 @@ $(function(){
         $('#ship_zip').val('');
         $('#ship_email').val('');
      }
-   });
-
-	// Use Angular to handle AJAX paging of book items
-	// var app = angular.module('bookApp', []);
-	// app.controller('pagingController', function($scope, $http) {
-	//     $http.get("/books/index.pug")
-	//     .then(function(response) {
-	//         console.log("successCallback")
-	//         $scope.dataset = response.data.records;
-	//     });
-	// });   
+   });  
 
 	});
-
-// function getSkip() {
-// 	var skip = document.URL;		// Get url to find skip value
-// 		if (skip.indexOf('=') > 0) {
-// 			skip = skip.slice(skip.indexOf('=')+1);		// Parse skip value from url	
-// 			return skip;
-// 		} else {
-// 			console.log("Skip not found!");
-// 		}
-// 		console.log("Skip from url = " + skip)
-		
-// 	}
-// }
 
 });
