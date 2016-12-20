@@ -41,10 +41,11 @@ block content
 						| Next
 
 		hr
-		a(href="/checkout/"+ user._id)
-			button.btn.btn-primary(type='button')
-				i.fa.fa-check
-				| Checkout
+		if user
+			a(href="/checkout/"+ user._id)
+				button.btn.btn-primary(type='button')
+					i.fa.fa-check
+					| Checkout
 		hr
 	include ../partials/sidebar		
 
