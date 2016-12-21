@@ -18,19 +18,15 @@ const Cart = require('../models/Cart.js');
 
 // Handles Angular AJAX request to get items in cart
 exports.getItems = (req, res) => {
-  
    // passed in from ajax request
-   // var quantity = req.body.quantity;
-   // var index = req.body.index;
-   var userID = req.params.userID;
+   var userID = req.query.userID;
    console.log("In getItems userID =" + userID);
 
   // Find a user cart
-  // Cart.findOne({"userID": userID }, (err, cart) => {
-  //   if (err) { return next(err); }
-    
-  // });
-  //return res.json({ books: docs, pageMin: pageMin, pageMax: pageMax, total: total });
+  Cart.findOne({"userID": userID }, (err, cart) => {
+    if (err) { return next(err); }
+    return res.json({ cart: cart });
+  });
 };
 
 

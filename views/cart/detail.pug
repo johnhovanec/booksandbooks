@@ -12,9 +12,14 @@ block content
 					th Price
 					th Quantity
 			tbody
-				tr
+				tr(ng-repeat="item in items")
+					td {{ item.title }}
+					td {{ item.price/100 | currency }}
+					td {{ item.quantity }}
 				//- var i;
-				//- console.log("carts.items.length = " + carts.items.length)
+				
+				//- var userID = carts.userID;
+				//- console.log("carts.items.length = " + carts.items.length + " userID =" + userID)
 				//- if (carts.items.length) {
 					- var cartLength = carts.items.length
 					- for (i = 0; i < cartLength; i++) {
@@ -56,39 +61,33 @@ block content
 		hr
 	include ../partials/sidebar
 
-	script(type='text/javascript').
-				//- function setIndex(num) {
-				//- 	index = num;
-				//- 	console.log("In vTest(): index = " + index + " num = " + num);
-				//- }
-
-				//- function getIndex() {
-				//- 	console.log("Called getIndex index = " + index);
-				//- }
-
-				//- function getCon() {
-				//- 					console.log("Called getCon");
-				//- 					document.getElement
-				//- }
-
 	script.
+		var userID = '58597351697a3e29fe3af619';
 		var app = angular.module('cartApp', []);
-		app.controller('cartController', function($scope, $http) {
-		var userID = "77777";
+		app.controller('cartController', ['$scope', '$window', '$http', function($scope, $window, $http) {
+		//var userID = !{carts.userID};
 			//$scope.my = { prev: 0, next: 1 };
-			console.log("In cartController ...");
-
+			//$scope.userID = $window.userID;
+			console.log("In cartController userID =" + userID);
 			$http.get("/getCartItems", {
-				params: { 'userID': userID }
+				params: { userID: userID }
 			})
 			.then(function(response) {
 				console.log("cartController return");
-				//- $scope.books = response.data.books;
-				//- pageMin = response.data.pageMin;
-				//- pageMax = response.data.pageMax;
-				//- pageNum = response.data.pageNum;
-				//- console.log("++ app.pageController ajax return: skip=" + skip + " pageNum = " + pageNum + " pageMin=" + pageMin + " pageMax=" + pageMax + " total=" + total);
-				//- window.history.pushState({}, null, '/books/page/' + pageNum);
+				$scope.items = response.data.cart.items;
 			});
-		});
+			//- $http({
+			//-   method: 'GET',
+			//-   data: { 'userID': userID },
+			//-   url: '/getCartItems'
+			//- }).then(function successCallback(response) {
+			//-     // this callback will be called asynchronously
+			//-     // when the response is available
+			//-     console.log("cartController return");
+			//-   }, function errorCallback(response) {
+			//-     // called asynchronously if an error occurs
+			//-     // or server returns response with an error status.
+			//-     console.log("cartController err!");
+			//-   });
+		}]);
 
