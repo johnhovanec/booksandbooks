@@ -103,6 +103,8 @@ exports.ajaxPostRemove = (req, res, next) => {
    var index = req.body.index;
    var userID = req.body.userID;
 
+   console.log("ajaxPostRemove: _csrf = " + _csrf + " index = " + index + " userID = " + userID); 
+
   //Find a user cart
   Cart.findOne({"userID": userID }, (err, cart) => {
     if (err) { return next(err); }

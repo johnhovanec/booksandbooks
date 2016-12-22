@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-	//- var userID = user._id
+	//- var removeFromCart = true;
 	.col-sm-9.mainContent(ng-app="cartApp" ng-controller="cartController")
 		meta(name="csrf-token", content="#{token}")
 
@@ -12,10 +12,22 @@ block content
 					th Price
 					th Quantity
 			tbody
-				tr(ng-repeat="item in items")
+				tr(ng-repeat="item in items" ng-cloak)
 					td {{ item.title }}
 					td {{ item.price/100 | currency }}
-					td {{ item.quantity }}
+					td 
+						.form-group
+							input.form-control.quantity.cartTable(type='text', id=i, value='{{ item.quantity }}' name='quantity', size='30', required)
+							input(type='hidden', name='_csrf', value=_csrf)
+							td
+								button.btn.btn.btn-primary.updateQuantity(type='button' ng-click='updateQuantity()')
+									i.fa.fa-check
+									| Update Quantity
+							td
+								.form-group
+									button.btn.btn.btn-primary.deleteItem(type='button' ng-click='itemRemove(item)')
+										i.fa.fa-check
+										| Remove
 				//- var i;
 				
 				//- var userID = carts.userID;
@@ -76,18 +88,25 @@ block content
 				console.log("cartController return");
 				$scope.items = response.data.cart.items;
 			});
-			//- $http({
-			//-   method: 'GET',
-			//-   data: { 'userID': userID },
-			//-   url: '/getCartItems'
-			//- }).then(function successCallback(response) {
-			//-     // this callback will be called asynchronously
-			//-     // when the response is available
-			//-     console.log("cartController return");
-			//-   }, function errorCallback(response) {
-			//-     // called asynchronously if an error occurs
-			//-     // or server returns response with an error status.
-			//-     console.log("cartController err!");
-			//-   });
+
+			// Update item quantity in cart
+			$scope.updateQuantity = function() {
+				console.log("updateQuantity");
+			}
+
+			// Remove an item from cart
+			$scope.itemRemove = function(item) {
+				console.log("itemRemove");
+				var index = $scope.items.indexOf(item);
+				$scope.items.splice(index, 1);
+
+				$http.post("/ajaxPostRemove", {
+					params: { _csrf: _csrf, index: index, userID: userID }
+				})
+				.then(function(response) {
+					console.log("cartController return");
+					$scope.items = response.data.cart.items;
+				});
+			}
 		}]);
 
