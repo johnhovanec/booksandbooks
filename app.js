@@ -20,6 +20,10 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
+// for csrf
+var csrf            = require('csurf');
+var cookieParser    = require('cookie-parser');
+
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -94,15 +98,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-  if (req.path === '/books/create/') {        //was: '/api/upload'
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));   //was: app.use(lusca.xssProtection(true));
+//app.use((req, res, next) => {
+//   if (req.path === '/cart/:userID') {        //was: '/api/upload'
+//     next();
+//   } else {
+//     lusca.csrf()(req, res, next);
+//   }
+// });
+//app.use(lusca.xframe('SAMEORIGIN'));
+//app.use(lusca.xssProtection(true));   //was: app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
@@ -119,6 +123,13 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+// csrf test
+//app.use(cookieParser(config.cookieSecret, { httpOnly: true }));
+//app.use(csrf());
+// app.use(function(req, res, next) {
+//     res.cookie('XSRF-TOKEN', req.csrfToken());
+//     next();
+// });
 
 /**
  * Primary app routes.

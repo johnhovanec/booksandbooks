@@ -69,6 +69,14 @@ exports.postAddToCart = (req, res, next) => {
   }); 
 };
 
+// Middleware test
+// module.exports = function () {
+//   return function (req, res, next) {
+//       res.cookie('XSRF-TOKEN', res.locals._csrf, {httpOnly: false});
+//       next();
+//   };
+// };
+
 
 // AJAX post to change quantity
 exports.ajaxPostQuantity = (req, res, next) => {
@@ -95,15 +103,17 @@ exports.ajaxPostQuantity = (req, res, next) => {
 };
 
 
+
 // AJAX post to change quantity
 exports.ajaxPostRemove = (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  //res.header("Access-Control-Allow-Origin", "*");
 
    // passed in from ajax request
+   debugger;
    var index = req.body.index;
    var userID = req.body.userID;
 
-   console.log("ajaxPostRemove: _csrf = " + _csrf + " index = " + index + " userID = " + userID); 
+   console.log("ajaxPostRemove: index = " + index + " userID = " + userID); 
 
   //Find a user cart
   Cart.findOne({"userID": userID }, (err, cart) => {
