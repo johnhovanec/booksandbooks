@@ -27,42 +27,6 @@ block content
 									button.btn.btn.btn-primary.deleteItem(type='button' ng-click='itemRemove(item)')
 										i.fa.fa-check
 										| Remove
-				//- var i;
-				
-				//- var userID = carts.userID;
-				//- console.log("carts.items.length = " + carts.items.length + " userID =" + userID)
-				//- if (carts.items.length) {
-					- var cartLength = carts.items.length
-					- for (i = 0; i < cartLength; i++) {
-						tr
-							td.cartTable #{carts.items[i].title}
-							// Need to convert price to currency format
-							td $#{carts.items[i].price/100}        
-							form.form-horizontal.updateQuantity(action='/cart/update/index' method='POST') 
-								input(type='hidden', name='_csrf', value=_csrf)
-								input(type='hidden', name='userID', value=user._id)
-								input(type='hidden', name='index', value=i)
-								td
-									.form-group
-										input.form-control.quantity.cartTable(type='text', id=i, name='quantity', size='100px', value=carts.items[i].quantity, required)
-								td
-									button.btn.btn.btn-primary.updateQuantity(type='button' onclick='')
-										i.fa.fa-check
-										| Update Quantity
-							form.form-horizontal.deleteItem(action='/cart/delete/index' method='POST') 
-								input(type='hidden', name='_csrf', value=_csrf)
-								input(type='hidden', name='userID', value=user._id)
-								input(type='hidden', name='index', value=i)
-								td
-									.form-group
-										button.btn.btn.btn-primary.deleteItem(type='button' onclick='')
-											i.fa.fa-check
-											| Remove
-					- }
-				//- }
-				//- else {
-					td Nothing found!
-				//- }
 
 		hr
 		a(href="/checkout/" + user._id)
@@ -77,10 +41,6 @@ block content
 		var app = angular.module('cartApp', []);
 
 		app.controller('cartController', ['$scope', '$window', '$http', function($scope, $window, $http) {
-		//var userID = !{carts.userID};
-			//$scope.my = { prev: 0, next: 1 };
-			//$scope.userID = $window.userID;
-			console.log("In cartController userID =" + userID);
 			$http.get("/getCartItems", {
 				params: { userID: userID }
 			})
@@ -92,12 +52,8 @@ block content
 			// Update item quantity in cart
 			$scope.updateQuantity = function(item) {
 				var index = $scope.items.indexOf(item);
-				//debugger;
 				var quantity = $scope.items[index].quantity;
-				//$scope.input={ quantity }
-				//var quantity = $scope.input;
-				console.log("updateQuantity: new quantity = " + quantity);
-				//$scope.items.splice(index, 1);
+				//console.log("updateQuantity: new quantity = " + quantity);
 
 				$http({
 				  method: 'POST',
@@ -108,13 +64,15 @@ block content
 				    index: index
 				  }
 				}).then(function successCallback(response) {
-				    // this callback will be called asynchronously
-				    // when the response is available
-				    console.log("cartController return");
+				    
+				    console.log("updateQuantity return");
 				  }, function errorCallback(response) {
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				  });
+				  // Add a flash message for the user
+				  $('.containerFlash').append('<h4>Quantity has been updated!</h4>').fadeIn();
+				  $('h4').fadeOut(2500);
 			}
 
 			// Remove an item from cart
@@ -133,11 +91,13 @@ block content
 				}).then(function successCallback(response) {
 				    // this callback will be called asynchronously
 				    // when the response is available
-				    console.log("cartController return");
+				    console.log("itemRemove return");
 				  }, function errorCallback(response) {
 				    // called asynchronously if an error occurs
 				    // or server returns response with an error status.
 				  });
+				  $('.containerFlash').append('<h4>Item has been removed from cart</h4>').fadeIn();
+				  $('h4').fadeOut(3000);
 			}
 		}]);
 

@@ -166,8 +166,6 @@ app.post('/cart/update/:index', cartController.updateItem);
 app.post('/cart/:userID', cartController.postAddToCart);
 app.get('/getCartItems', cartController.getItems);
 
-
-//app.get('/checkout/null', checkoutController.getLogin);
 app.get('/checkout/:userID', checkoutController.index);
 app.post('/checkout/placeOrder', checkoutController.postConfirmation);
 app.post('/checkout/confirmation', checkoutController.getConfirmation);

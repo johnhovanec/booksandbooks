@@ -16,7 +16,7 @@ const Cart = require('../models/Cart.js');
 };
 
 
-// Handles Angular AJAX request to get items in cart
+// Handles Angular AJAX request to get items in cart for angular
 exports.getItems = (req, res) => {
    // passed in from ajax request
    var userID = req.query.userID;
