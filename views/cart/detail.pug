@@ -1,7 +1,6 @@
 extends ../layout
 
 block content
-	//- var removeFromCart = true;
 	.col-sm-9.mainContent(ng-app="cartApp" ng-controller="cartController")
 		meta(name="csrf-token", content="#{token}")
 
@@ -17,10 +16,10 @@ block content
 					td {{ item.price/100 | currency }}
 					td 
 						.form-group
-							input.form-control.quantity.cartTable(type='text', id=i, value='{{ item.quantity }}' name='quantity', size='30', required)
+							input.form-control.quantity.cartTable(type='text', id=i, value='{{ item.quantity }}' ng-model='item.quantity' name='quantity', size='30', required)
 							input(type='hidden', name='_csrf', value=_csrf)
 							td
-								button.btn.btn.btn-primary.updateQuantity(type='button' ng-click='updateQuantity()')
+								button.btn.btn.btn-primary.updateQuantity(type='button' ng-click='updateQuantity(item)')
 									i.fa.fa-check
 									| Update Quantity
 							td
@@ -76,11 +75,7 @@ block content
 	script.
 		var userID = '58597351697a3e29fe3af619';
 		var app = angular.module('cartApp', []);
-		//- angular.module('cartApp')
-		//-   .config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		//-     $httpProvider.defaults.transformRequest.unshift($httpParamSerializerJQLikeProvider.$get());
-		//-     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
-		//- });
+
 		app.controller('cartController', ['$scope', '$window', '$http', function($scope, $window, $http) {
 		//var userID = !{carts.userID};
 			//$scope.my = { prev: 0, next: 1 };
@@ -95,8 +90,31 @@ block content
 			});
 
 			// Update item quantity in cart
-			$scope.updateQuantity = function() {
-				console.log("updateQuantity");
+			$scope.updateQuantity = function(item) {
+				var index = $scope.items.indexOf(item);
+				//debugger;
+				var quantity = $scope.items[index].quantity;
+				//$scope.input={ quantity }
+				//var quantity = $scope.input;
+				console.log("updateQuantity: new quantity = " + quantity);
+				//$scope.items.splice(index, 1);
+
+				$http({
+				  method: 'POST',
+				  url: '/ajaxPostQuantity',
+				  data: {
+				  	quantity: quantity,
+				    userID: userID,
+				    index: index
+				  }
+				}).then(function successCallback(response) {
+				    // this callback will be called asynchronously
+				    // when the response is available
+				    console.log("cartController return");
+				  }, function errorCallback(response) {
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				  });
 			}
 
 			// Remove an item from cart
@@ -104,14 +122,6 @@ block content
 				console.log("itemRemove");
 				var index = $scope.items.indexOf(item);
 				$scope.items.splice(index, 1);
-
-				//- $http.post("/ajaxPostRemove", {
-				//- 	//params: { userID: userID }
-				//- })
-				//- .then(function(response) {
-				//- 	console.log("cartController return");
-				//- 	$scope.items = response.data.cart.items;
-				//- });
 
 				$http({
 				  method: 'POST',

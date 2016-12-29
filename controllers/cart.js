@@ -69,14 +69,6 @@ exports.postAddToCart = (req, res, next) => {
   }); 
 };
 
-// Middleware test
-// module.exports = function () {
-//   return function (req, res, next) {
-//       res.cookie('XSRF-TOKEN', res.locals._csrf, {httpOnly: false});
-//       next();
-//   };
-// };
-
 
 // AJAX post to change quantity
 exports.ajaxPostQuantity = (req, res, next) => {
@@ -87,6 +79,7 @@ exports.ajaxPostQuantity = (req, res, next) => {
    var index = req.body.index;
    var userID = req.body.userID;
 
+   console.log("ajaxPostQuantity  quantity = " + quantity + " index = " + index + " userID = " + userID);
   // Find a user cart
   Cart.findOne({"userID": userID }, (err, cart) => {
     if (err) { return next(err); }
